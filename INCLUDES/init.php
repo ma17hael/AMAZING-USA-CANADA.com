@@ -14,6 +14,12 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], ['fr','us','ca'])) {
 
 //Par défaut, le site est en français
 $lang = $_SESSION['lang'] ?? 'fr';
+$langBDD = 'fr';
+if ($lang == 'us' || $lang == 'ca') {
+    $langBDD = 'EN';
+} else {
+    $langBDD = 'FR';
+}
 
 //Charge les traductions en conséquence
 $translations = include __DIR__ . "/LANGUAGES/{$lang}.php";

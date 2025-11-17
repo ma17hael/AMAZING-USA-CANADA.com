@@ -37,6 +37,7 @@ return [
     'home-presentation-commentscard-paragraph' => 'Share your thoughts on our maps to help us improve them over time',
     'home-presentation-accesscard' => 'Accessibility',
     'home-presentation-accesscard-title' => 'Full Accessibility',
-    'home-presentation-accesscard-paragraph' => 'Our maps are easily accessible on all your devices, securely via this site'
+    'home-presentation-accesscard-paragraph' => 'Our maps are easily accessible on all your devices, securely via this site',
+    'home-mapshowcase-title' => 'Some maps from our catalog'
 ]
 ?>

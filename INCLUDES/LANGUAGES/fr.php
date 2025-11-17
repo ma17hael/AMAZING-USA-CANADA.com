@@ -36,6 +36,7 @@ return [
     'home-presentation-commentscard-paragraph' => 'Exprimer vous sur nos cartes pour nous permettre de les améliorer avec le temps',
     'home-presentation-accesscard' => 'Accessibilité',
     'home-presentation-accesscard-title' => 'Accessibilité complète',
-    'home-presentation-accesscard-paragraph' => 'Nos cartes sont facilement accessible sur tout vos appareils, de manière sécurisé grâce à ce site'
+    'home-presentation-accesscard-paragraph' => 'Nos cartes sont facilement accessible sur tout vos appareils, de manière sécurisé grâce à ce site',
+    'home-mapshowcase-title' => 'Quelques cartes de notre catalogue :'
 ]
 ?>
