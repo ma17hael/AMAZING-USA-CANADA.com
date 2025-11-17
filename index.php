@@ -4,7 +4,7 @@ include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
 
 $limit = 7;
-$sql = "SELECT S.ID_Map, M.Libelle_TypeFR, S.StateMap, S.Map_NameFR,L.LibelleLocalisationFR, S.Prix
+$sql = "SELECT S.ID_Map, M.Libelle_TypeFR, M.Libelle_TypeEN, S.StateMap, S.Map_NameFR, S.Map_NameEN, L.LibelleLocalisationFR, L.LibelleLocalisationEN, S.Prix
         FROM Statesmap S
         INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
         INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
@@ -72,7 +72,7 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
             </section>
             <!-- Quelques Cartes de la Base de données -->
             <section class="mapShowcase">
-                <h2>Quelques Cartes à notre disposition</h2>
+                <h2><?= $translations['home-mapshowcase-title']?></h2>
                 <div class="carrousel-container">
                     <button class="prev">&#10094;</button>
                     <div class="carrousel-track">
@@ -83,10 +83,10 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                                 $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
                             ?>
                             <div class="mapcard">
-                                <img src="<?=$imageSrc?>" alt=<?=htmlspecialchars($map['Map_NameFR'])?>>
-                                <h3><?=htmlspecialchars($map['Map_NameFR'])?></h3>
-                                <p><?=htmlspecialchars($map['Libelle_TypeFR'])?></p>
-                                <p><?=htmlspecialchars($map['LibelleLocalisationFR'])?>
+                                <img src="<?=$imageSrc?>" alt=<?=htmlspecialchars($map["Map_Name$langBDD"])?>>
+                                <h3><?=htmlspecialchars($map["Map_Name$langBDD"])?></h3>
+                                <p><?=htmlspecialchars($map["Libelle_Type$langBDD"])?></p>
+                                <p><?=htmlspecialchars($map["LibelleLocalisation$langBDD"])?>
                                 <p><?=htmlspecialchars($map['Prix'])?></p>
                             </div>
                         <?php endforeach;?>
