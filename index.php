@@ -71,7 +71,7 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                 
             </section>
             <!-- Quelques Cartes de la Base de données -->
-            <section>
+            <section class="mapShowcase">
                 <h2>Quelques Cartes à notre disposition</h2>
                 <div class="carrousel-container">
                     <button class="prev">&#10094;</button>
@@ -93,8 +93,13 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <button class="next">&#10095;</button>
                 </div>
+                <div id="image-modal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="modal-img">
+                </div>
             </section>
         </main>    
     </body>
     <script src="JAVASCRIPT/map-carrousel.js"></script>
+    <script src="JAVASCRIPT/imageModal.js"></script>
 </html>
