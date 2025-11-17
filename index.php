@@ -1,6 +1,20 @@
 <?php
 //Permet d'afficher les traductions
 include_once("INCLUDES/init.php");
+require_once 'INCLUDES/config.php';
+
+$limit = 7;
+$sql = "SELECT S.ID_Map, M.Libelle_TypeFR, S.StateMap, S.Map_NameFR,L.LibelleLocalisationFR, S.Prix
+        FROM Statesmap S
+        INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
+        INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+        ORDER BY RAND()
+        LIMIT :limite";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':limite', $limit, PDO::PARAM_INT);
+$stmt->execute();
+
+$showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
@@ -54,7 +68,33 @@ include_once("INCLUDES/init.php");
                         </div>
                     </div>
                 </div>
+                
+            </section>
+            <!-- Quelques Cartes de la Base de données -->
+            <section>
+                <h2>Quelques Cartes à notre disposition</h2>
+                <div class="carrousel-container">
+                    <button class="prev">&#10094;</button>
+                    <div class="carrousel-track">
+                        <?php foreach ($showcaseMap as $map): ?>
+                            <?php
+                                //Conversion de Blob à base64
+                                $imageBase64 = base64_encode($map['StateMap']);
+                                $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+                            ?>
+                            <div class="mapcard">
+                                <img src="<?=$imageSrc?>" alt=<?=htmlspecialchars($map['Map_NameFR'])?>>
+                                <h3><?=htmlspecialchars($map['Map_NameFR'])?></h3>
+                                <p><?=htmlspecialchars($map['Libelle_TypeFR'])?></p>
+                                <p><?=htmlspecialchars($map['LibelleLocalisationFR'])?>
+                                <p><?=htmlspecialchars($map['Prix'])?></p>
+                            </div>
+                        <?php endforeach;?>
+                    </div>
+                    <button class="next">&#10095;</button>
+                </div>
             </section>
         </main>    
     </body>
+    <script src="JAVASCRIPT/map-carrousel.js"></script>
 </html>
