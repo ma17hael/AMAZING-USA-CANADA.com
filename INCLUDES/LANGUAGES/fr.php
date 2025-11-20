@@ -37,6 +37,12 @@ return [
     'home-presentation-accesscard' => 'Accessibilité',
     'home-presentation-accesscard-title' => 'Accessibilité complète',
     'home-presentation-accesscard-paragraph' => 'Nos cartes sont facilement accessible sur tout vos appareils, de manière sécurisé grâce à ce site',
-    'home-mapshowcase-title' => 'Quelques cartes de notre catalogue :'
+    'home-mapshowcase-title' => 'Quelques cartes de notre catalogue :',
+    'home-mapshowcase-card-type' => 'Type de carte : ',
+    'home-mapshowcase-card-localisation' => 'Localisation : ',
+    'home-mapshowcase-card-price' => 'Prix : ',
+    'home-mapshowcase-card-money' => ' €',
+    'home-mapshowcase-card-cart' => 'Ajouter au panier',
+    'home-mapshowcase-card-info' => "Plus d'informations"
 ]
 ?>

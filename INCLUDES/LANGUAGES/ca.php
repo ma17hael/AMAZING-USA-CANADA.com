@@ -38,6 +38,12 @@ return [
     'home-presentation-accesscard' => 'Accessibility',
     'home-presentation-accesscard-title' => 'Full Accessibility',
     'home-presentation-accesscard-paragraph' => 'Our maps are easily accessible on all your devices, securely via this site',
-    'home-mapshowcase-title' => 'Some maps from our catalogue'
+    'home-mapshowcase-title' => 'Some maps from our catalogue :',
+    'home-mapshowcase-card-type' => 'Map Type : ',
+    'home-mapshowcase-card-localisation' => 'Location : ',
+    'home-mapshowcase-card-price' => 'Price : ',
+    'home-mapshowcase-card-money' => ' C$',
+    'home-mapshowcase-card-cart' => 'Add to cart',
+    'home-mapshowcase-card-info' => "More informations"
 ];
 ?>
