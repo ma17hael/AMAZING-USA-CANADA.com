@@ -44,6 +44,12 @@ return [
     'home-mapshowcase-card-price' => 'Price : ',
     'home-mapshowcase-card-money' => ' C$',
     'home-mapshowcase-card-cart' => 'Add to cart',
-    'home-mapshowcase-card-info' => "More informations"
+    'home-mapshowcase-card-info' => "More informations",
+    //Tous ce qui concerne le footer
+    'footer-mandatory' => 'Required Documents :',
+    'footer-legalnotice' => 'Legal notices',
+    'footer-CGU' => "General terms and condition of use",
+    'footer-CGV' => "eneral terms and condition of sale",
+    'footer-followUs' => 'Follow-us on Socials'
 ];
 ?>

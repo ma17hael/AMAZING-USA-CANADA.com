@@ -43,6 +43,12 @@ return [
     'home-mapshowcase-card-price' => 'Prix : ',
     'home-mapshowcase-card-money' => ' €',
     'home-mapshowcase-card-cart' => 'Ajouter au panier',
-    'home-mapshowcase-card-info' => "Plus d'informations"
+    'home-mapshowcase-card-info' => "Plus d'informations",
+    //Tous ce qui concerne le footer
+    'footer-mandatory' => 'Documents obligatoires :',
+    'footer-legalnotice' => 'Mentions Légales',
+    'footer-CGU' => "Conditions Générales d'Utilisation",
+    'footer-CGV' => "Conditions Générales de Vente",
+    'footer-followUs' => 'Suivez-nous'
 ]
 ?>
