@@ -85,9 +85,18 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="mapcard">
                                 <img src="<?=$imageSrc?>" alt=<?=htmlspecialchars($map["Map_Name$langBDD"])?>>
                                 <h3><?=htmlspecialchars($map["Map_Name$langBDD"])?></h3>
-                                <p><?=htmlspecialchars($map["Libelle_Type$langBDD"])?></p>
-                                <p><?=htmlspecialchars($map["LibelleLocalisation$langBDD"])?>
-                                <p><?=htmlspecialchars($map['Prix'])?></p>
+                                <p><strong><?=$translations['home-mapshowcase-card-type']?></strong><?=htmlspecialchars($map["Libelle_Type$langBDD"])?></p>
+                                <p><strong><?=$translations['home-mapshowcase-card-localisation']?></strong><?=htmlspecialchars($map["LibelleLocalisation$langBDD"])?>
+                                <p><strong><?=$translations['home-mapshowcase-card-price']?></strong><?=htmlspecialchars($map['Prix'])?><?=$translations['home-mapshowcase-card-money']?></p>
+                                <div class="mapcard-actions">
+                                    <form action="cart.php" method="POST">
+                                        <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map'])?>">
+                                        <button type="submit" class="btn-map"><?=$translations['home-mapshowcase-card-cart']?></button>
+                                    </form>
+                                    <a href="details.php?id=<?=htmlspecialchars($map['ID_Map'])?>" class="btn-map">
+                                        <?=$translations['home-mapshowcase-card-info']?>
+                                    </a>
+                                </div>
                             </div>
                         <?php endforeach;?>
                     </div>
