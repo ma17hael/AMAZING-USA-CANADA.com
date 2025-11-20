@@ -1,0 +1,83 @@
+/* FOOTER GLOBAL */
+.site-footer {
+    background-color: #1E3A8A; /* Bleu profond en accord avec votre charte */
+    color: #f4f4f4;
+    padding: 50px 8% 20px;
+    border-top: 4px solid #162d66; /* ligne traditionnelle */
+    font-size: 0.95rem;
+}
+
+/* CONTENEUR PRINCIPAL */
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+}
+
+/* TITRES DES COLONNES */
+.site-footer h4 {
+    margin-bottom: 15px;
+    font-size: 1.15rem;
+    color: #fff;
+    border-bottom: 2px solid #f4f4f4;
+    padding-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+/* TEXTE */
+.site-footer p {
+    margin: 5px 0 12px;
+    line-height: 1.6;
+    color: #e5e7eb; /* gris clair lisible */
+}
+
+/* LIENS */
+.site-footer a {
+    color: #dce3ef;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.site-footer a:hover {
+    color: #ffffff;
+}
+
+/* LISTES */
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+}
+
+.social-links li {
+    margin-bottom: 6px;
+}
+
+/* BAS DE FOOTER */
+.footer-bottom {
+    text-align: center;
+    padding-top: 25px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.25);
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #dce3ef;
+    font-size: 0.9rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .site-footer {
+        padding: 40px 6% 20px;
+    }
+
+    .site-footer h4 {
+        font-size: 1.1rem;
+    }
+}
