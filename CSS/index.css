@@ -142,7 +142,7 @@ html, body {
 
 .carrousel-container {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     width: 90%;
     margin: auto;
     padding: 20px 0;
@@ -209,8 +209,8 @@ html, body {
     color: #555; /* simple effet au survol */
 }
 
-.prev { left: 10px; }
-.next { right: 10px; }
+.prev { left: -40px; }
+.next { right: -40px; }
 
 /* Modal */
 .modal {
