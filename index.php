@@ -25,7 +25,7 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Liens CSS -->
         <link rel="stylesheet" href="CSS/index.css">
         <link rel="stylesheet" href="CSS/header.css">
-
+        <link rel="stylesheet" href="CSS/footer.css">
         <!-- FAVICON -->
          <link rel="icon" href="INCLUDES/ICONS/favicon.ico" type="image/x-icon">
     </head>
@@ -107,7 +107,8 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                     <img class="modal-content" id="modal-img">
                 </div>
             </section>
-        </main>    
+        </main>
+        <?php include_once('INCLUDES/footer.php'); ?>    
     </body>
     <script src="JAVASCRIPT/map-carrousel.js"></script>
     <script src="JAVASCRIPT/imageModal.js"></script>
