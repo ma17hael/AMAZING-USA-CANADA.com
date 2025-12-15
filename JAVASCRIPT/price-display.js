@@ -1,17 +1,32 @@
-const minSlider = document.getElementById('price-min');
-const maxSlider = document.getElementById('price-max');
-const display = document.getElementById('price-display');
+document.addEventListener('DOMContentLoaded', () => {
 
-function updatePriceDisplay() {
-    let min = parseInt(minSlider.value);
-    let max = parseInt(maxSlider.value);
-    if(min > max) { // éviter que min dépasse max
-        [min, max] = [max, min];
+    const minSlider = document.getElementById('price-min');
+    const maxSlider = document.getElementById('price-max');
+    const display = document.getElementById('price-display');
+
+    if (!minSlider || !maxSlider || !display) {
+        console.error('Erreur prix : éléments manquants dans le DOM');
+        return;
     }
-    display.textContent = `${min}€ - ${max}€`;
-}
+    const currency = display.dataset.currency || '';
+    function updatePriceDisplay() {
+        // Utiliser parseFloat pour conserver les décimales
+        let min = parseFloat(minSlider.value);
+        let max = parseFloat(maxSlider.value);
 
-minSlider.addEventListener('input', updatePriceDisplay);
-maxSlider.addEventListener('input', updatePriceDisplay);
+        // Empêche le croisement incohérent
+        if (min > max) {
+            [min, max] = [max, min];
+            minSlider.value = min;
+            maxSlider.value = max;
+        }
 
-updatePriceDisplay(); // affichage initial
+        // Affichage avec deux décimales
+        display.textContent = `${min.toFixed(2)}${currency} - ${max.toFixed(2)}${currency}`;
+    }
+
+    minSlider.addEventListener('input', updatePriceDisplay);
+    maxSlider.addEventListener('input', updatePriceDisplay);
+
+    updatePriceDisplay(); // affichage initial
+});
