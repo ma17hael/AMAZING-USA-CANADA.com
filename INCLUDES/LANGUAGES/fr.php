@@ -49,6 +49,8 @@ return [
     'footer-legalnotice' => 'Mentions Légales',
     'footer-CGU' => "Conditions Générales d'Utilisation",
     'footer-CGV' => "Conditions Générales de Vente",
-    'footer-followUs' => 'Suivez-nous'
+    'footer-followUs' => 'Suivez-nous',
+    //Tous ce qui concerne les map-list
+    'filter-money' => '€'
 ]
 ?>

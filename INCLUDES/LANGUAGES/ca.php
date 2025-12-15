@@ -50,6 +50,8 @@ return [
     'footer-legalnotice' => 'Legal notices',
     'footer-CGU' => "General terms and condition of use",
     'footer-CGV' => "eneral terms and condition of sale",
-    'footer-followUs' => 'Follow-us on Socials'
+    'footer-followUs' => 'Follow-us on Socials',
+    //Tous ce qui concerne les map-list
+    'filter-money' => 'C$'
 ];
 ?>
