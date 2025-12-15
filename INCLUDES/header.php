@@ -20,13 +20,7 @@ include_once("init.php");
      <nav class="main-nav">
         <ul>
            <li><a href="index.php"><?= $translations['header-home'] ?></a></li>
-           <li class="has-submenu">
-                <a href="mapslist.php"><?= $translations['header-maplist'] ?></a>
-                <ul class="submenu">
-                    <li><a href="mapslist.php"><?= $translations['header-maplistUS'] ?></a></li>
-                    <li><a href="mapslist.php"><?= $translations['header-maplistCA'] ?></a></li>
-                </ul>
-           </li>
+           <li><a href="mapslist.php"><?= $translations['header-maplist'] ?></a></li>
            <li><a href="about.php"><?= $translations['header-about'] ?></a></li>  
         </ul>
      </nav>
