@@ -10,8 +10,6 @@ return [
     'header-CALogo' => 'Face CANADA',
     'header-home' => 'Accueil',
     'header-maplist' => 'Liste des Cartes',
-    'header-maplistUS' => 'Cartes des Etats-Unis',
-    'header-maplistCA' => 'Cartes du Canada',
     'header-about' => 'À propos',
     'header-cart' => 'Panier',
     'header-account' => 'Compte',
@@ -51,6 +49,11 @@ return [
     'footer-CGV' => "Conditions Générales de Vente",
     'footer-followUs' => 'Suivez-nous',
     //Tous ce qui concerne les map-list
+    'maplist-presentationtext-h2' => 'Nos cartes disponibles',
+    'maplist-presentationtext-p' => 'Découvrez toutes nos cartes des États-Unis et du Canada. Filtrez par type, prix ou localisation pour trouver celle qui vous convient.',
+    'maplist-alltypes' => 'Tous types',
+    'maplist-alllocations' => 'Toutes localisations',
+    'maplist-price' => 'Prix :',
     'filter-money' => '€'
 ]
 ?>

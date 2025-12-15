@@ -11,8 +11,6 @@ return [
     'header-CALogo' => 'Canada Face',
     'header-home' => 'Home',
     'header-maplist' => 'Map List',
-    'header-maplistUS' => 'United States Maps',
-    'header-maplistCA' => 'Maps of Canada',
     'header-about' => 'About',
     'header-cart' => 'Cart',
     'header-account' => 'Account',
@@ -52,6 +50,11 @@ return [
     'footer-CGV' => "eneral terms and condition of sale",
     'footer-followUs' => 'Follow-us on Socials',
     //Tous ce qui concerne les map-list
+    'maplist-presentationtext-h2' => 'Our available maps',
+    'maplist-presentationtext-p' => 'Discover all our maps of the United States and Canada. Filter by type, price, or location to find the one that suits you.',
+    'maplist-alltypes' => 'All Types',
+    'maplist-alllocations' => 'All Locations',
+    'maplist-price' => 'Price :',
     'filter-money' => 'C$'
 ];
 ?>
