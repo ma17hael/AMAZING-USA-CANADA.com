@@ -49,28 +49,28 @@ $prixMax = (float)$maxPrice['PrixMax'];
     <?php include_once("INCLUDES/header.php"); ?>
     <main>
         <div class="presentation-text">
-            <h2>Nos cartes disponibles</h2>
-            <p>Découvrez toutes nos cartes des États-Unis et du Canada. Filtrez par type, prix ou localisation pour trouver celle qui vous convient.</p>
+            <h2><?= htmlspecialchars($translations['maplist-presentationtext-h2']) ?></h2>
+            <p><?= htmlspecialchars($translations['maplist-presentationtext-p']) ?></p>
         </div>
 
         <!-- Zone de filtre -->
         <div class="filters">
         <select id="filter-type">
-            <option value="">Tous types</option>
+            <option value=""><?= htmlspecialchars($translations['maplist-alltypes'])?></option>
             <?php foreach ($types as $type): ?>
                 <option value="<?= htmlspecialchars($type['ID_TypeMap']) ?>"><?= htmlspecialchars($type["Libelle_Type$langBDD"]) ?></option>
             <?php endforeach; ?>
             </select>
 
             <select id="filter-location">
-                <option value="">Toutes localisations</option>
+                <option value=""><?= htmlspecialchars($translations['maplist-alllocations'])?></option>
                 <?php foreach ($localisations as $loc): ?>
                     <option value="<?= htmlspecialchars($loc['ID_Localisation']) ?>"><?= htmlspecialchars($loc["LibelleLocalisation$langBDD"]) ?></option>
                 <?php endforeach; ?>
             </select>
 
             <div class="price-filter">
-                <label for="price-range">Prix : </label>
+                <label for="price-range"><?= htmlspecialchars($translations['maplist-price'])?></label>
                 <input type="range" id="price-min" min="0" max="<?=$prixMax?>" value="0" step="0.01">
                 <input type="range" id="price-max" min="0" max="<?=$prixMax?>" value="<?=$prixMax?>" step="0.01">
                 <span id="price-display" data-currency="<?= htmlspecialchars($translations['filter-money']) ?>">0<?=$translations['filter-money']?> - <?=$prixMax?><?=$translations['filter-money']?><?=$translations['filter-money']?></span>
