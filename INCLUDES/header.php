@@ -20,8 +20,7 @@ include_once("init.php");
      <nav class="main-nav">
         <ul>
            <li><a href="index.php"><?= $translations['header-home'] ?></a></li>
-           <li><a href="mapslist.php"><?= $translations['header-maplist'] ?></a></li>
-           <li><a href="about.php"><?= $translations['header-about'] ?></a></li>  
+           <li><a href="mapslist.php"><?= $translations['header-maplist'] ?></a></li>  
         </ul>
      </nav>
     <!-- Section des actions utilisateurs (Panier/Compte/Langue) -->
