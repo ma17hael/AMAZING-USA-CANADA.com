@@ -10,7 +10,6 @@ return [
     'header-CALogo' => 'Face CANADA',
     'header-home' => 'Accueil',
     'header-maplist' => 'Liste des Cartes',
-    'header-about' => 'À propos',
     'header-cart' => 'Panier',
     'header-account' => 'Compte',
     'header-currentLang' => 'Langue Actuelle',
