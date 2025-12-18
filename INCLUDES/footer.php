@@ -16,8 +16,7 @@
             <h4>Navigation :</h4>
             <ul>
                 <li><a href="index.php"><?=$translations['header-home']?></a></li>
-                <li><a href="cartes.php"><?=$translations['header-maplist']?></a></li>
-                <li><a href="contact.php"><?=$translations['header-about']?></a></li>
+                <li><a href="mapslist.php"><?=$translations['header-maplist']?></a></li>
             </ul>
         </div>
 
