@@ -27,7 +27,7 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
         <link rel="stylesheet" href="CSS/header.css">
         <link rel="stylesheet" href="CSS/footer.css">
         <!-- FAVICON -->
-         <link rel="icon" href="INCLUDES/ICONS/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="INCLUDES/ICONS/favicon.ico" type="image/x-icon">
     </head>
     <body>
         <?php include_once("INCLUDES/header.php"); ?>
@@ -93,7 +93,7 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map'])?>">
                                         <button type="submit" class="btn-map"><?=$translations['home-mapshowcase-card-cart']?></button>
                                     </form>
-                                    <a href="details.php?id=<?=htmlspecialchars($map['ID_Map'])?>" class="btn-map">
+                                    <a href="mapsdetails.php?id=<?=htmlspecialchars($map['ID_Map'])?>" class="btn-map">
                                         <?=$translations['home-mapshowcase-card-info']?>
                                     </a>
                                 </div>
