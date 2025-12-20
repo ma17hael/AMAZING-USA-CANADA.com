@@ -87,7 +87,7 @@ $prixMax = (float)$maxPrice['PrixMax'];
                     data-type="<?=(int)$map['Map_Type']?>"
                     data-location="<?=(int)$map['Approx_Localisation']?>"
                     data-price="<?=(float)$map['Prix']?>">
-                    <img src="<?= $imageSrc ?>" alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?>>
+                    <img src="<?= $imageSrc ?>" alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?> data-modal-image>
                     <h3><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></h3>
                     <p><strong><?= $translations['home-mapshowcase-card-type'] ?></strong><?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?></p>
                     <p><strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong><?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?></p>
