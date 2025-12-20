@@ -1,21 +1,25 @@
-document.querySelectorAll('.mapcard img').forEach(img => {
-    img.addEventListener('click', () => {
+document.addEventListener('click', (e) => {
+
+    // OUVERTURE
+    const img = e.target.closest('[data-modal-image]');
+    if (img) {
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
 
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         modalImg.src = img.src;
-    });
-});
+        return;
+    }
 
-// Fermeture
-document.querySelector('.modal .close').addEventListener('click', () => {
-    document.getElementById('image-modal').style.display = 'none';
-});
+    // FERMETURE bouton
+    if (e.target.classList.contains('close')) {
+        document.getElementById('image-modal').style.display = 'none';
+        return;
+    }
 
-// Fermeture en cliquant hors de l’image
-document.getElementById('image-modal').addEventListener('click', (e) => {
-    if (e.target.id === 'image-modal') {
-        e.target.style.display = 'none';
+    // FERMETURE clic extérieur
+    const modal = document.getElementById('image-modal');
+    if (e.target === modal) {
+        modal.style.display = 'none';
     }
 });
