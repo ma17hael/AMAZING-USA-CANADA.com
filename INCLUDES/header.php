@@ -1,5 +1,7 @@
 <?php
 include_once("init.php");
+
+$accountLink = isset($_SESSION['user_id']) ? 'profile.php' : "auth.php";
 ?>
 <script>
     const currentLangFromPHP = "<?= $lang ?>";
@@ -28,9 +30,9 @@ include_once("init.php");
       <button class="icon-btn">
         <img src="INCLUDES/ICONS/cart.svg" alt=<?= $translations['header-cart'] ?>>
       </button>
-      <button class="icon-btn">
+      <a href="<?= $accountLink ?>" class="icon-btn">
         <img src="INCLUDES/ICONS/user.svg" alt=<?= $translations['header-account'] ?>>
-      </button>
+      </a>
       <div class="language-selector">
         <button id="langBtn">
             <img src="INCLUDES/ICONS/FRflag.svg" alt=<?= $translations['header-currentLang'] ?> id="current-flag">

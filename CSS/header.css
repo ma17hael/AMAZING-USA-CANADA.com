@@ -3,7 +3,7 @@
   position: relative;
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   z-index: 1000;
 }
 
@@ -97,7 +97,7 @@
   left: 0;
   background: #fff;
   border: 1px solid #e5e5e5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   list-style: none;
   margin: 0;
   padding: 0.5rem 0;
@@ -117,7 +117,7 @@
 }
 
 /* Affichage au survol */
-.main-nav li:hover > .submenu {
+.main-nav li:hover>.submenu {
   display: block;
 }
 
@@ -129,8 +129,12 @@
 }
 
 .icon-btn {
-  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   border: none;
+  background: none;
   cursor: pointer;
 }
 
@@ -174,7 +178,7 @@
   padding: 0;
   margin: 0;
   width: 150px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 
