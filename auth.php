@@ -22,6 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($user && password_verify($password, $user['MotdePasse'])) {
                 $_SESSION['user_id'] = $user['ID_Users'];
+                $stmt = $pdo->prepare("SELECT UserPicture FROM Utilisateurs WHERE ID_Users = :id");
+                $stmt->execute(['id' => $user['ID_Users']]);
+                $pic = $stmt->fetchColumn();
+                $_SESSION['user_picture'] = $pic;
                 header('Location: profile.php');
                 exit;
             } else {
