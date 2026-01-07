@@ -34,49 +34,48 @@ $stmt = $pdo->prepare("
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $MapBought = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_account'])) {
     $email = trim($_POST['email']);
     $username = trim($_POST['username']);
-    $password = $_POST['password'];
-    $passwordConfirm = $_POST['password_confirm'];
+    $password = $_POST['password'] ?? '';
+    $passwordConfirm = $_POST['password_confirm'] ?? '';
 
     if (empty($email)) {
         $error = "L'adresse e-mail est obligatoire.";
     } else {
-        if (empty($password)) {
-            $stmt = $pdo->prepare("
-                UPDATE Utilisateurs
-                SET Mail = :mail,
-                    Username = :username
-                WHERE ID_Users = :id
-            ");
-            $stmt->execute([
-                'mail' => $email,
-                'username' => $username,
-                'id' => $_SESSION['user_id']
-            ]);
-        } else {
+        $params = [
+            'mail' => $email,
+            'username' => $username,
+            'id' => $_SESSION['user_id']
+        ];
+
+        $sql = "UPDATE Utilisateurs SET Mail = :mail, Username = :username";
+
+        // Gestion du mot de passe
+        if (!empty($password)) {
             if ($password !== $passwordConfirm) {
                 $error = "Les mots de passe ne correspondent pas.";
             } else {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
-
-                $stmt = $pdo->prepare("
-                    UPDATE Utilisateurs
-                    SET Mail = :mail,
-                        Username = :username,
-                        MotDePasse = :password
-                    WHERE ID_Users = :id
-                ");
-                $stmt->execute([
-                    'mail' => $email,
-                    'username' => $username,
-                    'password' => $hash,
-                    'id' => $_SESSION['user_id']
-                ]);
+                $sql .= ", MotDePasse = :password";
+                $params['password'] = $hash;
             }
         }
+
+        // Gestion de l'image
+        if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+            $imageData = file_get_contents($_FILES['picture']['tmp_name']);
+            $sql .= ", UserPicture = :picture";
+            $params['picture'] = $imageData;
+            $_SESSION['user_picture'] = $imageData;
+        }
+
+        $sql .= " WHERE ID_Users = :id";
+
         if (!isset($error)) {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+
             header('Location: profile.php?success=1');
             exit;
         }
@@ -120,8 +119,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
         <section class="profile-essentials">
             <div class="profile-left">
                 <?php
-                $imageBase64 = base64_encode($user['UserPicture']);
-                $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+                if ($user['UserPicture'] != null) {
+                    $imageBase64 = base64_encode($user['UserPicture']);
+                    $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+                }
                 ?>
                 <img src="<?= $imageSrc ?? 'INCLUDES/ICONS/user.svg' ?>"
                     alt="Photo de profil"
@@ -134,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
             <div class="profile-right">
                 <h2>Modifier mon profil</h2>
 
-                <form method="POST" class="profile-form">
+                <form method="POST" enctype="multipart/form-data" class="profile-form">
                     <div class="form-group">
                         <label for="email">Adresse e-mail :</label>
                         <input type="email" id="email" name="email" value="<?= $user['Mail'] ?>">
@@ -142,6 +143,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
                     <div class="form-group">
                         <label for="username">Pseudo :</label>
                         <input type="text" id="username" name="username" value="<?= $user['Username'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="picture">Photo de profile :</label>
+                        <input type="file" id="picture" name="picture">
                     </div>
                     <div class="form-group">
                         <label for="password">Mot de Passe :</label>
