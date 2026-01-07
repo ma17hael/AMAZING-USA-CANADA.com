@@ -33,6 +33,66 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $MapBought = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
+    $passwordConfirm = $_POST['password_confirm'];
+
+    if (empty($email)) {
+        $error = "L'adresse e-mail est obligatoire.";
+    } else {
+        if (empty($password)) {
+            $stmt = $pdo->prepare("
+                UPDATE Utilisateurs
+                SET Mail = :mail,
+                    Username = :username
+                WHERE ID_Users = :id
+            ");
+            $stmt->execute([
+                'mail' => $email,
+                'username' => $username,
+                'id' => $_SESSION['user_id']
+            ]);
+        } else {
+            if ($password !== $passwordConfirm) {
+                $error = "Les mots de passe ne correspondent pas.";
+            } else {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+
+                $stmt = $pdo->prepare("
+                    UPDATE Utilisateurs
+                    SET Mail = :mail,
+                        Username = :username,
+                        MotDePasse = :password
+                    WHERE ID_Users = :id
+                ");
+                $stmt->execute([
+                    'mail' => $email,
+                    'username' => $username,
+                    'password' => $hash,
+                    'id' => $_SESSION['user_id']
+                ]);
+            }
+        }
+        if (!isset($error)) {
+            header('Location: profile.php?success=1');
+            exit;
+        }
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
+
+    $stmt = $pdo->prepare("DELETE FROM Utilisateurs WHERE ID_Users = :id");
+    $stmt->execute(['id' => $_SESSION['user_id']]);
+
+    session_destroy();
+
+    header('Location: index.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
@@ -58,37 +118,49 @@ $MapBought = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- SECTION PROFIL UNIQUEMENT -->
         <section class="profile-essentials">
+            <div class="profile-left">
+                <?php
+                $imageBase64 = base64_encode($user['UserPicture']);
+                $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+                ?>
+                <img src="<?= $imageSrc ?? 'INCLUDES/ICONS/user.svg' ?>"
+                    alt="Photo de profil"
+                    class="profile-avatar">
 
-            <div class="profile-card">
-
-                <div class="profile-header">
-                    <?php
-                    $imageBase64 = base64_encode($user['UserPicture']);
-                    $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
-                    ?>
-                    <img src="<?= $imageSrc ?? 'INCLUDES/ICONS/user.svg' ?>"
-                        alt="Photo de profil"
-                        class="profile-avatar">
-
-                    <h2><?= htmlspecialchars($displayName) ?></h2>
-                    <p><?= htmlspecialchars($user['Mail']) ?></p>
-                </div>
-
-                <div class="profile-actions">
-                    <button class="btn-primary" id="editProfileBtn">
-                        Modifier mes informations
-                    </button>
-
-                    <form method="POST" action="delete_account.php"
-                        onsubmit="return confirm('Confirmer la suppression du compte ?');">
-                        <button class="btn-danger">
-                            Supprimer mon compte
-                        </button>
-                    </form>
-                </div>
-
+                <h2><?= htmlspecialchars($displayName) ?></h2>
+                <p><?= htmlspecialchars($user['Mail']) ?></p>
             </div>
 
+            <div class="profile-right">
+                <h2>Modifier mon profil</h2>
+
+                <form method="POST" class="profile-form">
+                    <div class="form-group">
+                        <label for="email">Adresse e-mail :</label>
+                        <input type="email" id="email" name="email" value="<?= $user['Mail'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Pseudo :</label>
+                        <input type="text" id="username" name="username" value="<?= $user['Username'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de Passe :</label>
+                        <input type="password" id="password" name="password" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirm">Confirmer le mot de passe :</label>
+                        <input type="password" id="password_confirm" name="password_confirm" value="">
+                    </div>
+
+                    <button type="submit" class="btn-save">Enregistrer les modifications</button>
+                </form>
+                <form method="POST" onsubmit="return confirm('Cette action est définitive. Supprimer votre compte ?');">
+                    <input type="hidden" name="delete_account" value="1">
+                    <button type="submit" class="btn-danger">
+                        Supprimer mon compte
+                    </button>
+                </form>
+            </div>
         </section>
 
         <section class="profile-main-title">
