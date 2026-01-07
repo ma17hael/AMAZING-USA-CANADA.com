@@ -203,3 +203,22 @@
 .hidden {
   display: none;
 }
+
+.logout-form {
+    display: inline-flex;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.profile-avatar-header {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1E3A8A;
+}
