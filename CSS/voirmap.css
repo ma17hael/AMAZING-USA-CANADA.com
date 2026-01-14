@@ -1,0 +1,35 @@
+html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: serif;
+    background-color: #111;
+    color: #eaeaea;
+}
+
+.map-header {
+    padding: 15px 25px;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+.map-title {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.map-description {
+    font-size: 0.95rem;
+    color: #b5b5b5;
+}
+
+#map {
+    width: 100%;
+    height: 600px; /* obligatoire */
+}
