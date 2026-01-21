@@ -46,7 +46,7 @@ return [
     'footer-mandatory' => 'Required Documents :',
     'footer-legalnotice' => 'Legal notices',
     'footer-CGU' => "General terms and condition of use",
-    'footer-CGV' => "eneral terms and condition of sale",
+    'footer-CGV' => "General terms and condition of sale",
     'footer-followUs' => 'Follow-us on Socials',
     //Tous ce qui concerne les map-list
     'maplist-presentationtext-h2' => 'Our available maps',
