@@ -1,159 +1,223 @@
+/* ========================================
+   REFONTE COMPLÈTE - DÉTAILS DES CARTES MODERNE
+   ======================================== */
+
+/* Variables CSS pour cohérence */
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary-color: #f59e0b;
+    --dark-bg: #0f172a;
+    --light-bg: #f8fafc;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-primary);
 }
 
-/* =========================
-   BANDEAU TITRE
-========================= */
-
+/* Bandeau titre */
 .details-main-title {
     width: 100%;
-    height: 100px;
-    background-color: #1E3A8A;
+    min-height: 120px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--secondary-color) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.details-main-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
 }
 
 .details-main-title h1 {
     color: #ffffff;
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
     margin: 0;
     text-align: center;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* =========================
-   SECTION CONTENU
-========================= */
-
+/* Section contenu */
 .maps-essentials {
-    background-color: #f4f4f4;
-    padding: 70px 8%;
-    max-width: 1300px;
-    margin: 20px auto;
+    background: linear-gradient(135deg, #ffffff 0%, var(--light-bg) 100%);
+    padding: 60px 8%;
+    max-width: 1400px;
+    margin: 40px auto;
     display: grid;
-    grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+    grid-template-columns: minmax(350px, 1fr) minmax(350px, 1fr);
     gap: 60px;
     align-items: start;
-
-    border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
 }
 
-/* =========================
-   IMAGE DE LA CARTE
-========================= */
-
-.map-static {
-    background: #fff;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+/* Images de carte */
+.map-static, .countrymap-static {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
 }
 
-.map-static img {
+.map-static::before, .countrymap-static::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.map-static:hover, .countrymap-static:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-5px);
+}
+
+.map-static img, .countrymap-static img {
     width: 100%;
     height: 500px;
     display: block;
-    border-radius: 10px;
+    border-radius: 12px;
     object-fit: cover;
+    transition: var(--transition);
+    cursor: pointer;
 }
 
-.countrymap-static {
-    background: #fff;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+.map-static:hover img, .countrymap-static:hover img {
+    transform: scale(1.02);
 }
 
 .countrymap-static img {
-    width: 100%;
-    display: block;
-    border-radius: 10px;
-    object-fit: cover;
+    height: auto;
+    min-height: 300px;
 }
 
-/* =========================
-   DÉTAILS TEXTE
-========================= */
-
+/* Détails texte */
 .map-details {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 20px;
 }
 
 .map-details h2 {
-    font-size: 3rem; /* réduit de 5rem à 3rem pour équilibre */
-    color: #1E3A8A;
-    margin-bottom: 12px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
 }
 
 .map-details p {
-    font-size: 1.5rem; /* réduit de 2rem à 1.5rem */
-    line-height: 1.7;
-    color: #4B5563;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
     margin: 0;
 }
 
 .map-details strong {
     font-weight: 700;
+    color: var(--text-primary);
 }
 
-/* =========================
-   BOUTON PANIER
-========================= */
-
-.map-details .btn-map {
-    margin-top: 25px;
-    padding: 15px 22px;
-    background-color: #1E3A8A;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 1.5rem;
-    font-weight: 600;
-    width: 100%;
-    transition: background-color 0.25s ease, transform 0.15s ease;
-    text-align: center;
-}
-
-.map-details .btn-map:hover {
-    background-color: #162d66;
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   DRAPEAUX
-========================= */
-
+/* Drapeaux */
 .map-flags {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin: 12px 0 20px 0;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(37, 99, 235, 0.05);
+    border-radius: 12px;
 }
 
 .flag-img {
-    width: 56px; /* un peu plus grand pour compenser le texte plus gros */
+    width: 60px;
     height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
     object-fit: contain;
-    transition: transform 0.2s ease;
+    transition: var(--transition);
+    border: 2px solid transparent;
 }
-
 
 .flag-img:hover {
-    transform: scale(1.1);
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
 }
 
+/* Bouton panier */
+.map-details .btn-map {
+    margin-top: 30px;
+    padding: 18px 32px;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #fb923c 100%);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    width: 100%;
+    transition: var(--transition);
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.map-details .btn-map:hover {
+    background: linear-gradient(135deg, #fb923c 0%, var(--secondary-color) 100%);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+}
+
+.mapcard-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -162,51 +226,99 @@ html, body {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(20,20,20,0.85);
-    backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal-content {
-     display: block;
-     margin: 5% auto;
-     max-width: 90%;
-     max-height: 85%;
-     border-radius: 10px;
+    display: block;
+    margin: 5% auto;
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 20px;
+    box-shadow: var(--shadow-xl);
+    animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .close {
-     position: absolute;
-     top: 30px;
-     right: 40px;
-     font-size: 40px;
-     cursor: pointer;
-     color: white;
-}
-
-.mapcard-actions {
-    margin-top: 15px;
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 50px;
+    cursor: pointer;
+    color: white;
+    transition: var(--transition);
+    width: 50px;
+    height: 50px;
     display: flex;
-    gap: 12px;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg) scale(1.1);
+}
 
-@media (max-width: 900px) {
+/* Responsive */
+@media (max-width: 1024px) {
     .maps-essentials {
         grid-template-columns: 1fr;
-        padding: 60px 6%;
+        padding: 50px 6%;
         gap: 40px;
     }
-
-    .details-main-title {
-        height: 100px;
+    
+    .map-static img {
+        height: 400px;
     }
+}
 
+@media (max-width: 768px) {
+    .details-main-title {
+        min-height: 100px;
+        padding: 20px;
+    }
+    
     .details-main-title h1 {
-        font-size: 1.8rem;
+        font-size: 1.75rem;
+    }
+    
+    .maps-essentials {
+        padding: 40px 5%;
+        margin: 20px auto;
+        border-radius: 16px;
+    }
+    
+    .map-details h2 {
+        font-size: 2rem;
+    }
+    
+    .map-details p {
+        font-size: 1rem;
+    }
+    
+    .map-static img {
+        height: 300px;
     }
 }
 
@@ -214,8 +326,12 @@ html, body {
     .details-main-title h1 {
         font-size: 1.5rem;
     }
-
+    
     .maps-essentials {
-        padding: 50px 5%;
+        padding: 30px 4%;
+    }
+    
+    .map-details h2 {
+        font-size: 1.75rem;
     }
 }
