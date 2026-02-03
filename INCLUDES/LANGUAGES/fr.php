@@ -55,5 +55,24 @@ return [
     'maplist-alltypes' => 'Tous types',
     'maplist-alllocations' => 'Toutes localisations',
     'maplist-price' => 'Prix :',
+    //Tous ce qui concerne les mapsdetails
+    'mapsdetails-h1-main-title' => 'Données Essentiels de la Carte',
+    'mapsdetails-h1-complementary-title' => 'Informations complémentaires',
+    'mapsdetails-h2-complementary-smalltitle' => 'Son Emplacement sur la carte du Pays :',
+    'mapsdetails-p-complementary' => 'Cette carte vous permet donc de vous situer sur la carte du pays et de le retrouver plus facilement.
+                                        Cela vous permettra ainsi de plus facilement faire vos trajets sans passer par les pack de cartes.',
+    //Tous ce qui concerne les profiles
+    'profile-main-title' => 'Mon profil',
+    'profile-action-title' => 'Modifier mon profil',
+    'profile-mail-field' => 'Adresse e-mail :',
+    'profile-username-field' => `Nom d'utilisateur :`,
+    'profile-picture-field' => 'Photo de profil :',
+    'profile-password-field' => 'Mot de passe :',
+    'profile-passwordconfir-field' => 'Confirmer le mot de passe :',
+    'profile-save-change' => 'Enregistrer les modifications',
+    'profile-discard-account' => 'Supprimer mon compte',
+    'profile-purchased-maps' => 'Mes cartes achetées',
+    'profile-nopurchased-maps' => 'Aucune carte achetée pour le moment.',
+    'profile-see-map' => 'Voir la carte'
 ]
 ?>

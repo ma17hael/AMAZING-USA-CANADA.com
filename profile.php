@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
 
         <!-- BANDEAU TITRE -->
         <section class="profile-main-title">
-            <h1>Mon profil</h1>
+            <h1><?=$translations['profile-main-title']?></h1>
         </section>
 
         <!-- SECTION PROFIL UNIQUEMENT -->
@@ -133,53 +133,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
             </div>
 
             <div class="profile-right">
-                <h2>Modifier mon profil</h2>
+                <h2><?=$translations['profile-action-title']?></h2>
 
                 <form method="POST" enctype="multipart/form-data" class="profile-form">
                     <div class="form-group">
-                        <label for="email">Adresse e-mail :</label>
+                        <label for="email"><?=$translations['profile-mail-field']?></label>
                         <input type="email" id="email" name="email" value="<?= $user['Mail'] ?>">
                     </div>
                     <div class="form-group">
-                        <label for="username">Pseudo :</label>
+                        <label for="username"><?=$translations['profile-username-field']?></label>
                         <input type="text" id="username" name="username" value="<?= $user['Username'] ?>">
                     </div>
                     <div class="form-group">
-                        <label for="picture">Photo de profile :</label>
+                        <label for="picture"><?=$translations['profile-picture-field']?></label>
                         <input type="file" id="picture" name="picture">
                     </div>
                     <div class="form-group">
-                        <label for="password">Mot de Passe :</label>
+                        <label for="password"><?=$translations['profile-password-field']?></label>
                         <input type="password" id="password" name="password" value="">
                     </div>
                     <div class="form-group">
-                        <label for="password_confirm">Confirmer le mot de passe :</label>
+                        <label for="password_confirm"><?=$translations['profile-passwordconfir-field']?></label>
                         <input type="password" id="password_confirm" name="password_confirm" value="">
                     </div>
 
-                    <button type="submit" class="btn-save">Enregistrer les modifications</button>
+                    <button type="submit" class="btn-save"><?=$translations['profile-save-change']?></button>
                 </form>
                 <form method="POST" onsubmit="return confirm('Cette action est définitive. Supprimer votre compte ?');">
                     <input type="hidden" name="delete_account" value="1">
                     <button type="submit" class="btn-danger">
-                        Supprimer mon compte
+                        <?=$translations['profile-discard-account']?>
                     </button>
                 </form>
             </div>
         </section>
 
         <section class="profile-main-title">
-            <h1>Les cartes à mon nom</h1>
+            <h1><?=$translations['profile-purchased-maps']?></h1>
         </section>
 
         <!-- SECTION CARTES ACHETÉES (EN DESSOUS) -->
         <section class="profile-purchases-section">
-
-            <h2>Mes cartes achetées</h2>
-
             <div class="cards-grid">
                 <?php if (empty($MapBought)): ?>
-                    <p>Aucune carte achetée pour le moment.</p>
+                    <p><?=$translations['profile-nopurchased-maps']?></p>
                 <?php else: ?>
                     <?php foreach ($MapBought as $carte): ?>
                         <?php
@@ -202,17 +199,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
                                 <strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong>
                                 <?= htmlspecialchars($carte["LibelleLocalisation$langBDD"]) ?>
                             </p>
-
-                            <p>
-                                <strong><?= $translations['home-mapshowcase-card-price'] ?></strong>
-                                <?= htmlspecialchars($carte['Prix']) ?>
-                                <?= $translations['home-mapshowcase-card-money'] ?>
-                            </p>
-
                             <div class="mapcard-actions">
                                 <a href="voirmap.php?id=<?= htmlspecialchars($carte['ID_Map']) ?>"
                                     class="btn-map">
-                                    Voir la carte
+                                    <?=$translations['profile-see-map']?>
                                 </a>
                             </div>
                         </article>

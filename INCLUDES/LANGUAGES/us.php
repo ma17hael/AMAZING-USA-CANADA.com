@@ -56,5 +56,24 @@ return [
     'maplist-alltypes' => 'All Types',
     'maplist-alllocations' => 'All Locations',
     'maplist-price' => 'Price :',
-]
+    //Tous ce qui concerne les mapsdetails
+    'mapsdetails-h1-main-title' => 'Essential Card Data',
+    'mapsdetails-h1-complementary-title' => 'Additional Information',
+    'mapsdetails-h2-complementary-smalltitle' => 'Its location on the country map :',
+    'mapsdetails-p-complementary' => 'This map therefore allows you to locate yourself on the country map and find your position more easily.
+                                        It will also make it easier for you to plan your routes without relying on map packs.',
+    //Tous ce qui concerne les profiles
+    'profile-main-title' => 'My profile',
+    'profile-action-title' => 'Edit my profile',
+    'profile-mail-field' => 'Mail :',
+    'profile-username-field' => `Username :`,
+    'profile-picture-field' => 'Profile picture :',
+    'profile-password-field' => 'Password :',
+    'profile-passwordconfir-field' => 'Password confirmation :',
+    'profile-save-change' => 'Save changes',
+    'profile-discard-account' => 'Delete my account',
+    'profile-purchased-maps' => 'My purchased maps',
+    'profile-nopurchased-maps' => 'No maps purchased yet.',
+    'profile-see-map' => 'See map'
+];
 ?>

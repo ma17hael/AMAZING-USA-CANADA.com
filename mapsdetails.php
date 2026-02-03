@@ -45,7 +45,7 @@ if (!$map) {
     <?php include_once("INCLUDES/header.php"); ?>
     <main>
         <div class="details-main-title">
-            <h1>Données Essentiels de la Carte</h1>
+            <h1><?=$translations['mapsdetails-h1-main-title']?></h1>
         </div>
         <section class="maps-essentials">
             <div class="map-static">
@@ -68,24 +68,24 @@ if (!$map) {
                     <?php endforeach; ?>
                 </div>
                 <p>
-                    <strong>Localisation :</strong>
+                    <strong><?=$translations['home-mapshowcase-card-localisation']?></strong>
                     <?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?>
                 </p>
                 <p>
-                    <strong>Type de carte :</strong>
+                    <strong><?=$translations['home-mapshowcase-card-type']?></strong>
                     <?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?>
                 </p>
                 <p>
-                    <strong>Prix :</strong>
+                    <strong><?=$translations['home-mapshowcase-card-price']?></strong>
                     <?= htmlspecialchars($map['Prix']) ?> €
                 </p>
                 <a href="#" class="btn-map">
-                    Ajouter au panier
+                    <?=$translations['home-mapshowcase-card-cart']?>
                 </a>
             </div>
         </section>
         <div class="details-main-title">
-            <h1>Informations complémentaires</h1>
+            <h1><?=$translations['mapsdetails-h1-complementary-title']?></h1>
         </div>
         <section class="maps-essentials">
             <div class="countrymap-static">
@@ -97,9 +97,9 @@ if (!$map) {
                 <img src=<?= $imageSrc ?> alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?> data-modal-image>
             </div>
             <div class="map-details">
-                <h2>Son Emplacement sur la carte du Pays :</h2>
-                <p>Cette carte vous permet donc de vous situer sur la carte du pays et de le retrouver plus facilement.
-                    Cela vous permettra ainsi de plus facilement faire vos trajets sans passer par les pack de cartes.
+                <h2><?=$translations['mapsdetails-h2-complementary-smalltitle']?></h2>
+                <p>
+                    <?=$translations['mapsdetails-p-complementary']?>
                 </p>
             </div>
         </section>
