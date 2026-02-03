@@ -38,7 +38,9 @@ return [
     'home-mapshowcase-card-type' => 'Type de carte : ',
     'home-mapshowcase-card-localisation' => 'Localisation : ',
     'home-mapshowcase-card-price' => 'Prix : ',
-    'home-mapshowcase-card-money' => ' €',
+    'currency-code' => 'EUR',
+    'currency-symbol' => '€',
+    'currency_locale' => 'fr_FR',
     'home-mapshowcase-card-cart' => 'Ajouter au panier',
     'home-mapshowcase-card-info' => "Plus d'informations",
     //Tous ce qui concerne le footer
@@ -53,6 +55,5 @@ return [
     'maplist-alltypes' => 'Tous types',
     'maplist-alllocations' => 'Toutes localisations',
     'maplist-price' => 'Prix :',
-    'filter-money' => '€'
 ]
 ?>

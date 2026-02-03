@@ -2,6 +2,7 @@
 //Permet d'afficher les traductions
 include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
+require_once 'INCLUDES/currency.php';
 
 $sqlMap = "SELECT S.ID_Map, S.Map_Type, M.Libelle_TypeFR, M.Libelle_TypeEN, S.StateMap, S.Map_NameFR, S.Map_NameEN, S.Approx_Localisation, L.LibelleLocalisationFR, L.LibelleLocalisationEN, S.Prix
         FROM Statesmap S
@@ -28,6 +29,12 @@ $stmtPrice = $pdo->prepare($sqlPrice);
 $stmtPrice->execute();
 $maxPrice = $stmtPrice->fetch(PDO::FETCH_ASSOC);
 $prixMax = (float)$maxPrice['PrixMax'];
+
+$currency = $translations['currency-code'];
+$locale   = $translations['currency_locale'];
+
+$prixMaxConverted = Currency::convert($prixMax, $currency);
+$prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
 
 ?>
 <!DOCTYPE html>
@@ -73,7 +80,13 @@ $prixMax = (float)$maxPrice['PrixMax'];
                 <label for="price-range"><?= htmlspecialchars($translations['maplist-price'])?></label>
                 <input type="range" id="price-min" min="0" max="<?=$prixMax?>" value="0" step="0.01">
                 <input type="range" id="price-max" min="0" max="<?=$prixMax?>" value="<?=$prixMax?>" step="0.01">
-                <span id="price-display" data-currency="<?= htmlspecialchars($translations['filter-money']) ?>">0<?=$translations['filter-money']?> - <?=$prixMax?><?=$translations['filter-money']?><?=$translations['filter-money']?></span>
+                <span id="price-display"
+                    data-currency="<?= htmlspecialchars($currency) ?>"
+                    data-rate="<?= Currency::getRate($currency) ?>"
+                    data-max="<?= $prixMax ?>">
+                    0 – <?= $prixMaxFormatted ?>
+                </span>
+
             </div>
         </div>
         <div class="card-container">
@@ -82,6 +95,13 @@ $prixMax = (float)$maxPrice['PrixMax'];
                 //Conversion de Blob à base64
                 $imageBase64 = base64_encode($map['StateMap']);
                 $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+
+                $priceEuro = (float) $map['Prix'];
+                $currency  = $translations['currency-code'];
+                $locale    = $translations['currency_locale'];
+
+                $convertedPrice = Currency::convert($priceEuro, $currency);
+                $formattedPrice = Currency::format($convertedPrice, $currency, $locale);
                 ?>
                 <div class="mapcard"
                     data-type="<?=(int)$map['Map_Type']?>"
@@ -91,7 +111,7 @@ $prixMax = (float)$maxPrice['PrixMax'];
                     <h3><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></h3>
                     <p><strong><?= $translations['home-mapshowcase-card-type'] ?></strong><?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?></p>
                     <p><strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong><?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?></p>
-                    <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><?= htmlspecialchars($map['Prix']) ?><?= $translations['home-mapshowcase-card-money'] ?></p>
+                    <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><?= $formattedPrice ?></p>
                     <div class="mapcard-actions">
                         <form action="cart.php" method="POST">
                             <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map']) ?>">
@@ -111,7 +131,6 @@ $prixMax = (float)$maxPrice['PrixMax'];
     </main>
     <?php include_once('INCLUDES/footer.php'); ?>
 </body>
-    <script src="JAVASCRIPT/map-filtering.js"></script>
-    <script src="JAVASCRIPT/price-display.js"></script>
+    <script src="JAVASCRIPT/mapPrice.js"></script>
     <script src="JAVASCRIPT/imageModal.js"></script>
 </html>

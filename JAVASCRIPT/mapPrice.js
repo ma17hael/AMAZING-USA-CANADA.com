@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!cardContainer) return;
 
+    // Message "aucune carte"
     let noCardMsg = document.getElementById('no-card-msg');
     if (!noCardMsg) {
         noCardMsg = document.createElement('p');
@@ -21,15 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
         cardContainer.appendChild(noCardMsg);
     }
 
+    const currency = priceDisplay.dataset.currency;
+    const rate = parseFloat(priceDisplay.dataset.rate);
+    const formatter = new Intl.NumberFormat(undefined, {
+        style: 'currency',
+        currency: currency
+    });
+
+    function updatePriceDisplay() {
+        let minEuro = parseFloat(priceMin.value);
+        let maxEuro = parseFloat(priceMax.value);
+
+        // Empêche le croisement
+        if (minEuro > maxEuro) {
+            [minEuro, maxEuro] = [maxEuro, minEuro];
+            priceMin.value = minEuro;
+            priceMax.value = maxEuro;
+        }
+
+        // Conversion pour affichage
+        const minConverted = minEuro * rate;
+        const maxConverted = maxEuro * rate;
+
+        priceDisplay.textContent = `${formatter.format(minConverted)} – ${formatter.format(maxConverted)}`;
+
+        return { minEuro, maxEuro };
+    }
+
     function applyFilters() {
+        const { minEuro, maxEuro } = updatePriceDisplay();
         const typeValue = filterType.value;
         const locationValue = filterLocation.value;
-        const minPrice = parseFloat(priceMin.value);
-        const maxPrice = parseFloat(priceMax.value);
 
         let anyVisible = false;
-
-        priceDisplay.textContent = `${minPrice.toFixed(2)}€ - ${maxPrice.toFixed(2)}€`;
 
         cards.forEach(card => {
             const cardType = card.dataset.type;
@@ -40,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (typeValue && cardType !== typeValue) visible = false;
             if (locationValue && cardLocation !== locationValue) visible = false;
-            if (cardPrice < minPrice || cardPrice > maxPrice) visible = false;
+            if (cardPrice < minEuro || cardPrice > maxEuro) visible = false;
 
             card.style.display = visible ? 'block' : 'none';
             if (visible) anyVisible = true;
@@ -49,10 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
         noCardMsg.style.display = anyVisible ? 'none' : 'block';
     }
 
+    // Initialisation
+    priceMin.value = 0;
+    priceMax.value = parseFloat(priceDisplay.dataset.max);
+    applyFilters();
+
     [filterType, filterLocation, priceMin, priceMax].forEach(el => {
         el.addEventListener('input', applyFilters);
         el.addEventListener('change', applyFilters);
     });
 
-    applyFilters(); // Application initiale
 });

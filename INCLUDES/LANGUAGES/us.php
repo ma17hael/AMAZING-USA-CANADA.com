@@ -39,7 +39,9 @@ return [
     'home-mapshowcase-card-type' => 'Map Type : ',
     'home-mapshowcase-card-localisation' => 'Location : ',
     'home-mapshowcase-card-price' => 'Price : ',
-    'home-mapshowcase-card-money' => ' $',
+    'currency-code' => 'USD',
+    'currency-symbol' => '$',
+    'currency_locale' => 'en_US',
     'home-mapshowcase-card-cart' => 'Add to cart',
     'home-mapshowcase-card-info' => "More informations",
     //Tous ce qui concerne le footer
@@ -54,6 +56,5 @@ return [
     'maplist-alltypes' => 'All Types',
     'maplist-alllocations' => 'All Locations',
     'maplist-price' => 'Price :',
-    'filter-money' => '$'
 ]
 ?>

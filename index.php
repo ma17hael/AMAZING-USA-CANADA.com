@@ -2,6 +2,7 @@
 //Permet d'afficher les traductions
 include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
+require_once 'INCLUDES/currency.php';
 
 $limit = 7;
 $sql = "SELECT S.ID_Map, M.Libelle_TypeFR, M.Libelle_TypeEN, S.StateMap, S.Map_NameFR, S.Map_NameEN, L.LibelleLocalisationFR, L.LibelleLocalisationEN, S.Prix
@@ -14,7 +15,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':limite', $limit, PDO::PARAM_INT);
 $stmt->execute();
 
-$showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
+$showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
@@ -81,13 +82,20 @@ $showcaseMap =$stmt->fetchAll(PDO::FETCH_ASSOC);
                                 //Conversion de Blob à base64
                                 $imageBase64 = base64_encode($map['StateMap']);
                                 $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+
+                                $priceEuro = (float) $map['Prix'];
+                                $currency  = $translations['currency-code'];
+                                $locale    = $translations['currency_locale'];
+
+                                $convertedPrice = Currency::convert($priceEuro, $currency);
+                                $formattedPrice = Currency::format($convertedPrice, $currency, $locale);
                             ?>
                             <div class="mapcard">
                                 <img src="<?=$imageSrc?>" alt=<?=htmlspecialchars($map["Map_Name$langBDD"])?> data-modal-image>
                                 <h3><?=htmlspecialchars($map["Map_Name$langBDD"])?></h3>
                                 <p><strong><?=$translations['home-mapshowcase-card-type']?></strong><?=htmlspecialchars($map["Libelle_Type$langBDD"])?></p>
                                 <p><strong><?=$translations['home-mapshowcase-card-localisation']?></strong><?=htmlspecialchars($map["LibelleLocalisation$langBDD"])?>
-                                <p><strong><?=$translations['home-mapshowcase-card-price']?></strong><?=htmlspecialchars($map['Prix'])?><?=$translations['home-mapshowcase-card-money']?></p>
+                                <p><strong><?=$translations['home-mapshowcase-card-price']?></strong><?= $formattedPrice ?></p>
                                 <div class="mapcard-actions">
                                     <form action="cart.php" method="POST">
                                         <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map'])?>">
