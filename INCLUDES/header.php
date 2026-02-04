@@ -1,7 +1,7 @@
 <?php
 include_once("init.php");
 
-$accountLink = isset($_SESSION['user_id']) ? 'profile.php' : "auth.php";
+$accountLink = isset($_SESSION['user_id']) ? 'profile.php' : "login.php";
 
 $avatarSrc = 'INCLUDES/ICONS/user.svg';
 
