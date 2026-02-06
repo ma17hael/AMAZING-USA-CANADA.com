@@ -1,12 +1,8 @@
 <?php
-
-define('GOOGLE_CLIENT_ID', '778158757538-8c1kpvmnf1o6aqe9j1f83aj1rnu6prbl.apps.googleusercontent.com');
-define('GOOGLE_CLIENT_SECRET', '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');
-define('GOOGLE_REDIRECT_URI', 'http://localhost/INCLUDES/oauth.php?provider=google');
-
-define('FACEBOOK_CLIENT_ID', '1210338254082277');
-define('FACEBOOK_CLIENT_SECRET', 'aedeb154b5b50a80f00254d4d2ef225e');
-define('FACEBOOK_REDIRECT_URI', 'http://localhost/INCLUDES/oauth.php?provider=facebook');
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_USER', 'ma1thae1.pro@gmail.com');
+define('SMTP_PASS', 'mkxk azka obxj sgzy');
+define('SMTP_PORT', 587);
 
 // Empêche l'accès direct au fichier
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
