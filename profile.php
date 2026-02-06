@@ -3,7 +3,7 @@ include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: auth.php');
+    header('Location: login.php');
     exit;
 }
 
