@@ -47,6 +47,7 @@ body {
     flex-shrink: 0;
     box-shadow: var(--shadow-lg);
     position: relative;
+    z-index: 999;
 }
 
 .map-header::before {
@@ -132,7 +133,7 @@ body {
     border-radius: 12px;
     max-height: 350px;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 100;
     display: none;
     box-shadow: var(--shadow-xl);
 }
