@@ -161,3 +161,22 @@ main {
     transform-origin: left;
 }
 
+.auth-form .captcha {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Ajustement de la taille pour correspondre au formulaire */
+.auth-form .g-recaptcha {
+    transform: scale(0.92); /* réduire légèrement pour le design */
+    transform-origin: 0 0;
+}
+
+/* Optionnel : aligner le texte d'erreur sous le captcha */
+.auth-form .captcha-error {
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    text-align: center;
+}

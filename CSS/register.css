@@ -164,3 +164,47 @@ main {
     transform: scaleX(1);
     transform-origin: left;
 }
+
+.oauth-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.oauth-container p {
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.btn-oauth {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-oauth img {
+    height: 20px;
+    margin-right: 8px;
+}
+
+.btn-oauth.google {
+    background: #4285F4;
+}
+.btn-oauth.google:hover { background: #357ae8; }
+
+.btn-oauth.microsoft {
+    background: #0078D4;
+}
+.btn-oauth.microsoft:hover { background: #005a9e; }
+
+.btn-oauth.facebook {
+    background: #1877F2;
+}
+.btn-oauth.facebook:hover { background: #0f5bb5; }
