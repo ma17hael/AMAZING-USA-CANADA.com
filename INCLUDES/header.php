@@ -33,9 +33,9 @@ if (!empty($_SESSION['user_picture'])) {
     </nav>
     <!-- Section des actions utilisateurs (Panier/Compte/Langue) -->
     <div class="header-actions">
-      <button class="icon-btn">
+      <a href="cart.php" class="icon-btn">
         <img src="INCLUDES/ICONS/cart.svg" alt=<?= $translations['header-cart'] ?>>
-      </button>
+      </a>
       <a href="<?= $accountLink ?>" class="icon-btn profile-btn">
         <img src="<?= $avatarSrc ?>" alt="<?= $translations['header-account'] ?>" class="profile-avatar-header">
       </a>
