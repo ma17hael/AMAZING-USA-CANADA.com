@@ -97,9 +97,9 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <p><strong><?=$translations['home-mapshowcase-card-localisation']?></strong><?=htmlspecialchars($map["LibelleLocalisation$langBDD"])?>
                                 <p><strong><?=$translations['home-mapshowcase-card-price']?></strong><?= $formattedPrice ?></p>
                                 <div class="mapcard-actions">
-                                    <form action="cart.php" method="POST">
+                                    <form action="addcart.php" method="POST">
                                         <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map'])?>">
-                                        <button type="submit" class="btn-map"><?=$translations['home-mapshowcase-card-cart']?></button>
+                                        <button type="submit" name="addcart" class="btn-map"><?=$translations['home-mapshowcase-card-cart']?></button>
                                     </form>
                                     <a href="mapsdetails.php?id=<?=htmlspecialchars($map['ID_Map'])?>" class="btn-map">
                                         <?=$translations['home-mapshowcase-card-info']?>

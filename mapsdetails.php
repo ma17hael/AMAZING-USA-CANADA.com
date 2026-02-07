@@ -45,7 +45,7 @@ if (!$map) {
     <?php include_once("INCLUDES/header.php"); ?>
     <main>
         <div class="details-main-title">
-            <h1><?=$translations['mapsdetails-h1-main-title']?></h1>
+            <h1><?= $translations['mapsdetails-h1-main-title'] ?></h1>
         </div>
         <section class="maps-essentials">
             <div class="map-static">
@@ -68,24 +68,25 @@ if (!$map) {
                     <?php endforeach; ?>
                 </div>
                 <p>
-                    <strong><?=$translations['home-mapshowcase-card-localisation']?></strong>
+                    <strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong>
                     <?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?>
                 </p>
                 <p>
-                    <strong><?=$translations['home-mapshowcase-card-type']?></strong>
+                    <strong><?= $translations['home-mapshowcase-card-type'] ?></strong>
                     <?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?>
                 </p>
                 <p>
-                    <strong><?=$translations['home-mapshowcase-card-price']?></strong>
+                    <strong><?= $translations['home-mapshowcase-card-price'] ?></strong>
                     <?= htmlspecialchars($map['Prix']) ?> €
                 </p>
-                <a href="#" class="btn-map">
-                    <?=$translations['home-mapshowcase-card-cart']?>
-                </a>
+                <form action="addcart.php" method="POST">
+                    <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map']) ?>">
+                    <button type="submit" name="addcart" class="btn-map"><?= $translations['home-mapshowcase-card-cart'] ?></button>
+                </form>
             </div>
         </section>
         <div class="details-main-title">
-            <h1><?=$translations['mapsdetails-h1-complementary-title']?></h1>
+            <h1><?= $translations['mapsdetails-h1-complementary-title'] ?></h1>
         </div>
         <section class="maps-essentials">
             <div class="countrymap-static">
@@ -97,9 +98,9 @@ if (!$map) {
                 <img src=<?= $imageSrc ?> alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?> data-modal-image>
             </div>
             <div class="map-details">
-                <h2><?=$translations['mapsdetails-h2-complementary-smalltitle']?></h2>
+                <h2><?= $translations['mapsdetails-h2-complementary-smalltitle'] ?></h2>
                 <p>
-                    <?=$translations['mapsdetails-p-complementary']?>
+                    <?= $translations['mapsdetails-p-complementary'] ?>
                 </p>
             </div>
         </section>
