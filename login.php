@@ -83,9 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include_once("INCLUDES/header.php"); ?>
 
     <main>
-        <?php if ($error): ?>
-            <p class="error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
         <form method="POST" class="auth-form">
             <h2>Connexion</h2>
             <label>Email :</label>
@@ -96,6 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="g-recaptcha" data-sitekey="6LdJY2AsAAAAAOGijqAfwaAAp5SbA_VSeY6kAFB1"></div>
                 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             </div>
+            <?php if ($error): ?>
+                <p class="error"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
             <button type="submit">Se connecter</button>
             <p class="auth-switch">
                 Pas de compte ?
