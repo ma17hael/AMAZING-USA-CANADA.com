@@ -68,7 +68,7 @@ $prixTotal = $CartPrice['Prix_Total'] ?? 0;
                         <a href="mapsdetails.php?id=<?= $article['ID_Map'] ?>" class="btn voir">
                             Voir
                         </a>
-                        <a href="panier_supprimer.php?id=<?= $article['ID_Map'] ?>"
+                        <a href="deletecart.php?id=<?=$article['ID_Map']?>"
                             class="btn supprimer"
                             onclick="return confirm('Supprimer cet article du panier ?');">
                             Supprimer
