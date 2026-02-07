@@ -1,0 +1,306 @@
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary-color: #f59e0b;
+    --dark-bg: #0f172a;
+    --light-bg: #f8fafc;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   PANIER - DESIGN MODERNE (COHÉRENT MAPS)
+   ======================================== */
+   
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container principal */
+.panier-container {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 40px;
+    flex: 1;
+}
+
+/* =======================
+   LISTE DES ARTICLES
+   ======================= */
+
+.panier-liste h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Panier vide */
+.panier-vide {
+    padding: 30px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+/* =======================
+   CARTE PANIER (FULL WIDTH)
+   ======================= */
+
+.panier-carte {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 24px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Accent haut */
+.panier-carte::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.panier-carte:hover::before {
+    transform: scaleX(1);
+}
+
+.panier-carte:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+/* Image */
+.panier-carte img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 14px;
+    transition: var(--transition);
+}
+
+.panier-carte:hover img {
+    transform: scale(1.05);
+}
+
+/* Infos */
+.panier-info h2 {
+    margin: 0 0 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.panier-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* =======================
+   ACTIONS
+   ======================= */
+
+.panier-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    min-width: 160px;
+}
+
+.btn {
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Voir */
+.btn.voir {
+    background: linear-gradient(
+        135deg,
+        var(--secondary-color),
+        #fb923c
+    );
+    color: #fff;
+}
+
+.btn.voir:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Supprimer */
+.btn.supprimer {
+    background: #ffffff;
+    color: #dc2626;
+    border: 2px solid #fecaca;
+}
+
+.btn.supprimer:hover {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+}
+
+/* =======================
+   RÉSUMÉ PANIER
+   ======================= */
+
+.panier-resume {
+    position: sticky;
+    top: 120px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    height: fit-content;
+}
+
+.panier-resume h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+/* Commander */
+.btn.commander {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 14px;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--primary-dark)
+    );
+    color: #ffffff;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn.commander:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Annuler le panier */
+.btn.annuler-panier {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #dc2626;
+    border: 2px solid #fecaca;
+    font-weight: 600;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.btn.annuler-panier:hover {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+    box-shadow: var(--shadow-md);
+}
+
+.panier-message {
+    background-color: #fef3c7; /* jaune clair */
+    border: 1px solid #f59e0b; /* orange */
+    color: #92400e;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* =======================
+   RESPONSIVE
+   ======================= */
+
+@media (max-width: 1024px) {
+    .panier-container {
+        grid-template-columns: 1fr;
+    }
+
+    .panier-resume {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .panier-carte {
+        grid-template-columns: 1fr;
+    }
+
+    .panier-actions {
+        flex-direction: row;
+    }
+
+    .panier-actions .btn {
+        flex: 1;
+    }
+}
