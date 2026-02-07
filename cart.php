@@ -84,7 +84,7 @@ $prixTotal = $CartPrice['Prix_Total'] ?? 0;
                 <strong><?= number_format($prixTotal, 2, ',', ' ') ?> €</strong>
             </p>
             <?php if (!empty($CartMap)): ?>
-                <a href="commande.php" class="btn commander">
+                <a href="purchasing.php" class="btn commander">
                     Passer la commande
                 </a>
                 <a href="stopcart.php"
