@@ -29,7 +29,7 @@ $stmt = $pdo->prepare("
     INNER JOIN StatesMap M ON M.ID_Map = LC.IDMap
     INNER JOIN MapTypes MT ON MT.Id_TypeMap = M.Map_Type
     INNER JOIN Localisation L ON L.ID_Localisation = M.Approx_Localisation
-    WHERE C.ID_Users = :id;
+    WHERE C.ID_Users = :id AND C.CommandeStatus = 2;
 ");
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $MapBought = $stmt->fetchAll(PDO::FETCH_ASSOC);
