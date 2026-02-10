@@ -1,6 +1,7 @@
 <?php
 include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
+require_once 'INCLUDES/currency.php';
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     http_response_code(404);
@@ -17,11 +18,65 @@ $stmt = $pdo->prepare('SELECT S.*, L.LibelleLocalisationFR, L.LibelleLocalisatio
 $stmt->execute(['id' => $id]);
 $map = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stmt = $pdo->prepare('SELECT Flag
+$flags = [];
+$showFlags = false;
+
+if ((int) $map['Map_Type'] == 3) {
+    $stmt = $pdo->prepare('
+        SELECT SF.Flag
+        FROM PacksMap PM
+        INNER JOIN StateFlag SF ON SF.Id_Map = PM.IDMap
+        WHERE IDPackMap = :id');
+    $stmt->execute(['id' => $id]);
+    $flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!empty($flags)) {
+        $showFlags = true;
+    } else {
+        $stmt = $pdo->prepare('SELECT Flag
                        FROM StateFlag
                        WHERE Id_Map = :id');
-$stmt->execute(['id' => $id]);
-$flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute(['id' => $id]);
+        $flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($flags)) {
+            $showFlags = true;
+        }
+    }
+} else {
+    $stmt = $pdo->prepare('SELECT Flag
+                       FROM StateFlag
+                       WHERE Id_Map = :id');
+    $stmt->execute(['id' => $id]);
+    $flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!empty($flags)) {
+        $showFlags = true;
+    }
+}
+
+$packMaps = [];
+
+if ((int)$map['Map_Type'] === 3) {
+    $stmt = $pdo->prepare('
+        SELECT 
+            S.ID_Map,
+            S.StateMap,
+            S.Map_NameFR,
+            S.Map_NameEN,
+            M.Libelle_TypeFR,
+            M.Libelle_TypeEN,
+            L.LibelleLocalisationFR,
+            L.LibelleLocalisationEN,
+            S.Prix
+        FROM PacksMap PM
+        INNER JOIN StatesMap S ON S.ID_Map = PM.IDMap
+        INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
+        INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+        WHERE PM.IDPackMap = :id
+    ');
+    $stmt->execute(['id' => $id]);
+    $packMaps = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 if (!$map) {
     http_response_code(404);
@@ -58,15 +113,17 @@ if (!$map) {
             </div>
             <div class="map-details">
                 <h2><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></h2>
-                <div class="map-flags">
-                    <?php foreach ($flags as $flag): ?>
-                        <?php
-                        $flagBase64 = base64_encode($flag['Flag']);
-                        $flagSrc = 'data:image/png;base64,' . $flagBase64;
-                        ?>
-                        <img src="<?= $flagSrc ?>" alt="Drapeau" class="flag-img">
-                    <?php endforeach; ?>
-                </div>
+                <?php if ($showFlags): ?>
+                    <div class="map-flags">
+                        <?php foreach ($flags as $flag): ?>
+                            <?php
+                            $flagBase64 = base64_encode($flag['Flag']);
+                            $flagSrc = 'data:image/png;base64,' . $flagBase64;
+                            ?>
+                            <img src="<?= $flagSrc ?>" alt="Drapeau" class="flag-img">
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
                 <p>
                     <strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong>
                     <?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?>
@@ -85,6 +142,64 @@ if (!$map) {
                 </form>
             </div>
         </section>
+        <?php if ((int) $map['Map_Type'] == 3): ?>
+            <div class="details-main-title">
+                <h1>Les cartes dans ce pack</h1>
+            </div>
+            <?php if (!empty($packMaps)): ?>
+                <section class="mapShowcase">
+                    <div class="carrousel-container">
+                        <button class="prev">&#10094;</button>
+
+                        <div class="carrousel-track">
+                            <?php foreach ($packMaps as $packMap): ?>
+                                <?php
+                                $imageBase64 = base64_encode($packMap['StateMap']);
+                                $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
+
+                                $priceEuro = (float) $packMap['Prix'];
+                                $currency  = $translations['currency-code'];
+                                $locale    = $translations['currency_locale'];
+
+                                $convertedPrice = Currency::convert($priceEuro, $currency);
+                                $formattedPrice = Currency::format($convertedPrice, $currency, $locale);
+                                ?>
+                                <div class="mapcard">
+                                    <img src="<?= $imageSrc ?>"
+                                        alt="<?= htmlspecialchars($packMap["Map_Name$langBDD"]) ?>"
+                                        data-modal-image>
+
+                                    <h3><?= htmlspecialchars($packMap["Map_Name$langBDD"]) ?></h3>
+
+                                    <p>
+                                        <strong><?= $translations['home-mapshowcase-card-type'] ?></strong>
+                                        <?= htmlspecialchars($packMap["Libelle_Type$langBDD"]) ?>
+                                    </p>
+
+                                    <p>
+                                        <strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong>
+                                        <?= htmlspecialchars($packMap["LibelleLocalisation$langBDD"]) ?>
+                                    </p>
+
+                                    <p>
+                                        <strong><?= $translations['home-mapshowcase-card-price'] ?></strong>
+                                        <?= $formattedPrice ?>
+                                    </p>
+
+                                    <div class="mapcard-actions">
+                                        <a href="mapsdetails.php?id=<?= (int)$packMap['ID_Map'] ?>" class="btn-map">
+                                            <?= $translations['home-mapshowcase-card-info'] ?>
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <button class="next">&#10095;</button>
+                    </div>
+                </section>
+            <?php endif; ?>
+        <?php endif; ?>
         <div class="details-main-title">
             <h1><?= $translations['mapsdetails-h1-complementary-title'] ?></h1>
         </div>
@@ -112,5 +227,6 @@ if (!$map) {
     <?php include_once('INCLUDES/footer.php'); ?>
 </body>
 <script src="JAVASCRIPT/imageModal.js"></script>
+<script src="JAVASCRIPT/map-carrousel.js"></script>
 
 </html>
