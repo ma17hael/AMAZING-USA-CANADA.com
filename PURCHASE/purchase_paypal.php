@@ -3,7 +3,7 @@ include_once("../INCLUDES/init.php");
 require_once '../INCLUDES/config.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_POST['commande_id'])) {
-    header('Location: panier.php');
+    header('Location: ../cart.php');
     exit;
 }
 
@@ -16,7 +16,14 @@ $stmt->execute([$commandeId, $userId]);
 $commande = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$commande) {
-    header('Location: panier.php');
+    header('Location: ../cart.php');
+    exit;
+}
+
+$paypalClientId = getenv('PAYPAL_CLIENT_ID');
+if (!$paypalClientId) {
+    $_SESSION['message_panier'] = "Configuration PayPal manquante.";
+    header('Location: ../purchasing.php');
     exit;
 }
 ?>
@@ -27,7 +34,7 @@ if (!$commande) {
 <head>
     <meta charset="UTF-8">
     <title>Paiement PayPal</title>
-    <script src="https://www.paypal.com/sdk/js?client-id=AX46ywKwyWufWJOwRWNy9zQg3kwgawuJdHKL6Jnxjr7ncSY-8NJvWXpcQI0Wee6LOQPL95r3j4WtAuaJ&currency=EUR"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=<?= urlencode($paypalClientId) ?>&currency=EUR"></script>
 </head>
 
 <body>
@@ -47,7 +54,7 @@ if (!$commande) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    window.location.href = 'success_paypal.php?orderID=' + data.orderID + '&commande_id=<?= $commandeId ?>';
+                    window.location.href = 'SUCESSS/sucess_paypal.php?orderID=' + data.orderID + '&commande_id=<?= $commandeId ?>';
                 });
             }
         }).render('#paypal-button-container');
