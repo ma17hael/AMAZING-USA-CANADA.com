@@ -494,3 +494,96 @@ html, body {
         font-size: 1.75rem;
     }
 }
+
+/* ========================================
+   THÈME SOMBRE SOBRE (US / CANADA)
+   ======================================== */
+:root {
+    --primary-color: #b22234;
+    --primary-dark: #8b1a2a;
+    --secondary-color: #003f7f;
+    --dark-bg: #0b1220;
+    --light-bg: #0f172a;
+    --text-primary: #e5e7eb;
+    --text-secondary: #94a3b8;
+    --border-color: #24324a;
+    --surface-1: #111827;
+    --surface-2: #1b263b;
+}
+
+html, body {
+    background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+    color: var(--text-primary);
+}
+
+.details-main-title {
+    background: linear-gradient(120deg, #08101e 0%, #003f7f 52%, #b22234 100%);
+}
+
+.maps-essentials,
+.mapShowcase {
+    background: transparent;
+}
+
+.map-static,
+.countrymap-static,
+.mapcard {
+    background: linear-gradient(170deg, var(--surface-1), var(--surface-2));
+    border: 1px solid var(--border-color);
+    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.35);
+}
+
+.map-static::before,
+.countrymap-static::before,
+.mapcard::before {
+    background: linear-gradient(90deg, #003f7f, #b22234);
+}
+
+.map-details h2,
+.mapShowcase h2 {
+    background: linear-gradient(120deg, #dbeafe, #93c5fd 48%, #fecaca 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.map-details p,
+.mapcard p {
+    color: var(--text-secondary);
+}
+
+.map-details strong,
+.mapcard h3,
+.mapcard p strong {
+    color: #f8fafc;
+}
+
+.map-flags {
+    background: rgba(30, 58, 138, 0.14);
+    border: 1px solid rgba(147, 197, 253, 0.2);
+}
+
+.map-details .btn-map,
+.btn-map {
+    background: linear-gradient(120deg, #003f7f, #1e3a8a 45%, #b22234 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #f8fafc;
+}
+
+.map-details .btn-map:hover,
+.btn-map:hover {
+    background: linear-gradient(120deg, #0b4b91, #1d4ed8 45%, #c52b3e 100%);
+}
+
+.prev,
+.next {
+    background: rgba(15, 23, 42, 0.9);
+    color: #cbd5e1;
+    border-color: #334155;
+}
+
+.prev:hover,
+.next:hover {
+    background: #1e293b;
+    color: #fff;
+}
