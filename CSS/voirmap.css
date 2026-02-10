@@ -275,6 +275,7 @@ body {
     border-radius: 12px !important;
     box-shadow: var(--shadow-lg) !important;
     padding: 10px !important;
+    z-index: 998;
 }
 
 .leaflet-control-layers-selector {

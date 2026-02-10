@@ -43,7 +43,6 @@ if (!$hasPurchased) {
 $stmt = $pdo->prepare("
     SELECT Data FROM statesmap_data 
     WHERE ID_Map = :id_map AND Active = 1
-    ORDER BY Version DESC, Date_Import DESC
     LIMIT 1
 ");
 $stmt->execute([':id_map' => $mapId]);
