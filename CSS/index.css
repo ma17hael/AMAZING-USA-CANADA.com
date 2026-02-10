@@ -283,7 +283,7 @@ html, body {
 
 .carrousel-container {
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     width: 90%;
     max-width: 1400px;
     margin: auto;
@@ -387,8 +387,8 @@ html, body {
     border-color: var(--primary-color);
 }
 
-.prev { left: -30px; }
-.next { right: -30px; }
+.prev { left: 10px; }
+.next { right: 10px; }
 
 /* Boutons d'action */
 .mapcard-actions {
