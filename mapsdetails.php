@@ -18,6 +18,11 @@ $stmt = $pdo->prepare('SELECT S.*, L.LibelleLocalisationFR, L.LibelleLocalisatio
 $stmt->execute(['id' => $id]);
 $map = $stmt->fetch(PDO::FETCH_ASSOC);
 
+if (!$map) {
+    http_response_code(404);
+    exit('Carte inexistante');
+}
+
 $flags = [];
 $showFlags = false;
 
@@ -78,10 +83,6 @@ if ((int)$map['Map_Type'] === 3) {
     $packMaps = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-if (!$map) {
-    http_response_code(404);
-    exit('Carte inexistante');
-}
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
@@ -109,7 +110,7 @@ if (!$map) {
                 $imageBase64 = base64_encode($map['StateMap']);
                 $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
                 ?>
-                <img src=<?= $imageSrc ?> alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?> data-modal-image>
+                <img src="<?= $imageSrc ?>" alt="<?= htmlspecialchars($map["Map_Name$langBDD"]) ?>" data-modal-image>
             </div>
             <div class="map-details">
                 <h2><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></h2>
@@ -210,7 +211,7 @@ if (!$map) {
                 $imageBase64 = base64_encode($map['Country_Map']);
                 $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
                 ?>
-                <img src=<?= $imageSrc ?> alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?> data-modal-image>
+                <img src="<?= $imageSrc ?>" alt="<?= htmlspecialchars($map["Map_Name$langBDD"]) ?>" data-modal-image>
             </div>
             <div class="map-details">
                 <h2><?= $translations['mapsdetails-h2-complementary-smalltitle'] ?></h2>
@@ -227,6 +228,8 @@ if (!$map) {
     <?php include_once('INCLUDES/footer.php'); ?>
 </body>
 <script src="JAVASCRIPT/imageModal.js"></script>
-<script src="JAVASCRIPT/map-carrousel.js"></script>
+<?php if ((int) $map['Map_Type'] === 3 && !empty($packMaps)): ?>
+    <script src="JAVASCRIPT/map-carrousel.js"></script>
+<?php endif; ?>
 
 </html>

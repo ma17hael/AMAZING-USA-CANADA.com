@@ -27,11 +27,11 @@ $CartPrice = $stmt->fetch(PDO::FETCH_ASSOC);
 $prixTotal = $CartPrice['Prix_Total'] ?? 0;
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 
 <head>
     <meta charset="UTF-8">
-    <title>Panier</title>
+    <title><?= $translations['header-cart'] ?></title>
     <!-- Liens CSS -->
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/cart.css">
@@ -44,7 +44,7 @@ $prixTotal = $CartPrice['Prix_Total'] ?? 0;
     <?php include_once("INCLUDES/header.php"); ?>
     <div class="panier-container">
         <section class="panier-liste">
-            <h1>Votre panier</h1>
+            <h1><?= $translations['cart-title'] ?></h1>
             <?php if (isset($_SESSION['message_panier'])): ?>
                 <div class="panier-message">
                     <?= htmlspecialchars($_SESSION['message_panier']) ?>
@@ -52,7 +52,7 @@ $prixTotal = $CartPrice['Prix_Total'] ?? 0;
                 <?php unset($_SESSION['message_panier']); ?>
             <?php endif; ?>
             <?php if (empty($CartMap)): ?>
-                <p class="panier-vide">Votre panier est actuellement vide.</p>
+                <p class="panier-vide"><?= $translations['cart-empty'] ?></p>
             <?php endif; ?>
             <?php foreach ($CartMap as $article):
                 $imageBase64 = base64_encode($article['StateMap']);
@@ -66,31 +66,31 @@ $prixTotal = $CartPrice['Prix_Total'] ?? 0;
                     </div>
                     <div class="panier-actions">
                         <a href="mapsdetails.php?id=<?= $article['ID_Map'] ?>" class="btn voir">
-                            Voir
+                            <?= $translations['cart-see'] ?>
                         </a>
                         <a href="deletecart.php?id=<?=$article['ID_Map']?>"
                             class="btn supprimer"
-                            onclick="return confirm('Supprimer cet article du panier ?');">
-                            Supprimer
+                            onclick="return confirm('<?= htmlspecialchars($translations['cart-delete-confirm'], ENT_QUOTES) ?>');">
+                            <?= $translations['cart-delete'] ?>
                         </a>
                     </div>
                 </article>
             <?php endforeach; ?>
         </section>
         <aside class="panier-resume">
-            <h2>Résumé</h2>
+            <h2><?= $translations['cart-summary'] ?></h2>
             <p class="total">
-                Total :
+                <?= $translations['cart-total'] ?>
                 <strong><?= number_format($prixTotal, 2, ',', ' ') ?> €</strong>
             </p>
             <?php if (!empty($CartMap)): ?>
                 <a href="purchasing.php" class="btn commander">
-                    Passer la commande
+                    <?= $translations['cart-checkout'] ?>
                 </a>
                 <a href="stopcart.php"
                     class="btn annuler-panier"
-                    onclick="return confirm('Voulez-vous vraiment annuler votre panier ? Cette action est irréversible.');">
-                    Annuler le panier
+                    onclick="return confirm('<?= htmlspecialchars($translations['cart-cancel-confirm'], ENT_QUOTES) ?>');">
+                    <?= $translations['cart-cancel'] ?>
                 </a>
             <?php endif; ?>
         </aside>

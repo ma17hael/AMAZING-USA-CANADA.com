@@ -3,7 +3,7 @@ include_once("../../INCLUDES/init.php");
 require_once '../../INCLUDES/config.php';
 
 if (!isset($_GET['orderID']) || !isset($_GET['commande_id'])) {
-    header('Location: panier.php');
+    header('Location: ../../cart.php');
     exit;
 }
 
@@ -16,12 +16,12 @@ $stmt->execute([$commandeId]);
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 <head>
 <meta charset="UTF-8">
-<title>Paiement réussi - PayPal</title>
-<link rel="stylesheet" href="CSS/header.css">
-<link rel="stylesheet" href="CSS/footer.css">
+<title><?= $translations['payment-paypal-success-title'] ?></title>
+<link rel="stylesheet" href="../../CSS/header.css">
+<link rel="stylesheet" href="../../CSS/footer.css">
 <style>
 body { font-family: 'Segoe UI', sans-serif; background:#f8fafc; margin:0; padding:0;}
 .container { max-width:600px; margin:80px auto; padding:30px; background:#fff; border-radius:20px; box-shadow:0 4px 6px rgba(0,0,0,0.1); text-align:center;}
@@ -32,12 +32,12 @@ a.btn:hover { background:#e0a800; }
 </style>
 </head>
 <body>
-<?php include_once("INCLUDES/header.php"); ?>
+<?php include_once("../../INCLUDES/header.php"); ?>
 <div class="container">
-    <h1>Paiement réussi !</h1>
-    <p>Merci pour votre achat. Votre commande #<?= htmlspecialchars($commandeId) ?> a été confirmée via PayPal.</p>
-    <a href="../../index.php" class="btn">Retour à l'accueil</a>
+    <h1><?= $translations['payment-success-heading'] ?></h1>
+    <p><?= sprintf($translations['payment-success-paypal-message'], htmlspecialchars($commandeId)) ?></p>
+    <a href="../../index.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
 </div>
-<?php include_once("INCLUDES/footer.php"); ?>
+<?php include_once("../../INCLUDES/footer.php"); ?>
 </body>
 </html>
