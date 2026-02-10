@@ -4,19 +4,29 @@ include_once("../../INCLUDES/init.php");
 require_once '../../INCLUDES/config.php';
 
 if (!isset($_GET['session_id'])) {
-    header('Location: panier.php');
+    header('Location: ../../cart.php');
     exit;
 }
 
-\Stripe\Stripe::setApiKey('sk_test_51SyHnnC1EhL6zEwDHnEJ6gePSSmhT4IeFmmYQf23zEfdgs21RQX2CZ3U1ypjXzftpOWyppJy0kNcYpT3y7wbxK3Z00KPmfM13H');
+$stripeSecretKey = getenv('STRIPE_SECRET_KEY');
+if (!$stripeSecretKey) {
+    $_SESSION['message_panier'] = "Configuration Stripe manquante.";
+    header('Location: ../../purchasing.php');
+    exit;
+}
+
+\Stripe\Stripe::setApiKey($stripeSecretKey);
 $session_id = $_GET['session_id'];
 
 try {
     $session = \Stripe\Checkout\Session::retrieve($session_id);
 
     if ($session->payment_status === 'paid') {
-        // Récupérer la commande depuis le nom produit (ou ajouter custom metadata)
-        $commandeId = str_replace('Commande #', '', $session->display_items[0]->custom->name ?? $session->metadata->commande_id ?? '');
+        $commandeId = isset($session->metadata->commande_id) ? (int) $session->metadata->commande_id : 0;
+
+        if ($commandeId <= 0) {
+            throw new Exception('Commande introuvable dans les métadonnées Stripe.');
+        }
 
         $stmt = $pdo->prepare("UPDATE commandes SET CommandeStatus = 2 WHERE ID_Commande = ? AND CommandeStatus = 1");
         $stmt->execute([$commandeId]);
@@ -26,7 +36,7 @@ try {
 
 } catch (Exception $e) {
     $_SESSION['message_panier'] = "Erreur lors du paiement : " . $e->getMessage();
-    header('Location: panier.php');
+    header('Location: ../../cart.php');
     exit;
 }
 ?>
@@ -36,8 +46,8 @@ try {
 <head>
 <meta charset="UTF-8">
 <title>Paiement réussi - Stripe</title>
-<link rel="stylesheet" href="CSS/header.css">
-<link rel="stylesheet" href="CSS/footer.css">
+<link rel="stylesheet" href="../../CSS/header.css">
+<link rel="stylesheet" href="../../CSS/footer.css">
 <style>
 body { font-family: 'Segoe UI', sans-serif; background:#f8fafc; margin:0; padding:0;}
 .container { max-width:600px; margin:80px auto; padding:30px; background:#fff; border-radius:20px; box-shadow:0 4px 6px rgba(0,0,0,0.1); text-align:center;}
@@ -48,12 +58,12 @@ a.btn:hover { background:linear-gradient(135deg,#1e40af,#2563eb); }
 </style>
 </head>
 <body>
-<?php include_once("INCLUDES/header.php"); ?>
+<?php include_once("../../INCLUDES/header.php"); ?>
 <div class="container">
     <h1>Paiement réussi !</h1>
     <p>Merci pour votre achat. Votre commande #<?= htmlspecialchars($commandeId) ?> a été confirmée.</p>
     <a href="../../index.php" class="btn">Retour à l'accueil</a>
 </div>
-<?php include_once("INCLUDES/footer.php"); ?>
+<?php include_once("../../INCLUDES/footer.php"); ?>
 </body>
 </html>

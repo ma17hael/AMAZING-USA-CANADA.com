@@ -210,13 +210,6 @@ html, body {
     box-shadow: var(--shadow-xl);
 }
 
-.mapcard-actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 12px;
-    justify-content: flex-start;
-}
-
 /* Modal */
 .modal {
     display: none;
