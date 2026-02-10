@@ -20,8 +20,8 @@ $stmt->execute([$userId]);
 $commande = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$commande) {
-    $_SESSION['message_panier'] = "Votre panier est vide.";
-    header('Location: panier.php');
+    $_SESSION['message_panier'] = $translations['purchasing-empty-message'];
+    header('Location: cart.php');
     exit;
 }
 
@@ -37,10 +37,10 @@ $stmt->execute([$commande['ID_Commande']]);
 $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 <head>
     <meta charset="UTF-8">
-    <title>Paiement</title>
+    <title><?= $translations['purchasing-title'] ?></title>
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/mapslist.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -65,7 +65,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="paiement-container">
     <section class="paiement-liste">
-        <h1>Votre panier</h1>
+        <h1><?= $translations['purchasing-cart-title'] ?></h1>
         <?php foreach($articles as $article): 
             $imageBase64 = base64_encode($article['StateMap']);
             $imageSrc = 'data:image/jpeg;base64,' . $imageBase64; ?>
@@ -79,19 +79,19 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <aside class="paiement-resume">
-        <h2>Résumé de la commande</h2>
+        <h2><?= $translations['purchasing-summary-title'] ?></h2>
         <p>Total : <strong><?= number_format($commande['Prix_Total'], 2, ',', ' ') ?> €</strong></p>
 
         <!-- Stripe -->
         <form action="PURCHASE/purchase_stripe.php" method="post">
             <input type="hidden" name="commande_id" value="<?= $commande['ID_Commande'] ?>">
-            <button type="submit" class="btn-map stripe">Payer par Carte</button>
+            <button type="submit" class="btn-map stripe"><?= $translations['purchasing-pay-card'] ?></button>
         </form>
 
         <!-- PayPal -->
         <form action="PURCHASE/purchase_paypal.php" method="post">
             <input type="hidden" name="commande_id" value="<?= $commande['ID_Commande'] ?>">
-            <button type="submit" class="btn-map paypal">Payer avec PayPal</button>
+            <button type="submit" class="btn-map paypal"><?= $translations['purchasing-pay-paypal'] ?></button>
         </form>
     </aside>
 </div>

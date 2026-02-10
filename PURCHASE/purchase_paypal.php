@@ -3,7 +3,7 @@ include_once("../INCLUDES/init.php");
 require_once '../INCLUDES/config.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_POST['commande_id'])) {
-    header('Location: panier.php');
+    header('Location: ../cart.php');
     exit;
 }
 
@@ -16,22 +16,29 @@ $stmt->execute([$commandeId, $userId]);
 $commande = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$commande) {
-    header('Location: panier.php');
+    header('Location: ../cart.php');
+    exit;
+}
+
+$paypalClientId = getenv('PAYPAL_CLIENT_ID');
+if (!$paypalClientId) {
+    $_SESSION['message_panier'] = $translations['payment-config-missing-paypal'];
+    header('Location: ../purchasing.php');
     exit;
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 
 <head>
     <meta charset="UTF-8">
-    <title>Paiement PayPal</title>
-    <script src="https://www.paypal.com/sdk/js?client-id=AX46ywKwyWufWJOwRWNy9zQg3kwgawuJdHKL6Jnxjr7ncSY-8NJvWXpcQI0Wee6LOQPL95r3j4WtAuaJ&currency=EUR"></script>
+    <title><?= $translations['payment-paypal-title'] ?></title>
+    <script src="https://www.paypal.com/sdk/js?client-id=<?= urlencode($paypalClientId) ?>&currency=EUR"></script>
 </head>
 
 <body>
-    <h1>Payer avec PayPal</h1>
+    <h1><?= $translations['payment-paypal-heading'] ?></h1>
     <div id="paypal-button-container"></div>
 
     <script>
@@ -47,7 +54,7 @@ if (!$commande) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    window.location.href = 'success_paypal.php?orderID=' + data.orderID + '&commande_id=<?= $commandeId ?>';
+                    window.location.href = 'SUCESSS/sucess_paypal.php?orderID=' + data.orderID + '&commande_id=<?= $commandeId ?>';
                 });
             }
         }).render('#paypal-button-container');
