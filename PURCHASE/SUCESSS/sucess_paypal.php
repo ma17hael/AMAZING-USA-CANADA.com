@@ -16,7 +16,7 @@ $stmt->execute([$commandeId]);
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 <head>
 <meta charset="UTF-8">
 <title>Paiement réussi - PayPal</title>
@@ -34,9 +34,9 @@ a.btn:hover { background:#e0a800; }
 <body>
 <?php include_once("../../INCLUDES/header.php"); ?>
 <div class="container">
-    <h1>Paiement réussi !</h1>
-    <p>Merci pour votre achat. Votre commande #<?= htmlspecialchars($commandeId) ?> a été confirmée via PayPal.</p>
-    <a href="../../index.php" class="btn">Retour à l'accueil</a>
+    <h1><?= $translations['payment-success-heading'] ?></h1>
+    <p><?= sprintf($translations['payment-success-paypal-message'], htmlspecialchars($commandeId)) ?></p>
+    <a href="../../index.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
 </div>
 <?php include_once("../../INCLUDES/footer.php"); ?>
 </body>

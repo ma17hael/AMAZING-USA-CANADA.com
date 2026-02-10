@@ -4,68 +4,75 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
     http_response_code(403);
     exit("Accès interdit");
 }
+
 return [
-    //Tous ce qui concerne le header
+    // Header
     'header-USLogo' => 'Face USA',
     'header-CALogo' => 'Face CANADA',
     'header-home' => 'Accueil',
     'header-maplist' => 'Liste des Cartes',
     'header-cart' => 'Panier',
     'header-account' => 'Compte',
-    'header-currentLang' => 'Langue Actuelle',
+    'header-currentLang' => 'Langue actuelle',
     'header-FRLang' => 'Français',
     'header-USLang' => 'Anglais (US)',
     'header-USLg' => 'Américain',
     'header-CALang' => 'Anglais (CA)',
     'header-CALg' => 'Canadien',
-    //Tous ce qui concerne l'index
+
+    // Home
     'home-hero-title' => 'Bienvenue sur AMAZING-USA-CANADA.com',
-    'home-hero-paragraph' => 'Découvrez nos cartes et leur lieux à découvrir !',
+    'home-hero-paragraph' => 'Découvrez nos cartes et leurs lieux à découvrir !',
     'home-presentation-title' => 'Ce que nous vous proposons :',
-    'home-presentation-paragraph' => "AMAZING-USA-CANADA vous offre une sélection de cartes MyMaps des états des Etats-Unis et des cartes du Canada personnalisées.<br>
-                                        Que vous soyez un explorateur urbain, un passionné de paysage, un professionnel du voyage ou même un simple résident de l'endroit,
-                                        nos cartes sont conçues pour vous guider, et vous accompagner et vous informer sur les lieux peu connus de ces cartes.",
+    'home-presentation-paragraph' => "AMAZING-USA-CANADA vous offre une sélection de cartes MyMaps des États-Unis et des cartes du Canada personnalisées.<br>
+                                        Que vous soyez un explorateur urbain, un passionné de paysage, un professionnel du voyage ou un simple résident,
+                                        nos cartes sont conçues pour vous guider et vous informer sur des lieux peu connus.",
     'home-presentation-mapcard' => 'Carte',
     'home-presentation-mapcard-title' => 'Cartes entièrement personnalisées par nos soins',
-    'home-presentation-mapcard-paragraph' => 'Explorer des lieux que peu ont vu, des lieux qui ne figurent pas sur les cartes classiques',
+    'home-presentation-mapcard-paragraph' => 'Explorez des lieux que peu ont vus, absents des cartes classiques',
     'home-presentation-commentscard' => 'Commentaire',
-    'home-presentation-commentscard-title' => 'Espace Commentaire pour chaque carte',
-    'home-presentation-commentscard-paragraph' => 'Exprimer vous sur nos cartes pour nous permettre de les améliorer avec le temps',
+    'home-presentation-commentscard-title' => 'Espace commentaire pour chaque carte',
+    'home-presentation-commentscard-paragraph' => 'Exprimez-vous sur nos cartes pour nous aider à les améliorer',
     'home-presentation-accesscard' => 'Accessibilité',
     'home-presentation-accesscard-title' => 'Accessibilité complète',
-    'home-presentation-accesscard-paragraph' => 'Nos cartes sont facilement accessible sur tout vos appareils, de manière sécurisé grâce à ce site',
+    'home-presentation-accesscard-paragraph' => 'Nos cartes sont accessibles sur tous vos appareils de manière sécurisée',
     'home-mapshowcase-title' => 'Quelques cartes de notre catalogue :',
     'home-mapshowcase-card-type' => 'Type de carte : ',
     'home-mapshowcase-card-localisation' => 'Localisation : ',
     'home-mapshowcase-card-price' => 'Prix : ',
+    'home-mapshowcase-card-cart' => 'Ajouter au panier',
+    'home-mapshowcase-card-info' => "Plus d'informations",
+
+    // Currency
     'currency-code' => 'EUR',
     'currency-symbol' => '€',
     'currency_locale' => 'fr_FR',
-    'home-mapshowcase-card-cart' => 'Ajouter au panier',
-    'home-mapshowcase-card-info' => "Plus d'informations",
-    //Tous ce qui concerne le footer
+
+    // Footer
     'footer-mandatory' => 'Documents obligatoires :',
-    'footer-legalnotice' => 'Mentions Légales',
+    'footer-legalnotice' => 'Mentions légales',
     'footer-CGU' => "Conditions Générales d'Utilisation",
     'footer-CGV' => "Conditions Générales de Vente",
     'footer-followUs' => 'Suivez-nous',
-    //Tous ce qui concerne les map-list
+
+    // Maps list
     'maplist-presentationtext-h2' => 'Nos cartes disponibles',
     'maplist-presentationtext-p' => 'Découvrez toutes nos cartes des États-Unis et du Canada. Filtrez par type, prix ou localisation pour trouver celle qui vous convient.',
     'maplist-alltypes' => 'Tous types',
     'maplist-alllocations' => 'Toutes localisations',
     'maplist-price' => 'Prix :',
-    //Tous ce qui concerne les mapsdetails
-    'mapsdetails-h1-main-title' => 'Données Essentiels de la Carte',
+
+    // Maps details
+    'mapsdetails-h1-main-title' => 'Données essentielles de la carte',
     'mapsdetails-h1-complementary-title' => 'Informations complémentaires',
-    'mapsdetails-h2-complementary-smalltitle' => 'Son Emplacement sur la carte du Pays :',
-    'mapsdetails-p-complementary' => 'Cette carte vous permet donc de vous situer sur la carte du pays et de le retrouver plus facilement.
-                                        Cela vous permettra ainsi de plus facilement faire vos trajets sans passer par les pack de cartes.',
-    //Tous ce qui concerne les profiles
+    'mapsdetails-h2-complementary-smalltitle' => 'Son emplacement sur la carte du pays :',
+    'mapsdetails-p-complementary' => 'Cette carte vous permet de vous situer sur la carte du pays et de retrouver plus facilement votre position. Elle facilitera également vos trajets.',
+
+    // Profile
     'profile-main-title' => 'Mon profil',
     'profile-action-title' => 'Modifier mon profil',
     'profile-mail-field' => 'Adresse e-mail :',
-    'profile-username-field' => `Nom d'utilisateur :`,
+    'profile-username-field' => "Nom d'utilisateur :",
     'profile-picture-field' => 'Photo de profil :',
     'profile-password-field' => 'Mot de passe :',
     'profile-passwordconfir-field' => 'Confirmer le mot de passe :',
@@ -73,6 +80,38 @@ return [
     'profile-discard-account' => 'Supprimer mon compte',
     'profile-purchased-maps' => 'Mes cartes achetées',
     'profile-nopurchased-maps' => 'Aucune carte achetée pour le moment.',
-    'profile-see-map' => 'Voir la carte'
-]
+    'profile-see-map' => 'Voir la carte',
+
+    // Cart
+    'cart-title' => 'Votre panier',
+    'cart-empty' => 'Votre panier est actuellement vide.',
+    'cart-see' => 'Voir',
+    'cart-delete' => 'Supprimer',
+    'cart-delete-confirm' => 'Supprimer cet article du panier ?',
+    'cart-summary' => 'Résumé',
+    'cart-total' => 'Total :',
+    'cart-checkout' => 'Passer la commande',
+    'cart-cancel' => 'Annuler le panier',
+    'cart-cancel-confirm' => 'Voulez-vous vraiment annuler votre panier ? Cette action est irréversible.',
+
+    // Purchasing / payment
+    'purchasing-title' => 'Paiement',
+    'purchasing-cart-title' => 'Votre panier',
+    'purchasing-summary-title' => 'Résumé de la commande',
+    'purchasing-pay-card' => 'Payer par carte',
+    'purchasing-pay-paypal' => 'Payer avec PayPal',
+    'purchasing-empty-message' => 'Votre panier est vide.',
+    'payment-paypal-title' => 'Paiement PayPal',
+    'payment-paypal-heading' => 'Payer avec PayPal',
+    'payment-config-missing-paypal' => 'Configuration PayPal manquante.',
+    'payment-config-missing-stripe' => 'Configuration Stripe manquante.',
+    'payment-not-confirmed' => 'Paiement non confirmé.',
+    'payment-order-not-found' => 'Commande introuvable dans les métadonnées Stripe.',
+    'payment-paypal-success-title' => 'Paiement réussi - PayPal',
+    'payment-stripe-success-title' => 'Paiement réussi - Stripe',
+    'payment-success-heading' => 'Paiement réussi !',
+    'payment-success-paypal-message' => 'Merci pour votre achat. Votre commande #%d a été confirmée via PayPal.',
+    'payment-success-stripe-message' => 'Merci pour votre achat. Votre commande #%d a été confirmée.',
+    'payment-success-back-home' => "Retour à l'accueil",
+];
 ?>

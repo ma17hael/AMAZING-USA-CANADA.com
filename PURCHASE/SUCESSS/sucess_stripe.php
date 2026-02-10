@@ -31,7 +31,7 @@ try {
         $stmt = $pdo->prepare("UPDATE commandes SET CommandeStatus = 2 WHERE ID_Commande = ? AND CommandeStatus = 1");
         $stmt->execute([$commandeId]);
     } else {
-        throw new Exception("Paiement non confirmé.");
+        throw new Exception($translations['payment-not-confirmed']);
     }
 
 } catch (Exception $e) {
@@ -42,7 +42,7 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 <head>
 <meta charset="UTF-8">
 <title>Paiement réussi - Stripe</title>
@@ -60,9 +60,9 @@ a.btn:hover { background:linear-gradient(135deg,#1e40af,#2563eb); }
 <body>
 <?php include_once("../../INCLUDES/header.php"); ?>
 <div class="container">
-    <h1>Paiement réussi !</h1>
-    <p>Merci pour votre achat. Votre commande #<?= htmlspecialchars($commandeId) ?> a été confirmée.</p>
-    <a href="../../index.php" class="btn">Retour à l'accueil</a>
+    <h1><?= $translations['payment-success-heading'] ?></h1>
+    <p><?= sprintf($translations['payment-success-stripe-message'], htmlspecialchars($commandeId)) ?></p>
+    <a href="../../index.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
 </div>
 <?php include_once("../../INCLUDES/footer.php"); ?>
 </body>

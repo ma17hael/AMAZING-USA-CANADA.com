@@ -29,7 +29,7 @@ if (!$paypalClientId) {
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@ if (!$paypalClientId) {
 </head>
 
 <body>
-    <h1>Payer avec PayPal</h1>
+    <h1><?= $translations['payment-paypal-heading'] ?></h1>
     <div id="paypal-button-container"></div>
 
     <script>
