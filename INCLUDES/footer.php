@@ -5,9 +5,9 @@
         <div class="footer-column">
             <h4><?=$translations['footer-mandatory']?></h4>
             <ul>
-                <li><a href="mentions-légales.php"><?=$translations['footer-legalnotice']?></a></li>
-                <li><a href="mentions-légales.php"><?=$translations['footer-CGU']?></a></li>
-                <li><a href="mentions-légales.php"><?=$translations['footer-CGV']?></a></li>
+                <li><a href="legalnotice.php"><?=$translations['footer-legalnotice']?></a></li>
+                <li><a href="CGU.php"><?=$translations['footer-CGU']?></a></li>
+                <li><a href="CGV.php"><?=$translations['footer-CGV']?></a></li>
             </ul>
         </div>
 
@@ -24,7 +24,11 @@
         <div class="footer-column">
             <h4><?=$translations['footer-followUs']?></h4>
             <ul class="social-links">
-                <li><a href="#" aria-label="Facebook">Facebook</a></li>
+                <li>
+                    <a href="https://www.facebook.com/groups/1278764037358320/" target="_blank" aria-label="Facebook">
+                        <img src="INCLUDES/ICONS/Facebook.svg" alt="Facebook" style="width:50px; height:50px;">
+                    </a>
+                </li>
             </ul>
         </div>
 
