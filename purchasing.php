@@ -83,13 +83,13 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p>Total : <strong><?= number_format($commande['Prix_Total'], 2, ',', ' ') ?> €</strong></p>
 
         <!-- Stripe -->
-        <form action="PURCHASE/purchase_stripe.php" method="post">
+        <form action="purchase_stripe.php" method="post">
             <input type="hidden" name="commande_id" value="<?= $commande['ID_Commande'] ?>">
             <button type="submit" class="btn-map stripe"><?= $translations['purchasing-pay-card'] ?></button>
         </form>
 
         <!-- PayPal -->
-        <form action="PURCHASE/purchase_paypal.php" method="post">
+        <form action="purchase_paypal.php" method="post">
             <input type="hidden" name="commande_id" value="<?= $commande['ID_Commande'] ?>">
             <button type="submit" class="btn-map paypal"><?= $translations['purchasing-pay-paypal'] ?></button>
         </form>
