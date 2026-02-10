@@ -103,7 +103,7 @@ body {
 .map-search-btn {
     padding: 14px 28px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: #fff;
+    color: #0f2847;
     border: none;
     border-radius: 12px;
     font-size: 1rem;

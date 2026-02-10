@@ -151,7 +151,7 @@ html, body {
 .btn-save {
     padding: 14px 28px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: #fff;
+    color: #0f2847;
     border: none;
     border-radius: 12px;
     text-decoration: none;
@@ -285,7 +285,7 @@ html, body {
 .btn-map {
     padding: 12px 24px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: #fff;
+    color: #0f2847;
     border: none;
     border-radius: 10px;
     text-decoration: none;
@@ -317,7 +317,7 @@ html, body {
 .btn-primary {
     padding: 14px 28px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: #fff;
+    color: #0f2847;
     border: none;
     border-radius: 12px;
     font-weight: 700;
@@ -336,7 +336,7 @@ html, body {
 .btn-danger {
     padding: 14px 28px;
     background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
-    color: #fff;
+    color: #0f2847;
     border: none;
     border-radius: 12px;
     font-weight: 700;
