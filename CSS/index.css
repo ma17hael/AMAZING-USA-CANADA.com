@@ -650,12 +650,3 @@ html, body {
     background: #1e293b;
     color: #fff;
 }
-
-/* Icônes SVG des cartes de présentation visibles en thème sombre */
-.presentation .card img[src$=".svg"] {
-    filter: brightness(0) invert(0.92) drop-shadow(0 2px 4px rgba(2, 6, 23, 0.45));
-}
-
-.presentation .card:hover img[src$=".svg"] {
-    filter: brightness(0) invert(1) drop-shadow(0 4px 8px rgba(2, 6, 23, 0.55));
-}

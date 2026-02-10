@@ -457,12 +457,3 @@ button:hover,
 .submit-btn:hover {
     background: linear-gradient(120deg, #0b4b91, #1d4ed8 45%, #c52b3e 100%);
 }
-
-/* Contraste des icônes SVG sur thème sombre */
-.icon-btn img:not(.profile-avatar-header) {
-    filter: brightness(0) invert(0.92) drop-shadow(0 1px 3px rgba(2, 6, 23, 0.6));
-}
-
-.icon-btn:hover img:not(.profile-avatar-header) {
-    filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(2, 6, 23, 0.7));
-}

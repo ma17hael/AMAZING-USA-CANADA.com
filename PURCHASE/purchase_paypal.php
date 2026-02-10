@@ -22,7 +22,7 @@ if (!$commande) {
 
 $paypalClientId = getenv('PAYPAL_CLIENT_ID');
 if (!$paypalClientId) {
-    $_SESSION['message_panier'] = $translations['payment-config-missing-paypal'];
+    $_SESSION['message_panier'] = "Configuration PayPal manquante.";
     header('Location: ../purchasing.php');
     exit;
 }
@@ -33,7 +33,7 @@ if (!$paypalClientId) {
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $translations['payment-paypal-title'] ?></title>
+    <title>Paiement PayPal</title>
     <script src="https://www.paypal.com/sdk/js?client-id=<?= urlencode($paypalClientId) ?>&currency=EUR"></script>
 </head>
 

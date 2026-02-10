@@ -10,7 +10,7 @@ if (!isset($_GET['session_id'])) {
 
 $stripeSecretKey = getenv('STRIPE_SECRET_KEY');
 if (!$stripeSecretKey) {
-    $_SESSION['message_panier'] = $translations['payment-config-missing-stripe'];
+    $_SESSION['message_panier'] = "Configuration Stripe manquante.";
     header('Location: ../../purchasing.php');
     exit;
 }
@@ -25,7 +25,7 @@ try {
         $commandeId = isset($session->metadata->commande_id) ? (int) $session->metadata->commande_id : 0;
 
         if ($commandeId <= 0) {
-            throw new Exception($translations['payment-order-not-found']);
+            throw new Exception('Commande introuvable dans les métadonnées Stripe.');
         }
 
         $stmt = $pdo->prepare("UPDATE commandes SET CommandeStatus = 2 WHERE ID_Commande = ? AND CommandeStatus = 1");
@@ -45,7 +45,7 @@ try {
 <html lang="<?= $lang ?>">
 <head>
 <meta charset="UTF-8">
-<title><?= $translations['payment-stripe-success-title'] ?></title>
+<title>Paiement réussi - Stripe</title>
 <link rel="stylesheet" href="../../CSS/header.css">
 <link rel="stylesheet" href="../../CSS/footer.css">
 <style>

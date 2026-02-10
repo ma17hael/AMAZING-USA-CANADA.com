@@ -487,11 +487,3 @@ button:hover,
 .submit-btn:hover {
     background: linear-gradient(120deg, #0b4b91, #1d4ed8 45%, #c52b3e 100%);
 }
-
-/* Avatar SVG par défaut visible en thème sombre */
-.profile-left img[src$="user.svg"] {
-    background: #0f172a;
-    padding: 10px;
-    box-sizing: border-box;
-    filter: brightness(0) invert(0.92);
-}
