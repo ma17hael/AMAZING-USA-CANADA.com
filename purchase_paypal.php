@@ -1,9 +1,9 @@
 <?php
-include_once("../INCLUDES/init.php");
-require_once '../INCLUDES/config.php';
+include_once("INCLUDES/init.php");
+require_once 'INCLUDES/config.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_POST['commande_id'])) {
-    header('Location: ../cart.php');
+    header('Location: cart.php');
     exit;
 }
 
@@ -16,14 +16,14 @@ $stmt->execute([$commandeId, $userId]);
 $commande = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$commande) {
-    header('Location: ../cart.php');
+    header('Location: cart.php');
     exit;
 }
 
 $paypalClientId = getenv('PAYPAL_CLIENT_ID');
 if (!$paypalClientId) {
     $_SESSION['message_panier'] = "Configuration PayPal manquante.";
-    header('Location: ../purchasing.php');
+    header('Location: purchasing.php');
     exit;
 }
 ?>
@@ -54,7 +54,7 @@ if (!$paypalClientId) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    window.location.href = 'SUCESSS/sucess_paypal.php?orderID=' + data.orderID + '&commande_id=<?= $commandeId ?>';
+                    window.location.href = 'sucess_paypal.php?orderID=' + data.orderID + '&commande_id=<?= $commandeId ?>';
                 });
             }
         }).render('#paypal-button-container');

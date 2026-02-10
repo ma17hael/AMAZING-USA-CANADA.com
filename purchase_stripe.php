@@ -1,17 +1,17 @@
 <?php
-require '../INCLUDES/LIBRAIRIES/Composer/vendor/autoload.php';
-include_once("../INCLUDES/init.php");
-require_once '../INCLUDES/config.php';
+require 'INCLUDES/LIBRAIRIES/Composer/vendor/autoload.php';
+include_once("INCLUDES/init.php");
+require_once 'INCLUDES/config.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_POST['commande_id'])) {
-    header('Location: ../cart.php');
+    header('Location: cart.php');
     exit;
 }
 
 $stripeSecretKey = getenv('STRIPE_SECRET_KEY');
 if (!$stripeSecretKey) {
     $_SESSION['message_panier'] = "Configuration Stripe manquante.";
-    header('Location: ../purchasing.php');
+    header('Location: purchasing.php');
     exit;
 }
 
@@ -26,7 +26,7 @@ $stmt->execute([$commandeId, $userId]);
 $commande = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$commande) {
-    header('Location: ../cart.php');
+    header('Location: cart.php');
     exit;
 }
 
@@ -42,8 +42,8 @@ $session = \Stripe\Checkout\Session::create([
         'quantity' => 1,
     ]],
     'mode' => 'payment',
-    'success_url' => 'http://127.0.0.1/AMAZING-USA-CANADA.com/PURCHASE/SUCESSS/sucess_stripe.php?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => 'http://127.0.0.1/AMAZING-USA-CANADA.com/purchasing.php',
+    'success_url' => 'http://localhost/AMAZINGUSA/sucess_stripe.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => 'http://localhost/AMAZINGUSA/purchasing.php',
     'metadata' => [
         'commande_id' => (string) $commandeId,
     ],
