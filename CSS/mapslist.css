@@ -377,23 +377,23 @@ html, body {
 }
 
 /* ========================================
-   THÈME CLAIR SOBRE (US / CANADA)
+   THÈME SOMBRE SOBRE (US / CANADA)
    ======================================== */
 :root {
     --primary-color: #b22234;
     --primary-dark: #8b1a2a;
-    --secondary-color: #0b4b91;
-    --dark-bg: #f3f6fb;
-    --light-bg: #f8fbff;
-    --text-primary: #10243e;
-    --text-secondary: #4b5f7a;
-    --border-color: #d4deec;
-    --surface-1: #ffffff;
-    --surface-2: #eef3fb;
+    --secondary-color: #003f7f;
+    --dark-bg: #0b1220;
+    --light-bg: #0f172a;
+    --text-primary: #e5e7eb;
+    --text-secondary: #94a3b8;
+    --border-color: #24324a;
+    --surface-1: #111827;
+    --surface-2: #1b263b;
 }
 
 html, body {
-    background: linear-gradient(180deg, #f7faff 0%, #edf3fb 100%);
+    background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
     color: var(--text-primary);
 }
 
@@ -414,7 +414,7 @@ html, body {
 .content-box,
 .card,
 .section-card {
-    background: linear-gradient(170deg, #ffffff, #eef3fb);
+    background: linear-gradient(170deg, var(--surface-1), var(--surface-2));
     border-color: var(--border-color);
     color: var(--text-primary);
 }
@@ -447,9 +447,9 @@ li,
 input,
 select,
 textarea {
-    background: #ffffff;
+    background: #0f172a;
     border: 1px solid var(--border-color);
-    color: #10243e;
+    color: #e2e8f0;
 }
 
 button,
@@ -460,7 +460,7 @@ button,
 .annuler-panier,
 .submit-btn {
     background: linear-gradient(120deg, #003f7f, #1e3a8a 45%, #b22234 100%);
-    border: 1px solid rgba(11, 75, 145, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     color: #f8fafc;
 }
 
@@ -471,5 +471,5 @@ button:hover,
 .commander:hover,
 .annuler-panier:hover,
 .submit-btn:hover {
-    background: linear-gradient(120deg, #0d3f75, #1556a7 45%, #a61f31 100%);
+    background: linear-gradient(120deg, #0b4b91, #1d4ed8 45%, #c52b3e 100%);
 }

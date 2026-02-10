@@ -19,7 +19,7 @@ $stmt->execute([$commandeId]);
 <html lang="<?= $lang ?>">
 <head>
 <meta charset="UTF-8">
-<title><?= $translations['payment-paypal-success-title'] ?></title>
+<title>Paiement réussi - PayPal</title>
 <link rel="stylesheet" href="../../CSS/header.css">
 <link rel="stylesheet" href="../../CSS/footer.css">
 <style>

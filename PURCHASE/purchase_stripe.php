@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || !isset($_POST['commande_id'])) {
 
 $stripeSecretKey = getenv('STRIPE_SECRET_KEY');
 if (!$stripeSecretKey) {
-    $_SESSION['message_panier'] = $translations['payment-config-missing-stripe'];
+    $_SESSION['message_panier'] = "Configuration Stripe manquante.";
     header('Location: ../purchasing.php');
     exit;
 }
