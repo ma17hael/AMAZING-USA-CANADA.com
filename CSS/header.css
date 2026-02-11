@@ -87,7 +87,7 @@
     transition: var(--transition);
 }
 
-.logo-face.canada {
+.logo-face.usa {
     transform: rotateY(180deg);
 }
 
