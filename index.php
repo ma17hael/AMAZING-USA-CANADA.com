@@ -57,11 +57,6 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <p><?= $translations['home-presentation-mapcard-paragraph']?></p>
                             </div>
                             <div class="card">
-                                <img src="INCLUDES/ICONS/group-chat.svg" alt=<?= $translations['home-presentation-commentscard']?>>
-                                <h3><?= $translations['home-presentation-commentscard-title']?></h3>
-                                <p><?= $translations['home-presentation-commentscard-paragraph']?></p>
-                            </div>
-                            <div class="card">
                                 <img src="INCLUDES/ICONS/lock.svg" alt=<?= $translations['home-presentation-accesscard']?>>
                                 <h3><?= $translations['home-presentation-accesscard-title']?></h3>
                                 <p><?= $translations['home-presentation-accesscard-paragraph']?></p>
