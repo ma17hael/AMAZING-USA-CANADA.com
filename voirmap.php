@@ -113,12 +113,14 @@ if (!$geojson) {
 
     function getIcon(url) {
         return L.icon({
-            iconUrl: url ? 'INCLUDES/MAPSICONS/'+ url : "INCLUDES/ICONS/default.png",
+            iconUrl: url ? 'INCLUDES/MAPSICONS/' + url : "INCLUDES/ICONS/default.png",
             iconSize: [30, 30], // Taille réduite
             iconAnchor: [15, 30],
             popupAnchor: [0, -30],
         });
     }
+
+    
 
     var geoLayer = L.geoJSON(geojsonData, {
         pointToLayer: function(feature, latlng) {
@@ -127,8 +129,12 @@ if (!$geojson) {
             });
         },
         onEachFeature: function(feature, layer) {
-            var popupContent = "<div class='popup-content'><strong>" + feature.properties.name + "</strong><br>" +
-                feature.properties.description + "</div>";
+            var url = feature.properties.description;
+            var popupContent =
+                "<div class='popup-content'>" +
+                "<strong>" + feature.properties.name + "</strong><br>" 
+                + url +
+                "</div>";
             layer.bindPopup(popupContent, {
                 maxWidth: 300,
                 className: 'custom-popup'
@@ -150,12 +156,12 @@ if (!$geojson) {
     function searchInMapPoints(query) {
         var results = [];
         var lowerQuery = query.toLowerCase();
-        
+
         geojsonData.features.forEach(function(feature) {
             var name = feature.properties.name || '';
             var description = feature.properties.description || '';
-            
-            if (name.toLowerCase().includes(lowerQuery) || 
+
+            if (name.toLowerCase().includes(lowerQuery) ||
                 description.toLowerCase().includes(lowerQuery)) {
                 results.push({
                     type: 'point',
@@ -166,14 +172,14 @@ if (!$geojson) {
                 });
             }
         });
-        
+
         return results;
     }
 
     // Rechercher une ville via Nominatim
     function searchCity(query) {
-        return fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + 
-                     encodeURIComponent(query) + '&limit=5&addressdetails=1')
+        return fetch('https://nominatim.openstreetmap.org/search?format=json&q=' +
+                encodeURIComponent(query) + '&limit=5&addressdetails=1')
             .then(response => response.json())
             .then(data => {
                 return data.map(item => ({
@@ -192,24 +198,24 @@ if (!$geojson) {
     // Afficher les résultats
     function displayResults(results) {
         searchResults.innerHTML = '';
-        
+
         if (results.length === 0) {
             searchResults.innerHTML = '<div class="search-result-item">Aucun résultat trouvé</div>';
             searchResults.classList.add('show');
             return;
         }
-        
+
         results.forEach(function(result) {
             var item = document.createElement('div');
             item.className = 'search-result-item';
             item.innerHTML = '<div class="result-name">' + result.name + '</div>' +
-                           '<div class="result-type">' + 
-                           (result.type === 'point' ? 'Point de la carte' : 'Ville') + 
-                           '</div>';
-            
+                '<div class="result-type">' +
+                (result.type === 'point' ? 'Point de la carte' : 'Ville') +
+                '</div>';
+
             item.addEventListener('click', function() {
                 map.setView(result.latlng, 13);
-                
+
                 // Si c'est un point, ouvrir le popup
                 if (result.type === 'point' && result.feature) {
                     // Trouver le layer correspondant
@@ -226,29 +232,29 @@ if (!$geojson) {
                         .bindPopup('<strong>' + result.name + '</strong>')
                         .openPopup();
                 }
-                
+
                 searchResults.classList.remove('show');
                 searchInput.value = '';
             });
-            
+
             searchResults.appendChild(item);
         });
-        
+
         searchResults.classList.add('show');
     }
 
     // Effectuer la recherche
     function performSearch() {
         var query = searchInput.value.trim();
-        
+
         if (query.length < 2) {
             searchResults.classList.remove('show');
             return;
         }
-        
+
         // Rechercher dans les points de la carte
         var mapResults = searchInMapPoints(query);
-        
+
         // Rechercher des villes
         searchCity(query).then(function(cityResults) {
             var allResults = mapResults.concat(cityResults);
@@ -263,12 +269,12 @@ if (!$geojson) {
     searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
         var query = searchInput.value.trim();
-        
+
         if (query.length < 2) {
             searchResults.classList.remove('show');
             return;
         }
-        
+
         // Délai de 300ms pour éviter trop de requêtes pendant la frappe
         searchTimeout = setTimeout(function() {
             performSearch();
@@ -288,7 +294,7 @@ if (!$geojson) {
     var selectedIndex = -1;
     searchInput.addEventListener('keydown', function(e) {
         var items = searchResults.querySelectorAll('.search-result-item');
-        
+
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
