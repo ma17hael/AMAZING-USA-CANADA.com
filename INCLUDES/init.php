@@ -60,7 +60,7 @@ function loadProjectEnv(string $envPath): void
 }
 
 loadProjectEnv(dirname(__DIR__) . '/.env');
-
+ini_set('memory_limit', '512M');
 session_start();
 
 //Vérifie si une langue est passée en GET et valide
