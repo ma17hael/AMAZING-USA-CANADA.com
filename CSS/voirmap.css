@@ -307,6 +307,24 @@ body {
     font-weight: 600;
 }
 
+.map-download {
+    margin-top: 10px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #1E3A8A;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.download-btn:hover {
+    background-color: #162c66;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .map-container {

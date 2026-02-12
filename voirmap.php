@@ -2,6 +2,9 @@
 include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
 
+$downloadDir = __DIR__ ."/INCLUDES/TRAILSMAP/";
+$downloadUrlBase = "INCLUDES/TRAILSMAP/"; 
+
 // Vérification que l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     header('Location: auth.php');
@@ -24,6 +27,16 @@ $map = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$map) {
     die('Carte introuvable.');
+}
+
+$mapName = $map["Map_NameEN"];
+
+$fileName = $mapName . '.kml';
+$filePath = $downloadDir . $fileName;
+
+$downloadFile = null;
+if (file_exists($filePath)) {
+    $downloadFile = $downloadUrlBase . rawurlencode($fileName);
 }
 
 // Vérification que l'utilisateur a bien acheté cette carte
@@ -71,6 +84,15 @@ if (!$geojson) {
     <?php include_once("INCLUDES/header.php") ?>
     <div class="map-header">
         <div class="map-title"><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></div>
+        <?php if ($downloadFile): ?>
+            <div class="map-download">
+                <a href="<?= htmlspecialchars($downloadFile) ?>"
+                    class="download-btn"
+                    download>
+                    Télécharger la carte des randonnées
+                </a>
+            </div>
+        <?php endif; ?>
         <div class="map-search-container">
             <input type="text" id="map-search" placeholder="Rechercher un point ou une ville..." class="map-search-input">
             <button id="search-btn" class="map-search-btn">Rechercher</button>
@@ -120,7 +142,7 @@ if (!$geojson) {
         });
     }
 
-    
+
 
     var geoLayer = L.geoJSON(geojsonData, {
         pointToLayer: function(feature, latlng) {
@@ -130,10 +152,17 @@ if (!$geojson) {
         },
         onEachFeature: function(feature, layer) {
             var url = feature.properties.description;
+
+            var lat = layer.getLatLng().lat.toFixed(6);
+            var lng = layer.getLatLng().lng.toFixed(6);
             var popupContent =
                 "<div class='popup-content'>" +
-                "<strong>" + feature.properties.name + "</strong><br>" 
-                + url +
+                "<strong>" + feature.properties.name + "</strong><br>" +
+                url +
+                "<br><br>" +
+                "<div class='popup-coordinates'>" +
+                "<small>Lat: " + lat + " | Lng: " + lng + "</small>" +
+                "</div>" +
                 "</div>";
             layer.bindPopup(popupContent, {
                 maxWidth: 300,
