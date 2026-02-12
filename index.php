@@ -3,6 +3,12 @@
 include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
 require_once 'INCLUDES/currency.php';
+require 'INCLUDES/LIBRAIRIES/PHPMailer-7.0.2/src/SMTP.php';
+require 'INCLUDES/LIBRAIRIES/PHPMailer-7.0.2/src/PHPMailer.php';
+require 'INCLUDES/LIBRAIRIES/PHPMailer-7.0.2/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 $limit = 7;
 $sql = "SELECT S.ID_Map, S.Map_Type, M.Libelle_TypeFR, M.Libelle_TypeEN, S.StateMap, S.Map_NameFR, S.Map_NameEN, L.LibelleLocalisationFR, L.LibelleLocalisationEN, S.Prix
@@ -45,6 +51,32 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </section>
         <!-- Présentation -->
+        <section class="acknowledgements">
+            <div class="ack-container">
+                <h2>Remerciements</h2>
+                <p>
+                    Nous tenons à remercier Philippe Schuler pour ses précieux conseils lors de la réalisation
+                    de ce site Internet.
+                </p>
+            </div>
+        </section>
+        <section class="legal-notice">
+            <div class="legal-container">
+                <h2>Mentions importantes</h2>
+                <p>
+                    AMAZING-USA-CANADA.com n’est pas responsable si les informations disponibles sur ce site
+                    s’avéraient parfois inexactes, incomplètes ou non à jour. Le contenu de ce site est fourni à
+                    titre d'information générale uniquement et ne doit pas être utilisé comme unique source pour
+                    prendre des décisions de randonnées sans consulter d’autres sources d’informations.
+                </p>
+                <p>
+                    Toute utilisation des informations contenues sur ce site se fera en toute connaissance de
+                    cause et de votre propre chef. Les coordonnées GPS des sites présentés ont été sélectionnées
+                    et renseignées d’après les informations disponibles sur d’autres sites web.
+                    AMAZING-USA-CANADA.com décline toute responsabilité si ces informations s’avéraient inexactes.
+                </p>
+            </div>
+        </section>
         <section class="presentation">
             <div class="presentation-container">
                 <div class="presentation-text">
@@ -121,11 +153,11 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <p><strong><?= $translations['home-mapshowcase-card-type'] ?></strong><?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?></p>
                             <p><strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong><?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?>
                             <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><?= $formattedPrice ?>
-                            <?php if ($totalUnitaire != 0): ?>
-                                <span style="text-decoration: line-through; color: red;">
-                                    <?= number_format($totalUnitaire, 2, ',', ' ') ?> €
-                                </span>
-                            <?php endif;?>
+                                <?php if ($totalUnitaire != 0): ?>
+                                    <span style="text-decoration: line-through; color: red;">
+                                        <?= number_format($totalUnitaire, 2, ',', ' ') ?> €
+                                    </span>
+                                <?php endif; ?>
                             </p>
                             <div class="mapcard-actions">
                                 <form action="addcart.php" method="POST">
@@ -144,6 +176,65 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div id="image-modal" class="modal">
                 <span class="close">&times;</span>
                 <img class="modal-content" id="modal-img">
+            </div>
+        </section>
+        <section class="contact-form-section">
+            <div class="contact-form-container">
+                <h2>Contactez-nous</h2>
+                <?php
+                if (isset($_POST['contact_submit'])) {
+                    $name = htmlspecialchars(trim($_POST['contact_name']));
+                    $email = htmlspecialchars(trim($_POST['contact_email']));
+                    $message = htmlspecialchars(trim($_POST['contact_message']));
+                    $errors = [];
+
+                    if (empty($name)) $errors[] = "Veuillez saisir votre nom.";
+                    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Veuillez saisir un email valide.";
+                    if (empty($message)) $errors[] = "Veuillez saisir votre message.";
+
+                    if (empty($errors)) {
+                        $mail = new PHPMailer(true);
+                        try {
+                            // Configuration SMTP
+                            $mail->isSMTP();
+                            $mail->Host = SMTP_HOST;
+                            $mail->SMTPAuth = true;
+                            $mail->Username = SMTP_USER;
+                            $mail->Password = SMTP_PASS;
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                            $mail->Port = SMTP_PORT;
+
+                            $mail->CharSet = 'UTF-8';
+                            $mail->Encoding = 'base64';
+
+                            // Destinataire et expéditeur
+                            $mail->setFrom($email, $name);
+                            $mail->addAddress(SMTP_USER); // email depuis la base
+                            $mail->addReplyTo($email, $name);
+
+                            // Contenu
+                            $mail->isHTML(false);
+                            $mail->Subject = 'Nouveau message depuis le formulaire de contact';
+                            $mail->Body    = $message;
+
+                            $mail->send();
+                            echo '<p class="contact-success">Votre message a été envoyé avec succès.</p>';
+                        } catch (Exception $e) {
+                            echo '<p class="contact-error">Erreur lors de l’envoi du message : ', $mail->ErrorInfo, '</p>';
+                        }
+                    } else {
+                        foreach ($errors as $err) {
+                            echo '<p class="contact-error">' . $err . '</p>';
+                        }
+                    }
+                }
+                ?>
+                <form method="POST" action="#contact-form">
+                    <input type="text" name="contact_name" placeholder="Votre nom" required>
+                    <input type="email" name="contact_email" placeholder="Votre email" required>
+                    <textarea name="contact_message" placeholder="Votre message" required></textarea>
+                    <button type="submit" name="contact_submit">Envoyer</button>
+                </form>
             </div>
         </section>
     </main>
