@@ -52,7 +52,6 @@ if (isset($_POST['forgot_submit'])) {
             $mail->send();
             $message = "Un nouveau mot de passe vous a été envoyé par email.";
             $messageClass = 'success';
-            header("Location: login.php");
         } catch (Exception $e) {
             $message = "Erreur lors de l’envoi : " . $mail->ErrorInfo;
             $messageClass = 'error';
