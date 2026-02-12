@@ -101,6 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Pas de compte ?
                 <a href="register.php">Créer un compte</a>
             </p>
+            <p class="auth-switch">
+                <a href="forgotpassword.php">Mot de passe oublié ?</a>
+            </p>
         </form>
     </main>
 
