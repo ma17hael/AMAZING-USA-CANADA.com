@@ -9,6 +9,8 @@ if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
 }
 
 $id = (int) $_GET['id'];
+$totalUnitaire = 0;
+$details = [];
 
 $stmt = $pdo->prepare('SELECT S.*, L.LibelleLocalisationFR, L.LibelleLocalisationEN, M.Libelle_TypeFR, M.Libelle_TypeEN
                        FROM StatesMap S
@@ -62,6 +64,7 @@ if ((int) $map['Map_Type'] == 3) {
 $packMaps = [];
 
 if ((int)$map['Map_Type'] === 3) {
+
     $stmt = $pdo->prepare('
         SELECT 
             S.ID_Map,
@@ -81,6 +84,19 @@ if ((int)$map['Map_Type'] === 3) {
     ');
     $stmt->execute(['id' => $id]);
     $packMaps = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($packMaps as $card) {
+        $totalUnitaire += (float)$card['Prix'];
+    }
+
+    $stmt = $pdo->prepare("
+    SELECT *
+    FROM mapspack_data
+    WHERE IDMapPack = :id
+");
+    $stmt->execute(['id' => $id]);
+
+    $details = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 ?>
@@ -138,7 +154,19 @@ if ((int)$map['Map_Type'] === 3) {
                 </p>
                 <p>
                     <strong><?= $translations['home-mapshowcase-card-price'] ?></strong>
-                    <?= htmlspecialchars($map['Prix']) ?> €
+
+                    <span style="margin-right: 8px;">
+                        <?= number_format((float)$map['Prix'], 2, ',', ' ') ?> €
+                    </span>
+                    <?php if ($totalUnitaire != 0): ?>
+                        <span style="text-decoration: line-through; color: red;">
+                            <?= number_format($totalUnitaire, 2, ',', ' ') ?> €
+                        </span>
+                    <?php endif; ?>
+                </p>
+                <p>
+                    <strong>Nombre d'emplacement :</strong>
+                    <?= htmlspecialchars($map['NbPlaces']) ?>
                 </p>
                 <form action="addcart.php" method="POST">
                     <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map']) ?>">
@@ -221,6 +249,67 @@ if ((int)$map['Map_Type'] === 3) {
                 <p>
                     <?= $translations['mapsdetails-p-complementary'] ?>
                 </p>
+                <?php if ($details): ?>
+                    <ul class="pack-features">
+
+                        <?php if ($details['NbTrails'] > 0): ?>
+                            <li><?= (int)$details['NbTrails'] ?> Trails</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbFalls'] > 0): ?>
+                            <li><?= (int)$details['NbFalls'] ?> Waterfalls</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbRetroDiners'] > 0): ?>
+                            <li><?= (int)$details['NbRetroDiners'] ?> Retro Diners</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbLighhouses'] > 0): ?>
+                            <li><?= (int)$details['NbLighhouses'] ?> Lighthouses</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbBridges'] > 0): ?>
+                            <li><?= (int)$details['NbBridges'] ?> Bridges</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbArches'] > 0): ?>
+                            <li><?= (int)$details['NbArches'] ?> Arches</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbRoute66'] > 0): ?>
+                            <li><?= (int)$details['NbRoute66'] ?> Route 66 Stops</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbRetroGaz'] > 0): ?>
+                            <li><?= (int)$details['NbRetroGaz'] ?> Retro Gas Stations</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbScenicRoad'] > 0): ?>
+                            <li><?= (int)$details['NbScenicRoad'] ?> Scenic Roads</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbHistoricGaz'] > 0): ?>
+                            <li><?= (int)$details['NbHistoricGaz'] ?> Historic Gas Stations</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbAutheticDiner'] > 0): ?>
+                            <li><?= (int)$details['NbAutheticDiner'] ?> Authentic Diners</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbSlots'] > 0): ?>
+                            <li><?= (int)$details['NbSlots'] ?> Slot Machines</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbGhostTowns'] > 0): ?>
+                            <li><?= (int)$details['NbGhostTowns'] ?> Ghost Towns</li>
+                        <?php endif; ?>
+
+                        <?php if ($details['NbPetroglyph'] > 0): ?>
+                            <li><?= (int)$details['NbPetroglyph'] ?> Petroglyph Sites</li>
+                        <?php endif; ?>
+
+                    </ul>
+                <?php endif; ?>
             </div>
         </section>
         <div id="image-modal" class="modal">

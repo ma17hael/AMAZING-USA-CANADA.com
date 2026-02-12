@@ -62,24 +62,24 @@ $prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
 
         <!-- Zone de filtre -->
         <div class="filters">
-        <select id="filter-type">
-            <option value=""><?= htmlspecialchars($translations['maplist-alltypes'])?></option>
-            <?php foreach ($types as $type): ?>
-                <option value="<?= htmlspecialchars($type['ID_TypeMap']) ?>"><?= htmlspecialchars($type["Libelle_Type$langBDD"]) ?></option>
-            <?php endforeach; ?>
+            <select id="filter-type">
+                <option value=""><?= htmlspecialchars($translations['maplist-alltypes']) ?></option>
+                <?php foreach ($types as $type): ?>
+                    <option value="<?= htmlspecialchars($type['ID_TypeMap']) ?>"><?= htmlspecialchars($type["Libelle_Type$langBDD"]) ?></option>
+                <?php endforeach; ?>
             </select>
 
             <select id="filter-location">
-                <option value=""><?= htmlspecialchars($translations['maplist-alllocations'])?></option>
+                <option value=""><?= htmlspecialchars($translations['maplist-alllocations']) ?></option>
                 <?php foreach ($localisations as $loc): ?>
                     <option value="<?= htmlspecialchars($loc['ID_Localisation']) ?>"><?= htmlspecialchars($loc["LibelleLocalisation$langBDD"]) ?></option>
                 <?php endforeach; ?>
             </select>
 
             <div class="price-filter">
-                <label for="price-range"><?= htmlspecialchars($translations['maplist-price'])?></label>
-                <input type="range" id="price-min" min="0" max="<?=$prixMax?>" value="0" step="0.01">
-                <input type="range" id="price-max" min="0" max="<?=$prixMax?>" value="<?=$prixMax?>" step="0.01">
+                <label for="price-range"><?= htmlspecialchars($translations['maplist-price']) ?></label>
+                <input type="range" id="price-min" min="0" max="<?= $prixMax ?>" value="0" step="0.01">
+                <input type="range" id="price-max" min="0" max="<?= $prixMax ?>" value="<?= $prixMax ?>" step="0.01">
                 <span id="price-display"
                     data-currency="<?= htmlspecialchars($currency) ?>"
                     data-rate="<?= Currency::getRate($currency) ?>"
@@ -92,6 +92,7 @@ $prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
         <div class="card-container">
             <?php while ($map = $stmtMap->fetch(PDO::FETCH_ASSOC)): ?>
                 <?php
+                $totalUnitaire = 0;
                 //Conversion de Blob à base64
                 $imageBase64 = base64_encode($map['StateMap']);
                 $imageSrc = 'data:image/jpeg;base64,' . $imageBase64;
@@ -102,16 +103,49 @@ $prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
 
                 $convertedPrice = Currency::convert($priceEuro, $currency);
                 $formattedPrice = Currency::format($convertedPrice, $currency, $locale);
+
+                $packMaps = [];
+
+                if ((int)$map['Map_Type'] === 3) {
+                    $stmt = $pdo->prepare('
+                                                SELECT 
+                                                    S.ID_Map,
+                                                    S.StateMap,
+                                                    S.Map_NameFR,
+                                                    S.Map_NameEN,
+                                                    M.Libelle_TypeFR,
+                                                    M.Libelle_TypeEN,
+                                                    L.LibelleLocalisationFR,
+                                                    L.LibelleLocalisationEN,
+                                                    S.Prix
+                                                FROM PacksMap PM
+                                                INNER JOIN StatesMap S ON S.ID_Map = PM.IDMap
+                                                INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
+                                                INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+                                                WHERE PM.IDPackMap = :id
+                            ');
+                    $stmt->execute(['id' => $map['ID_Map']]);
+                    $packMaps = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($packMaps as $card) {
+                        $totalUnitaire += (float)$card['Prix'];
+                    }
+                }
                 ?>
                 <div class="mapcard"
-                    data-type="<?=(int)$map['Map_Type']?>"
-                    data-location="<?=(int)$map['Approx_Localisation']?>"
-                    data-price="<?=(float)$map['Prix']?>">
+                    data-type="<?= (int)$map['Map_Type'] ?>"
+                    data-location="<?= (int)$map['Approx_Localisation'] ?>"
+                    data-price="<?= (float)$map['Prix'] ?>">
                     <img src="<?= $imageSrc ?>" alt=<?= htmlspecialchars($map["Map_Name$langBDD"]) ?> data-modal-image>
                     <h3><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></h3>
                     <p><strong><?= $translations['home-mapshowcase-card-type'] ?></strong><?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?></p>
                     <p><strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong><?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?></p>
-                    <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><?= $formattedPrice ?></p>
+                    <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><?= $formattedPrice ?>
+                        <?php if ($totalUnitaire != 0): ?>
+                            <span style="text-decoration: line-through; color: red;">
+                                <?= number_format($totalUnitaire, 2, ',', ' ') ?> €
+                            </span>
+                        <?php endif; ?>
+                    </p>
                     <div class="mapcard-actions">
                         <form action="addcart.php" method="POST">
                             <input type="hidden" name="map_id" value="<?= htmlspecialchars($map['ID_Map']) ?>">
@@ -131,6 +165,7 @@ $prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
     </main>
     <?php include_once('INCLUDES/footer.php'); ?>
 </body>
-    <script src="JAVASCRIPT/mapPrice.js"></script>
-    <script src="JAVASCRIPT/imageModal.js"></script>
+<script src="JAVASCRIPT/mapPrice.js"></script>
+<script src="JAVASCRIPT/imageModal.js"></script>
+
 </html>

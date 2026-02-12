@@ -467,6 +467,26 @@ html, body {
     margin: 0;
 }
 
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 8px;
+}
+
+.current-price {
+    font-weight: 600;
+}
+
+.pack-features {
+    list-style: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.pack-features li {
+    margin-bottom: 6px;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .maps-essentials {
