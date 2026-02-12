@@ -445,6 +445,28 @@ html, body {
     transform: rotate(90deg) scale(1.1);
 }
 
+.map-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.flag-item {
+    text-align: center;
+}
+
+.flag-img {
+    width: 60px;
+    height: auto;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+.flag-name {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .maps-essentials {

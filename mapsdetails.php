@@ -28,7 +28,7 @@ $showFlags = false;
 
 if ((int) $map['Map_Type'] == 3) {
     $stmt = $pdo->prepare('
-        SELECT SF.Flag
+        SELECT SF.Flag, SF.Libelle_FlagFR, SF.Libelle_FlagEN
         FROM PacksMap PM
         INNER JOIN StateFlag SF ON SF.Id_Map = PM.IDMap
         WHERE IDPackMap = :id');
@@ -38,7 +38,7 @@ if ((int) $map['Map_Type'] == 3) {
     if (!empty($flags)) {
         $showFlags = true;
     } else {
-        $stmt = $pdo->prepare('SELECT Flag
+        $stmt = $pdo->prepare('SELECT Flag, Libelle_FlagFR, Libelle_FlagEN
                        FROM StateFlag
                        WHERE Id_Map = :id');
         $stmt->execute(['id' => $id]);
@@ -48,7 +48,7 @@ if ((int) $map['Map_Type'] == 3) {
         }
     }
 } else {
-    $stmt = $pdo->prepare('SELECT Flag
+    $stmt = $pdo->prepare('SELECT Flag, Libelle_FlagFR, Libelle_FlagEN
                        FROM StateFlag
                        WHERE Id_Map = :id');
     $stmt->execute(['id' => $id]);
@@ -121,7 +121,10 @@ if ((int)$map['Map_Type'] === 3) {
                             $flagBase64 = base64_encode($flag['Flag']);
                             $flagSrc = 'data:image/png;base64,' . $flagBase64;
                             ?>
-                            <img src="<?= $flagSrc ?>" alt="Drapeau" class="flag-img">
+                            <div class="flag-item">
+                                <img src="<?= $flagSrc ?>" alt="Drapeau <?= htmlspecialchars($flag["Libelle_Flag$langBDD"]) ?>" class="flag-img">
+                                <p class="flag-name"><?= htmlspecialchars($flag["Libelle_Flag$langBDD"]) ?></p>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
