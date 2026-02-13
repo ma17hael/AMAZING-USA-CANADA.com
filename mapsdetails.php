@@ -297,7 +297,7 @@ if ((int)$map['Map_Type'] === 3) {
                         <?php endif; ?>
 
                         <?php if ($details['NbSlots'] > 0): ?>
-                            <li><?= (int)$details['NbSlots'] ?> Slot Machines</li>
+                            <li><?= (int)$details['NbSlots'] ?> Slot Canyons</li>
                         <?php endif; ?>
 
                         <?php if ($details['NbGhostTowns'] > 0): ?>

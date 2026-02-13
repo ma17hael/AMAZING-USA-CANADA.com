@@ -197,10 +197,10 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         try {
                             // Configuration SMTP
                             $mail->isSMTP();
-                            $mail->Host = SMTP_HOST;
+                            $mail->Host = SMTP_CONTACTHOST;
                             $mail->SMTPAuth = true;
-                            $mail->Username = SMTP_USER;
-                            $mail->Password = SMTP_PASS;
+                            $mail->Username = SMTP_CONTACTUSER;
+                            $mail->Password = SMTP_CONTACTPASS;
                             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                             $mail->Port = SMTP_PORT;
 
@@ -209,7 +209,7 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             // Destinataire et expéditeur
                             $mail->setFrom($email, $name);
-                            $mail->addAddress(SMTP_USER); // email depuis la base
+                            $mail->addAddress(SMTP_CONTACTUSER); // email depuis la base
                             $mail->addReplyTo($email, $name);
 
                             // Contenu

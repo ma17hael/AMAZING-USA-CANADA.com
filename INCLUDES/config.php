@@ -1,8 +1,11 @@
 <?php
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USER', 'ma1thae1.pro@gmail.com');
-define('SMTP_PASS', 'mkxk azka obxj sgzy');
+define('SMTP_HOST', 'ssl0.ovh.net');
+define('SMTP_USER', 'no-reply@amazing-usa-canada.com');
+define('SMTP_PASS', 'AutomateU5AC@NAD@2026');
 define('SMTP_PORT', 587);
+define('SMTP_CONTACTHOST', 'ssl0.ovh.net');
+define('SMTP_CONTACTUSER', 'support@amazing-usa-canada.com');
+define('SMTP_CONTACTPASS', 'SupportU5AC@NAD@2026');
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

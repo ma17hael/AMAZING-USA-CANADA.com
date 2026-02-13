@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "Adresse e-mail requise.";
         } else {
             // Vérifier si email déjà utilisé
-            $stmt = $pdo->prepare("SELECT ID_Users FROM Utilisateurs WHERE Mail = :mail");
+            $stmt = $pdo->prepare("SELECT ID_Users FROM utilisateurs WHERE Mail = :mail");
             $stmt->execute(['mail' => $email]);
 
             if ($stmt->fetch()) {
@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->addAddress($email);
 
                     $mail->isHTML(false);
-                $mail->Subject = 'Bienvenue sur AMAZING-USA-CANADA.com';
-                $mail->Body =
+                    $mail->Subject = 'Bienvenue sur AMAZING-USA-CANADA.com';
+                    $mail->Body =
                         "Bonjour et bienvenue,\n\n" .
                         "Prépare-toi à trouver toutes sortes de lieux aussi incroyables et inconnus les uns que les autres !\n\n" .
                         "Voici ton code de création de compte : " . $code . "\n\n" .

@@ -42,8 +42,8 @@ $session = \Stripe\Checkout\Session::create([
         'quantity' => 1,
     ]],
     'mode' => 'payment',
-    'success_url' => 'http://localhost/AMAZINGUSA/sucess_stripe.php?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => 'http://localhost/AMAZINGUSA/purchasing.php',
+    'success_url' => 'https://amazing-usa-canada.com/sucess_stripe.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => 'https://amazing-usa-canada.com/purchasing.php',
     'metadata' => [
         'commande_id' => (string) $commandeId,
     ],
