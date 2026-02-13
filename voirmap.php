@@ -7,7 +7,7 @@ $downloadUrlBase = "INCLUDES/TRAILSMAP/";
 
 // Vérification que l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
-    header('Location: auth.php');
+    header('Location: login.php');
     exit;
 }
 
