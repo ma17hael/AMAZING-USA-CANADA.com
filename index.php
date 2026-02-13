@@ -12,9 +12,9 @@ use PHPMailer\PHPMailer\Exception;
 
 $limit = 7;
 $sql = "SELECT S.ID_Map, S.Map_Type, M.Libelle_TypeFR, M.Libelle_TypeEN, S.StateMap, S.Map_NameFR, S.Map_NameEN, L.LibelleLocalisationFR, L.LibelleLocalisationEN, S.Prix
-        FROM Statesmap S
-        INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
-        INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+        FROM statesmap S
+        INNER JOIN maptypes M ON M.Id_TypeMap = S.Map_Type
+        INNER JOIN localisation L ON L.ID_Localisation = S.Approx_Localisation
         ORDER BY RAND()
         LIMIT :limite";
 $stmt = $pdo->prepare($sql);
@@ -134,10 +134,10 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     L.LibelleLocalisationFR,
                                                     L.LibelleLocalisationEN,
                                                     S.Prix
-                                                FROM PacksMap PM
-                                                INNER JOIN StatesMap S ON S.ID_Map = PM.IDMap
-                                                INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
-                                                INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+                                                FROM packsmap PM
+                                                INNER JOIN statesmap S ON S.ID_Map = PM.IDMap
+                                                INNER JOIN maptypes M ON M.Id_TypeMap = S.Map_Type
+                                                INNER JOIN localisation L ON L.ID_Localisation = S.Approx_Localisation
                                                 WHERE PM.IDPackMap = :id
                             ');
                             $stmt->execute(['id' => $map['ID_Map']]);

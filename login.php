@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
 
             $stmt = $pdo->prepare(
-                "SELECT ID_Users, MotdePasse FROM Utilisateurs WHERE Mail = :mail;"
+                "SELECT ID_Users, MotdePasse FROM utilisateurs WHERE Mail = :mail;"
             );
             $stmt->execute(['mail' => $email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id'] = $user['ID_Users'];
 
                 $stmt = $pdo->prepare(
-                    "SELECT UserPicture FROM Utilisateurs WHERE ID_Users = :id"
+                    "SELECT UserPicture FROM utilisateurs WHERE ID_Users = :id"
                 );
                 $stmt->execute(['id' => $user['ID_Users']]);
                 $_SESSION['user_picture'] = $stmt->fetchColumn();

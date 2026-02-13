@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $stmt = $pdo->prepare(
-    "SELECT * FROM Utilisateurs WHERE ID_Users = :id;"
+    "SELECT * FROM utilisateurs WHERE ID_Users = :id;"
 );
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -24,11 +24,11 @@ $stmt = $pdo->prepare("
         M.*,
         MT.*,
         L.*
-    FROM Commandes C
-    INNER JOIN CommandesDetails LC ON LC.IDCommande = C.Id_Commande
-    INNER JOIN StatesMap M ON M.ID_Map = LC.IDMap
-    INNER JOIN MapTypes MT ON MT.Id_TypeMap = M.Map_Type
-    INNER JOIN Localisation L ON L.ID_Localisation = M.Approx_Localisation
+    FROM commandes C
+    INNER JOIN commandesdetails LC ON LC.IDCommande = C.Id_Commande
+    INNER JOIN statesmap M ON M.ID_Map = LC.IDMap
+    INNER JOIN maptypes MT ON MT.Id_TypeMap = M.Map_Type
+    INNER JOIN localisation L ON L.ID_Localisation = M.Approx_Localisation
     WHERE C.ID_Users = :id AND C.CommandeStatus = 2;
 ");
 $stmt->execute(['id' => $_SESSION['user_id']]);
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_account'])) {
             'id' => $_SESSION['user_id']
         ];
 
-        $sql = "UPDATE Utilisateurs SET Mail = :mail, Username = :username";
+        $sql = "UPDATE utilisateurs SET Mail = :mail, Username = :username";
 
         // Gestion du mot de passe
         if (!empty($password)) {
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_account'])) {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
 
-    $stmt = $pdo->prepare("DELETE FROM Utilisateurs WHERE ID_Users = :id");
+    $stmt = $pdo->prepare("DELETE FROM utilisateurs WHERE ID_Users = :id");
     $stmt->execute(['id' => $_SESSION['user_id']]);
 
     session_destroy();

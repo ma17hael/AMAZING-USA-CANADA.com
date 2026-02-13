@@ -5,26 +5,26 @@ require_once 'INCLUDES/config.php';
 require_once 'INCLUDES/currency.php';
 
 $sqlMap = "SELECT S.ID_Map, S.Map_Type, M.Libelle_TypeFR, M.Libelle_TypeEN, S.StateMap, S.Map_NameFR, S.Map_NameEN, S.Approx_Localisation, L.LibelleLocalisationFR, L.LibelleLocalisationEN, S.Prix
-        FROM Statesmap S
-        INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
-        INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation;";
+        FROM statesmap S
+        INNER JOIN maptypes M ON M.Id_TypeMap = S.Map_Type
+        INNER JOIN localisation L ON L.ID_Localisation = S.Approx_Localisation;";
 $stmtMap = $pdo->prepare($sqlMap);
 $stmtMap->execute();
 
 $sqlLoc = "SELECT L.ID_Localisation, L.LibelleLocalisationFR, L.LibelleLocalisationEN
-        FROM Localisation L;";
+        FROM localisation L;";
 $stmtLoc = $pdo->prepare($sqlLoc);
 $stmtLoc->execute();
 $localisations = $stmtLoc->fetchAll(PDO::FETCH_ASSOC);
 
 $sqlType = "SELECT T.ID_TypeMap, T.Libelle_TypeFR, T.Libelle_TypeEN
-            FROM MapTypes T;";
+            FROM maptypes T;";
 $stmtType = $pdo->prepare($sqlType);
 $stmtType->execute();
 $types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
 
 $sqlPrice = "SELECT MAX(S.Prix) AS 'PrixMax'
-             FROM Statesmap S;";
+             FROM statesmap S;";
 $stmtPrice = $pdo->prepare($sqlPrice);
 $stmtPrice->execute();
 $maxPrice = $stmtPrice->fetch(PDO::FETCH_ASSOC);
@@ -118,10 +118,10 @@ $prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
                                                     L.LibelleLocalisationFR,
                                                     L.LibelleLocalisationEN,
                                                     S.Prix
-                                                FROM PacksMap PM
-                                                INNER JOIN StatesMap S ON S.ID_Map = PM.IDMap
-                                                INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
-                                                INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+                                                FROM packsmap PM
+                                                INNER JOIN statesmap S ON S.ID_Map = PM.IDMap
+                                                INNER JOIN maptypes M ON M.Id_TypeMap = S.Map_Type
+                                                INNER JOIN localisation L ON L.ID_Localisation = S.Approx_Localisation
                                                 WHERE PM.IDPackMap = :id
                             ');
                     $stmt->execute(['id' => $map['ID_Map']]);
@@ -139,7 +139,7 @@ $prixMaxFormatted = Currency::format($prixMaxConverted, $currency, $locale);
                     <h3><?= htmlspecialchars($map["Map_Name$langBDD"]) ?></h3>
                     <p><strong><?= $translations['home-mapshowcase-card-type'] ?></strong><?= htmlspecialchars($map["Libelle_Type$langBDD"]) ?></p>
                     <p><strong><?= $translations['home-mapshowcase-card-localisation'] ?></strong><?= htmlspecialchars($map["LibelleLocalisation$langBDD"]) ?></p>
-                    <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><?= $formattedPrice ?>
+                    <p><strong><?= $translations['home-mapshowcase-card-price'] ?></strong><strong><?= $formattedPrice ?></strong>
                         <?php if ($totalUnitaire != 0): ?>
                             <span style="text-decoration: line-through; color: red;">
                                 <?= number_format($totalUnitaire, 2, ',', ' ') ?> €

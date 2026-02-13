@@ -42,8 +42,8 @@ if (file_exists($filePath)) {
 // Vérification que l'utilisateur a bien acheté cette carte
 $stmt = $pdo->prepare("
     SELECT COUNT(*) 
-    FROM Commandes C
-    INNER JOIN CommandesDetails CD ON CD.IDCommande = C.Id_Commande
+    FROM commandes C
+    INNER JOIN commandesdetails CD ON CD.IDCommande = C.Id_Commande
     WHERE C.ID_Users = :user_id AND CD.IDMap = :map_id
 ");
 $stmt->execute(['user_id' => $_SESSION['user_id'], 'map_id' => $mapId]);

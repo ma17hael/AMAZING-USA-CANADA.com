@@ -13,9 +13,9 @@ $totalUnitaire = 0;
 $details = [];
 
 $stmt = $pdo->prepare('SELECT S.*, L.LibelleLocalisationFR, L.LibelleLocalisationEN, M.Libelle_TypeFR, M.Libelle_TypeEN
-                       FROM StatesMap S
-                       INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
-                       INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+                       FROM statesmap S
+                       INNER JOIN maptypes M ON M.Id_TypeMap = S.Map_Type
+                       INNER JOIN localisation L ON L.ID_Localisation = S.Approx_Localisation
                        WHERE ID_Map = :id');
 $stmt->execute(['id' => $id]);
 $map = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,8 +31,8 @@ $showFlags = false;
 if ((int) $map['Map_Type'] == 3) {
     $stmt = $pdo->prepare('
         SELECT SF.Flag, SF.Libelle_FlagFR, SF.Libelle_FlagEN
-        FROM PacksMap PM
-        INNER JOIN StateFlag SF ON SF.Id_Map = PM.IDMap
+        FROM packsmap PM
+        INNER JOIN stateflag SF ON SF.Id_Map = PM.IDMap
         WHERE IDPackMap = :id');
     $stmt->execute(['id' => $id]);
     $flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +41,7 @@ if ((int) $map['Map_Type'] == 3) {
         $showFlags = true;
     } else {
         $stmt = $pdo->prepare('SELECT Flag, Libelle_FlagFR, Libelle_FlagEN
-                       FROM StateFlag
+                       FROM stateflag
                        WHERE Id_Map = :id');
         $stmt->execute(['id' => $id]);
         $flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ if ((int) $map['Map_Type'] == 3) {
     }
 } else {
     $stmt = $pdo->prepare('SELECT Flag, Libelle_FlagFR, Libelle_FlagEN
-                       FROM StateFlag
+                       FROM stateflag
                        WHERE Id_Map = :id');
     $stmt->execute(['id' => $id]);
     $flags = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -76,10 +76,10 @@ if ((int)$map['Map_Type'] === 3) {
             L.LibelleLocalisationFR,
             L.LibelleLocalisationEN,
             S.Prix
-        FROM PacksMap PM
-        INNER JOIN StatesMap S ON S.ID_Map = PM.IDMap
-        INNER JOIN MapTypes M ON M.Id_TypeMap = S.Map_Type
-        INNER JOIN Localisation L ON L.ID_Localisation = S.Approx_Localisation
+        FROM packsmap PM
+        INNER JOIN statesmap S ON S.ID_Map = PM.IDMap
+        INNER JOIN maptypes M ON M.Id_TypeMap = S.Map_Type
+        INNER JOIN localisation L ON L.ID_Localisation = S.Approx_Localisation
         WHERE PM.IDPackMap = :id
     ');
     $stmt->execute(['id' => $id]);
