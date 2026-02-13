@@ -2,8 +2,8 @@
 include_once("INCLUDES/init.php");
 require_once 'INCLUDES/config.php';
 
-$downloadDir = __DIR__ ."/INCLUDES/TRAILSMAP/";
-$downloadUrlBase = "INCLUDES/TRAILSMAP/"; 
+$downloadDir = __DIR__ . "/INCLUDES/TRAILSMAP/";
+$downloadUrlBase = "INCLUDES/TRAILSMAP/";
 
 // Vérification que l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    die('Carte invalide.');
+    die($translations['voirmap-invalid-map']);
 }
 
 $mapId = (int) $_GET['id'];
@@ -26,7 +26,7 @@ $stmt->execute(['id' => $mapId]);
 $map = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$map) {
-    die('Carte introuvable.');
+    die($translations['voirmap-map-not-found']);
 }
 
 $mapName = $map["Map_NameEN"];
@@ -50,7 +50,7 @@ $stmt->execute(['user_id' => $_SESSION['user_id'], 'map_id' => $mapId]);
 $hasPurchased = $stmt->fetchColumn() > 0;
 
 if (!$hasPurchased) {
-    die('Vous devez acheter cette carte pour la visualiser.');
+    die($translations['voirmap-must-buy']);
 }
 
 $stmt = $pdo->prepare("
@@ -62,7 +62,7 @@ $stmt->execute([':id_map' => $mapId]);
 $geojson = $stmt->fetchColumn();
 
 if (!$geojson) {
-    die("Aucun GeoJSON trouvé pour cette carte.");
+    die($translations['voirmap-no-geojson']);
 }
 ?>
 <!DOCTYPE html>
@@ -89,13 +89,13 @@ if (!$geojson) {
                 <a href="<?= htmlspecialchars($downloadFile) ?>"
                     class="download-btn"
                     download>
-                    Télécharger la carte des randonnées
+                    <?= $translations['voirmap-download-button'] ?>
                 </a>
             </div>
         <?php endif; ?>
-        <div class="map-search-container">
-            <input type="text" id="map-search" placeholder="Rechercher un point ou une ville..." class="map-search-input">
-            <button id="search-btn" class="map-search-btn">Rechercher</button>
+            <div class="map-search-container">
+            <input type="text" id="map-search" placeholder="<?= htmlspecialchars($translations['voirmap-search-placeholder']) ?>" class="map-search-input">
+            <button id="search-btn" class="map-search-btn"><?= $translations['voirmap-search-button'] ?></button>
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
@@ -153,8 +153,22 @@ if (!$geojson) {
         onEachFeature: function(feature, layer) {
             var url = feature.properties.description;
 
-            var lat = layer.getLatLng().lat.toFixed(6);
-            var lng = layer.getLatLng().lng.toFixed(6);
+            var lat = null;
+            var lng = null;
+
+            // Cas Point (Marker)
+            if (layer.getLatLng) {
+                var ll = layer.getLatLng();
+                lat = ll.lat.toFixed(6);
+                lng = ll.lng.toFixed(6);
+            }
+
+            // Cas LineString / Polygon
+            else if (layer.getBounds) {
+                var center = layer.getBounds().getCenter();
+                lat = center.lat.toFixed(6);
+                lng = center.lng.toFixed(6);
+            }
             var popupContent =
                 "<div class='popup-content'>" +
                 "<strong>" + feature.properties.name + "</strong><br>" +

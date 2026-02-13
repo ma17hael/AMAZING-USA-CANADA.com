@@ -1,12 +1,13 @@
 <?php
-// mentions-legales.php
+include_once("INCLUDES/init.php");
+require_once 'INCLUDES/config.php';
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?? 'fr' ?>">
 
 <head>
     <meta charset="UTF-8">
-    <title>Mentions légales</title>
+    <title><?= $translations['legal-title'] ?></title>
     <link rel="stylesheet" href="CSS/legalnotice.css">
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -16,7 +17,7 @@
 <body>
     <?php include_once("INCLUDES/header.php"); ?>
     <div class="legal-container">
-        <h1>Mentions légales</h1>
+        <h1><?= $translations['legal-title'] ?></h1>
         <p>
             Conformément aux dispositions des articles 6-III et 19 de la loi n°2004-575 du 21 juin 2004 pour la Confiance dans l’Économie Numérique (LCEN), il est porté à la connaissance des utilisateurs du site les présentes mentions légales.
         </p>

@@ -5,7 +5,7 @@ require_once 'INCLUDES/currency.php';
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     http_response_code(404);
-    exit('Carte Introuvable');
+    exit($translations['voirmap-map-not-found']);
 }
 
 $id = (int) $_GET['id'];
@@ -22,7 +22,7 @@ $map = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$map) {
     http_response_code(404);
-    exit('Carte inexistante');
+    exit($translations['voirmap-map-not-found']);
 }
 
 $flags = [];
@@ -165,7 +165,7 @@ if ((int)$map['Map_Type'] === 3) {
                     <?php endif; ?>
                 </p>
                 <p>
-                    <strong>Nombre d'emplacement :</strong>
+                    <strong><?= $translations['mapsdetails-places-count'] ?></strong>
                     <?= htmlspecialchars($map['NbPlaces']) ?>
                 </p>
                 <form action="addcart.php" method="POST">
@@ -176,7 +176,7 @@ if ((int)$map['Map_Type'] === 3) {
         </section>
         <?php if ((int) $map['Map_Type'] == 3): ?>
             <div class="details-main-title">
-                <h1>Les cartes dans ce pack</h1>
+                <h1><?= $translations['mapsdetails-pack-maps-title'] ?></h1>
             </div>
             <?php if (!empty($packMaps)): ?>
                 <section class="mapShowcase">

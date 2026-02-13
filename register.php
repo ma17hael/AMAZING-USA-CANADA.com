@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
         if (!$email) {
-            $error = "Email requis.";
+            $error = "Adresse e-mail requise.";
         } else {
             // Vérifier si email déjà utilisé
             $stmt = $pdo->prepare("SELECT ID_Users FROM Utilisateurs WHERE Mail = :mail");
@@ -50,12 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->addAddress($email);
 
                     $mail->isHTML(false);
-                    $mail->Subject = 'Bienvenue sur AMAZING-USA-CANADA.com';
-                    $mail->Body =
-                        "Bonjour, chère nouvelle utilisateur \n\n" .
-                        "Prépare-toi a trouvez toutes sorte de zones aussi incroyables et inconnu les uns que les autres ! \n\n" .
+                $mail->Subject = 'Bienvenue sur AMAZING-USA-CANADA.com';
+                $mail->Body =
+                        "Bonjour et bienvenue,\n\n" .
+                        "Prépare-toi à trouver toutes sortes de lieux aussi incroyables et inconnus les uns que les autres !\n\n" .
                         "Voici ton code de création de compte : " . $code . "\n\n" .
-                        "Amuse toi bien !";
+                        "Amuse-toi bien !";
 
                     $mail->send();
                 } catch (Exception $e) {
@@ -91,10 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $passwordconfirm = $_POST['passwordconfirm'] ?? null;
 
         if (!$password || !$passwordconfirm) {
-            $error = "Mot de passe requis";
+            $error = "Mot de passe requis.";
             $step = 3;
         } elseif ($password != $passwordconfirm) {
-            $error = "Les mots de passe ne sont pas identiques";
+            $error = "Les mots de passe ne sont pas identiques.";
             $step = 3;
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($file['error'] === UPLOAD_ERR_OK) {
                 $imageData = file_get_contents($_FILES['profilepicture']['tmp_name']);
             } else {
-                $error = "Erreur lors de l'upload de l'image.";
+                $error = "Erreur lors du téléversement de l'image.";
                 $step = 4;
             }
         }
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>Inscription - AMAZING-USA-CANADA.com</title>
+    <title><?= $translations['register-title'] ?> - AMAZING-USA-CANADA.com</title>
     <link rel="stylesheet" href="CSS/register.css">
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -172,42 +172,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="auth-form">
             <?php if ($step === 1): ?>
                 <form method="POST">
-                    <h2>Créer un compte</h2>
-                    <label>Email :</label>
+                    <h2><?= $translations['register-title'] ?></h2>
+                    <label><?= $translations['register-email-label'] ?></label>
                     <input type="email" name="email" required>
                     <?php if ($error): ?>
                         <p class="error"><?= htmlspecialchars($error) ?></p>
                     <?php endif; ?>
-                    <button type="submit">Suivant</button>
+                    <button type="submit"><?= $translations['register-next'] ?></button>
                 </form>
             <?php elseif ($step === 2): ?>
                 <form method="POST">
-                    <h2>Créer un compte</h2>
-                    <p>Vous allez recevoir un code à l'addresse mail rensignée plutôt</p>
-                    <label>Code :</label>
+                    <h2><?= $translations['register-title'] ?></h2>
+                    <p><?= $translations['register-code-instruction'] ?></p>
+                    <label><?= $translations['register-code-label'] ?></label>
                     <input type="text" name="code" required>
                     <?php if ($error): ?>
                         <p class="error"><?= htmlspecialchars($error) ?></p>
                     <?php endif; ?>
-                    <button type="submit">Suivant</button>
+                    <button type="submit"><?= $translations['register-next'] ?></button>
                 </form>
             <?php elseif ($step === 3): ?>
                 <form method="POST">
-                    <h2>Créer un compte</h2>
-                    <label>Mot de passe</label>
+                    <h2><?= $translations['register-title'] ?></h2>
+                    <label><?= $translations['register-password-label'] ?></label>
                     <input type="password" name="password" required>
-                    <label>Confirmer le mot de passe :</label>
+                    <label><?= $translations['register-password-confirm-label'] ?></label>
                     <input type="password" name="passwordconfirm" required>
                     <?php if ($error): ?>
                         <p class="error"><?= htmlspecialchars($error) ?></p>
                     <?php endif; ?>
-                    <button type="submit">Suivant</button>
+                    <button type="submit"><?= $translations['register-next'] ?></button>
                 </form>
             <?php elseif ($step === 4): ?>
                 <form method="POST" enctype="multipart/form-data">
-                    <label>Pseudo :</label>
+                    <label><?= $translations['register-username-label'] ?></label>
                     <input type="text" name="pseudo">
-                    <label>Photo de profil</label>
+                    <label><?= $translations['register-picture-label'] ?></label>
                     <input type="file" name="profilepicture">
                     <?php if ($error): ?>
                         <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -216,8 +216,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
             <?php endif; ?>
             <p class="auth-switch">
-                Déjà inscrit ?
-                <a href="login.php">Se connecter</a>
+                <?= $translations['register-already-registered'] ?>
+                <a href="login.php"><?= $translations['register-go-login'] ?></a>
             </p>
         </div>
     </main>

@@ -110,5 +110,76 @@ return [
     'payment-success-paypal-message' => 'Thank you for your purchase. Your order #%d has been confirmed via PayPal.',
     'payment-success-stripe-message' => 'Thank you for your purchase. Your order #%d has been confirmed.',
     'payment-success-back-home' => 'Back to home',
+
+    // Auth - login
+    'login-title' => 'Sign in',
+    'login-email-label' => 'Email address:',
+    'login-password-label' => 'Password:',
+    'login-submit' => 'Sign in',
+    'login-no-account' => 'No account yet?',
+    'login-create-account' => 'Create an account',
+    'login-forgot-password' => 'Forgot your password?',
+
+    // Auth - register
+    'register-title' => 'Create an account',
+    'register-email-label' => 'Email address:',
+    'register-next' => 'Next',
+    'register-code-instruction' => 'You will receive a code at the email address you provided earlier.',
+    'register-code-label' => 'Code:',
+    'register-password-label' => 'Password:',
+    'register-password-confirm-label' => 'Confirm password:',
+    'register-username-label' => 'Username:',
+    'register-picture-label' => 'Profile picture:',
+    'register-already-registered' => 'Already registered?',
+    'register-go-login' => 'Sign in',
+
+    // Auth - forgot password
+    'forgot-title' => 'Password reset',
+    'forgot-description' => 'Enter your email address below. A temporary password will be sent to you.',
+    'forgot-email-placeholder' => 'Your email address',
+    'forgot-submit' => 'Receive a new password',
+    'forgot-back-login' => 'Back to sign-in page',
+    'forgot-icon-alt' => 'Security',
+    'forgot-mail-subject' => 'Your new password',
+    'forgot-mail-body-1' => 'Your new password is: %s',
+    'forgot-mail-body-2' => 'We recommend changing it after you sign in.',
+    'forgot-success' => 'A new password has been sent to you by email.',
+    'forgot-error-send' => 'Error while sending email: %s',
+    'forgot-error-notfound' => 'This email address does not exist.',
+
+    // Map viewer (voirmap)
+    'voirmap-download-button' => 'Download hiking map',
+    'voirmap-search-placeholder' => 'Search for a point or a city…',
+    'voirmap-search-button' => 'Search',
+    'voirmap-noresult' => 'No results found',
+    'voirmap-result-point' => 'Map point',
+    'voirmap-result-city' => 'City',
+    'voirmap-layer-road' => 'Road map',
+    'voirmap-layer-satellite' => 'Satellite',
+    'voirmap-invalid-map' => 'Invalid map.',
+    'voirmap-map-not-found' => 'Map not found.',
+    'voirmap-must-buy' => 'You must purchase this map to view it.',
+    'voirmap-no-geojson' => 'No GeoJSON found for this map.',
+
+    // Index - contact form
+    'contact-title' => 'Contact us',
+    'contact-name-placeholder' => 'Your name',
+    'contact-email-placeholder' => 'Your email address',
+    'contact-message-placeholder' => 'Your message',
+    'contact-submit' => 'Send',
+    'contact-error-name' => 'Please enter your name.',
+    'contact-error-email' => 'Please enter a valid email address.',
+    'contact-error-message' => 'Please enter your message.',
+    'contact-success' => 'Your message has been sent successfully.',
+    'contact-error-send' => 'Error while sending message: %s',
+
+    // Maps details - extra labels
+    'mapsdetails-places-count' => 'Number of locations:',
+    'mapsdetails-pack-maps-title' => 'Maps in this pack',
+
+    // Legal pages titles
+    'legal-title' => 'Legal notice',
+    'cgu-title' => 'Terms of use',
+    'cgv-title' => 'Terms of sale',
 ];
 ?>

@@ -45,19 +45,19 @@ if (isset($_POST['forgot_submit'])) {
             $mail->setFrom('noreply@tonsite.com', 'AMAZING-USA-CANADA');
             $mail->addAddress($email);
             $mail->isHTML(true);
-            $mail->Subject = 'Votre nouveau mot de passe';
-            $mail->Body    = "<p>Votre nouveau mot de passe est : <strong>$newPassword</strong></p>
-                              <p>Nous vous recommandons de le modifier après votre connexion.</p>";
+            $mail->Subject = $translations['forgot-mail-subject'];
+            $mail->Body    = "<p>" . sprintf($translations['forgot-mail-body-1'], htmlspecialchars($newPassword)) . "</p>"
+                           . "<p>" . htmlspecialchars($translations['forgot-mail-body-2']) . "</p>";
 
             $mail->send();
-            $message = "Un nouveau mot de passe vous a été envoyé par email.";
+            $message = $translations['forgot-success'];
             $messageClass = 'success';
         } catch (Exception $e) {
-            $message = "Erreur lors de l’envoi : " . $mail->ErrorInfo;
+            $message = sprintf($translations['forgot-error-send'], $mail->ErrorInfo);
             $messageClass = 'error';
         }
     } else {
-        $message = "Cet email n’existe pas.";
+        $message = $translations['forgot-error-notfound'];
         $messageClass = 'error';
     }
 }
@@ -68,7 +68,7 @@ if (isset($_POST['forgot_submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réinitialisation du mot de passe - AMAZING-USA-CANADA</title>
+    <title><?= $translations['forgot-title'] ?> - AMAZING-USA-CANADA</title>
     <link rel="stylesheet" href="CSS/forgotpassword.css">
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -83,21 +83,21 @@ if (isset($_POST['forgot_submit'])) {
         <section class="reset-password-section">
             <div class="reset-password-container">
                 <div class="reset-header">
-                    <img src="INCLUDES/ICONS/lock.svg" alt="Sécurité" class="reset-icon">
-                    <h2>Réinitialisation du mot de passe</h2>
-                    <p>Entrez votre adresse e-mail ci-dessous. Un mot de passe temporaire vous sera envoyé.</p>
+                    <img src="INCLUDES/ICONS/lock.svg" alt="<?= $translations['forgot-icon-alt'] ?>" class="reset-icon">
+                    <h2><?= $translations['forgot-title'] ?></h2>
+                    <p><?= $translations['forgot-description'] ?></p>
                 </div>
 
                 <?php if ($message): ?>
-                    <p class="<?= $messageClass ?>"><?= $message ?></p>
+                    <p class="<?= htmlspecialchars($messageClass) ?>"><?= htmlspecialchars($message) ?></p>
                 <?php endif; ?>
 
                 <form method="POST">
-                    <input type="email" name="email" placeholder="Votre email" required>
-                    <button type="submit" name="forgot_submit">Recevoir un nouveau mot de passe</button>
+                    <input type="email" name="email" placeholder="<?= htmlspecialchars($translations['contact-email-placeholder']) ?>" required>
+                    <button type="submit" name="forgot_submit"><?= $translations['forgot-submit'] ?></button>
                 </form>
 
-                <p class="back-login"><a href="login.php">Retour à la page de connexion</a></p>
+                <p class="back-login"><a href="login.php"><?= $translations['forgot-back-login'] ?></a></p>
             </div>
         </section>
     </main>

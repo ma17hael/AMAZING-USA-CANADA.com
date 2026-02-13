@@ -1,12 +1,13 @@
 <?php
-// conditions-utilisation.php
+include_once("INCLUDES/init.php");
+require_once 'INCLUDES/config.php';
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?? 'fr' ?>">
 
 <head>
     <meta charset="UTF-8">
-    <title>Conditions d'utilisation</title>
+    <title><?= $translations['cgu-title'] ?></title>
     <link rel="stylesheet" href="CSS/legalnotice.css">
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -16,7 +17,7 @@
 <body>
     <?php include_once("INCLUDES/header.php"); ?>
     <div class="legal-container">
-        <h1>Conditions d'utilisation</h1>
+        <h1><?= $translations['cgu-title'] ?></h1>
         <p>
             Les présentes conditions d'utilisation régissent l'accès et l'utilisation du site <strong>[Nom du site]</strong>. En accédant à ce site, l'utilisateur accepte pleinement ces conditions.
         </p>

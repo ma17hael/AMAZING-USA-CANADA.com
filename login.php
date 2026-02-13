@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $captchaResult = json_decode($verify);
 
         if (!$captchaResult || !$captchaResult->success) {
-            $error = "Échec de la vérification CAPTCHA.";
+            $error = "Échec de la vérification du CAPTCHA.";
         }
     }
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($error)) {
 
         if (!$email || !$password) {
-            $error = "Email et mot de passe requis.";
+            $error = "Adresse e-mail et mot de passe requis.";
         } else {
 
             $stmt = $pdo->prepare(
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>Connexion - AMAZING-USA-CANADA.com</title>
+    <title><?= $translations['login-title'] ?> - AMAZING-USA-CANADA.com</title>
     <link rel="stylesheet" href="CSS/login.css">
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -84,10 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <main>
         <form method="POST" class="auth-form">
-            <h2>Connexion</h2>
-            <label>Email :</label>
+            <h2><?= $translations['login-title'] ?></h2>
+            <label><?= $translations['login-email-label'] ?></label>
             <input type="email" name="email" required>
-            <label>Mot de passe :</label>
+            <label><?= $translations['login-password-label'] ?></label>
             <input type="password" name="password" required>
             <div class="captcha">
                 <div class="g-recaptcha" data-sitekey="6LdJY2AsAAAAAOGijqAfwaAAp5SbA_VSeY6kAFB1"></div>
@@ -96,13 +96,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if ($error): ?>
                 <p class="error"><?= htmlspecialchars($error) ?></p>
             <?php endif; ?>
-            <button type="submit">Se connecter</button>
+            <button type="submit"><?= $translations['login-submit'] ?></button>
             <p class="auth-switch">
-                Pas de compte ?
-                <a href="register.php">Créer un compte</a>
+                <?= $translations['login-no-account'] ?>
+                <a href="register.php"><?= $translations['login-create-account'] ?></a>
             </p>
             <p class="auth-switch">
-                <a href="forgotpassword.php">Mot de passe oublié ?</a>
+                <a href="forgotpassword.php"><?= $translations['login-forgot-password'] ?></a>
             </p>
         </form>
     </main>

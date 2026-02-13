@@ -24,12 +24,12 @@ return [
     'home-hero-title' => 'Bienvenue sur AMAZING-USA-CANADA.com',
     'home-hero-paragraph' => 'Découvrez nos cartes et leurs lieux à découvrir !',
     'home-presentation-title' => 'Ce que nous vous proposons :',
-    'home-presentation-paragraph' => "AMAZING-USA-CANADA, vous propose une sélection de cartes regroupant les meilleurs spots sur l'ensemble des 50 Etats US et les 10 provinces du
-                                        CANADA. Les immanquables, les grands classiques, les perles cachées, les secrets des locaux... (Arches, Hoodoos, Viewpoints, Trailheads, Ghost Towns,
-                                        Falls, Lakes, Bridges, Slot Canyon, Historic Sites, Historic Gaz Stations, Diners, Scenic Drives....)",
+    'home-presentation-paragraph' => "AMAZING-USA-CANADA vous propose une sélection de cartes regroupant les meilleurs spots sur l'ensemble des 50 États américains et des 10 provinces du
+                                        Canada. Les immanquables, les grands classiques, les perles cachées, les secrets des locaux... (Arches, Hoodoos, Viewpoints, Trailheads, Ghost Towns,
+                                        Falls, Lakes, Bridges, Slot Canyons, Historic Sites, Historic Gas Stations, Diners, Scenic Drives...)",
     'home-presentation-mapcard' => 'Carte',
     'home-presentation-mapcard-title' => 'Cartes entièrement personnalisées par nos soins',
-    'home-presentation-mapcard-paragraph' => 'Cartes Etat par Etat ou Pack regroupan plusieurs Etats, avec coordonnées GPS, liens infos, photos, vidéos..',
+    'home-presentation-mapcard-paragraph' => 'Cartes État par État ou packs regroupant plusieurs États, avec coordonnées GPS, liens d’informations, photos, vidéos…',
     'home-presentation-accesscard' => 'Accessibilité',
     'home-presentation-accesscard-title' => 'Accessibilité complète',
     'home-presentation-accesscard-paragraph' => 'Nos cartes sont accessibles sur tous vos appareils de manière sécurisée',
@@ -110,5 +110,76 @@ return [
     'payment-success-paypal-message' => 'Merci pour votre achat. Votre commande #%d a été confirmée via PayPal.',
     'payment-success-stripe-message' => 'Merci pour votre achat. Votre commande #%d a été confirmée.',
     'payment-success-back-home' => "Retour à l'accueil",
+
+    // Auth - login
+    'login-title' => 'Connexion',
+    'login-email-label' => 'Adresse e-mail :',
+    'login-password-label' => 'Mot de passe :',
+    'login-submit' => 'Se connecter',
+    'login-no-account' => 'Pas de compte ?',
+    'login-create-account' => 'Créer un compte',
+    'login-forgot-password' => 'Mot de passe oublié ?',
+
+    // Auth - register
+    'register-title' => 'Créer un compte',
+    'register-email-label' => 'Adresse e-mail :',
+    'register-next' => 'Suivant',
+    'register-code-instruction' => "Vous allez recevoir un code à l'adresse e-mail renseignée plus tôt.",
+    'register-code-label' => 'Code :',
+    'register-password-label' => 'Mot de passe :',
+    'register-password-confirm-label' => 'Confirmer le mot de passe :',
+    'register-username-label' => 'Pseudo :',
+    'register-picture-label' => 'Photo de profil :',
+    'register-already-registered' => 'Déjà inscrit ?',
+    'register-go-login' => 'Se connecter',
+
+    // Auth - forgot password
+    'forgot-title' => 'Réinitialisation du mot de passe',
+    'forgot-description' => "Entrez votre adresse e-mail ci-dessous. Un mot de passe temporaire vous sera envoyé.",
+    'forgot-email-placeholder' => 'Votre adresse e-mail',
+    'forgot-submit' => 'Recevoir un nouveau mot de passe',
+    'forgot-back-login' => 'Retour à la page de connexion',
+    'forgot-icon-alt' => 'Sécurité',
+    'forgot-mail-subject' => 'Votre nouveau mot de passe',
+    'forgot-mail-body-1' => 'Votre nouveau mot de passe est : %s',
+    'forgot-mail-body-2' => 'Nous vous recommandons de le modifier après votre connexion.',
+    'forgot-success' => 'Un nouveau mot de passe vous a été envoyé par e-mail.',
+    'forgot-error-send' => 'Erreur lors de l’envoi : %s',
+    'forgot-error-notfound' => 'Cet e-mail n’existe pas.',
+
+    // Map viewer (voirmap)
+    'voirmap-download-button' => 'Télécharger la carte des randonnées',
+    'voirmap-search-placeholder' => 'Rechercher un point ou une ville…',
+    'voirmap-search-button' => 'Rechercher',
+    'voirmap-noresult' => 'Aucun résultat trouvé',
+    'voirmap-result-point' => 'Point de la carte',
+    'voirmap-result-city' => 'Ville',
+    'voirmap-layer-road' => 'Carte routière',
+    'voirmap-layer-satellite' => 'Satellite',
+    'voirmap-invalid-map' => 'Carte invalide.',
+    'voirmap-map-not-found' => 'Carte introuvable.',
+    'voirmap-must-buy' => 'Vous devez acheter cette carte pour la visualiser.',
+    'voirmap-no-geojson' => 'Aucun GeoJSON trouvé pour cette carte.',
+
+    // Index - contact form
+    'contact-title' => 'Contactez-nous',
+    'contact-name-placeholder' => 'Votre nom',
+    'contact-email-placeholder' => 'Votre adresse e-mail',
+    'contact-message-placeholder' => 'Votre message',
+    'contact-submit' => 'Envoyer',
+    'contact-error-name' => 'Veuillez saisir votre nom.',
+    'contact-error-email' => 'Veuillez saisir une adresse e-mail valide.',
+    'contact-error-message' => 'Veuillez saisir votre message.',
+    'contact-success' => 'Votre message a été envoyé avec succès.',
+    'contact-error-send' => 'Erreur lors de l’envoi du message : %s',
+
+    // Maps details - extra labels
+    'mapsdetails-places-count' => "Nombre d'emplacements :",
+    'mapsdetails-pack-maps-title' => 'Les cartes dans ce pack',
+
+    // Legal pages titles
+    'legal-title' => 'Mentions légales',
+    'cgu-title' => "Conditions d’utilisation",
+    'cgv-title' => 'Conditions Générales de Vente',
 ];
 ?>

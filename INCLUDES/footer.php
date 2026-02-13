@@ -35,6 +35,6 @@
     </div>
 
     <div class="footer-bottom">
-        <p>&copy; <?=date('Y')?> AMAZING-USA-CANADA.com - Contenu protégée par les droits d'auteurs</p>
+        <p>&copy; <?=date('Y')?> AMAZING-USA-CANADA.com - Contenu protégé par les droits d'auteur</p>
     </div>
 </footer>

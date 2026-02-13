@@ -67,7 +67,7 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     AMAZING-USA-CANADA.com n’est pas responsable si les informations disponibles sur ce site
                     s’avéraient parfois inexactes, incomplètes ou non à jour. Le contenu de ce site est fourni à
                     titre d'information générale uniquement et ne doit pas être utilisé comme unique source pour
-                    prendre des décisions de randonnées sans consulter d’autres sources d’informations.
+                    prendre des décisions de randonnée sans consulter d’autres sources d’information.
                 </p>
                 <p>
                     Toute utilisation des informations contenues sur ce site se fera en toute connaissance de
@@ -180,7 +180,7 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </section>
         <section class="contact-form-section">
             <div class="contact-form-container">
-                <h2>Contactez-nous</h2>
+                <h2><?= $translations['contact-title'] ?></h2>
                 <?php
                 if (isset($_POST['contact_submit'])) {
                     $name = htmlspecialchars(trim($_POST['contact_name']));
@@ -188,9 +188,9 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $message = htmlspecialchars(trim($_POST['contact_message']));
                     $errors = [];
 
-                    if (empty($name)) $errors[] = "Veuillez saisir votre nom.";
-                    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Veuillez saisir un email valide.";
-                    if (empty($message)) $errors[] = "Veuillez saisir votre message.";
+                    if (empty($name)) $errors[] = $translations['contact-error-name'];
+                    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = $translations['contact-error-email'];
+                    if (empty($message)) $errors[] = $translations['contact-error-message'];
 
                     if (empty($errors)) {
                         $mail = new PHPMailer(true);
@@ -218,22 +218,22 @@ $showcaseMap = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             $mail->Body    = $message;
 
                             $mail->send();
-                            echo '<p class="contact-success">Votre message a été envoyé avec succès.</p>';
+                            echo '<p class="contact-success">' . htmlspecialchars($translations['contact-success']) . '</p>';
                         } catch (Exception $e) {
-                            echo '<p class="contact-error">Erreur lors de l’envoi du message : ', $mail->ErrorInfo, '</p>';
+                            echo '<p class="contact-error">' . htmlspecialchars(sprintf($translations['contact-error-send'], $mail->ErrorInfo)) . '</p>';
                         }
                     } else {
                         foreach ($errors as $err) {
-                            echo '<p class="contact-error">' . $err . '</p>';
+                            echo '<p class="contact-error">' . htmlspecialchars($err) . '</p>';
                         }
                     }
                 }
                 ?>
                 <form method="POST" action="#contact-form">
-                    <input type="text" name="contact_name" placeholder="Votre nom" required>
-                    <input type="email" name="contact_email" placeholder="Votre email" required>
-                    <textarea name="contact_message" placeholder="Votre message" required></textarea>
-                    <button type="submit" name="contact_submit">Envoyer</button>
+                    <input type="text" name="contact_name" placeholder="<?= htmlspecialchars($translations['contact-name-placeholder']) ?>" required>
+                    <input type="email" name="contact_email" placeholder="<?= htmlspecialchars($translations['contact-email-placeholder']) ?>" required>
+                    <textarea name="contact_message" placeholder="<?= htmlspecialchars($translations['contact-message-placeholder']) ?>" required></textarea>
+                    <button type="submit" name="contact_submit"><?= $translations['contact-submit'] ?></button>
                 </form>
             </div>
         </section>

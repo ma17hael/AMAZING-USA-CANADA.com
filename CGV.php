@@ -1,12 +1,13 @@
 <?php
-// cgv.php
+include_once("INCLUDES/init.php");
+require_once 'INCLUDES/config.php';
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?? 'fr' ?>">
 
 <head>
     <meta charset="UTF-8">
-    <title>Conditions Générales de Vente</title>
+    <title><?= $translations['cgv-title'] ?></title>
     <link rel="stylesheet" href="CSS/legalnotice.css">
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
@@ -16,7 +17,7 @@
 <body>
     <?php include_once("INCLUDES/header.php"); ?>
     <div class="legal-container">
-        <h1>Conditions Générales de Vente (CGV)</h1>
+        <h1><?= $translations['cgv-title'] ?></h1>
         <p>
             Les présentes Conditions Générales de Vente régissent les ventes effectuées sur le site <strong>Amazing-USA-Canada.com</strong>. En passant commande, l'utilisateur accepte sans réserve ces conditions.
         </p>
