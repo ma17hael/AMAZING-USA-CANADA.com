@@ -60,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Création de la commande
             $stmt = $pdo->prepare("
-            INSERT INTO commandes (ID_Users, Date_Commande, Statut)
-            VALUES (:id_user, NOW(), 'validee')
+            INSERT INTO commandes (ID_Users, Prix_Total, CommandeStatus, DateCreation)
+            VALUES (:id_user, 705, 2, NOW())
         ");
             $stmt->execute([':id_user' => $idUser]);
 
@@ -140,7 +140,7 @@ $maps = $pdo->query("SELECT ID_Map, Map_NameFR FROM statesmap ORDER BY Map_NameF
 
         <button type="submit">Envoyer</button>
     </form>
-    
+
     <hr>
 
     <form method="post">
