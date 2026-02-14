@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insérer toutes les cartes dans la commande (requête optimisée)
             $pdo->exec("
-            INSERT INTO commandes_maps (ID_Commande, ID_Map)
+            INSERT INTO commandesdetails (ID_Commande, ID_Map)
             SELECT $idCommande, ID_Map
             FROM statesmap
         ");
