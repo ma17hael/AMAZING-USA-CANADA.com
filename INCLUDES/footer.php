@@ -17,6 +17,9 @@
             <ul>
                 <li><a href="index.php"><?=$translations['header-home']?></a></li>
                 <li><a href="mapslist.php"><?=$translations['header-maplist']?></a></li>
+                <li><a href="INCLUDES/HTU.pdf" target="_blank">
+                    Télécharger le manuel d'utilisation du site
+                </a></li>
             </ul>
         </div>
 
