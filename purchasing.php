@@ -85,13 +85,13 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Stripe -->
         <form action="purchase_stripe.php" method="post">
             <input type="hidden" name="commande_id" value="<?= $commande['ID_Commande'] ?>">
-            <button type="submit" class="btn-map stripe"><?= $translations['purchasing-pay-card'] ?></button>
+            <button type="submit" class="btn-map stripe"><?= $commande['Prix_Total'] == 0 ? "Ajouter à votre profil" : $translations['purchasing-pay-card'] ?></button>
         </form>
 
         <!-- PayPal -->
         <form action="purchase_paypal.php" method="post">
             <input type="hidden" name="commande_id" value="<?= $commande['ID_Commande'] ?>">
-            <button type="submit" class="btn-map paypal"><?= $translations['purchasing-pay-paypal'] ?></button>
+            <button type="submit" class="btn-map paypal"><?= $commande['Prix_Total'] == 0 ? "Ajouter à votre profil via PayPal" : $translations['purchasing-pay-paypal'] ?></button>
         </form>
     </aside>
 </div>

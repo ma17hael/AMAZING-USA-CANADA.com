@@ -62,7 +62,7 @@ a.btn:hover { background:linear-gradient(135deg,#1e40af,#2563eb); }
 <div class="container">
     <h1><?= $translations['payment-success-heading'] ?></h1>
     <p><?= sprintf($translations['payment-success-stripe-message'], htmlspecialchars($commandeId)) ?></p>
-    <a href="index.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
+    <a href="profile.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
 </div>
 <?php include_once("INCLUDES/footer.php"); ?>
 </body>

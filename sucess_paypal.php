@@ -36,7 +36,7 @@ a.btn:hover { background:#e0a800; }
 <div class="container">
     <h1><?= $translations['payment-success-heading'] ?></h1>
     <p><?= sprintf($translations['payment-success-paypal-message'], htmlspecialchars($commandeId)) ?></p>
-    <a href="index.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
+    <a href="profile.php" class="btn"><?= $translations['payment-success-back-home'] ?></a>
 </div>
 <?php include_once("INCLUDES/footer.php"); ?>
 </body>
