@@ -179,8 +179,10 @@ if (!$geojson) {
                 "</div>" +
                 "</div>";
             layer.bindPopup(popupContent, {
-                maxWidth: 300,
-                className: 'custom-popup'
+                maxWidth: 1000,
+                className: 'custom-popup',
+                autoPan: false,
+                keepInView: false
             });
         }
     }).addTo(map);

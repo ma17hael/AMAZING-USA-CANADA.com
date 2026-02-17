@@ -202,9 +202,11 @@ body {
 
 /* Styles pour les popups Leaflet */
 .leaflet-popup-content-wrapper {
-    max-width: 300px !important;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    max-width: 600px !important;
+    min-width: 350px;  
+    height: auto !important;
+    max-height: 300px !important; 
+    overflow: hidden;
     background: rgba(30, 41, 59, 0.98);
     backdrop-filter: blur(20px);
     border-radius: 16px;
@@ -213,12 +215,18 @@ body {
 }
 
 .leaflet-popup-content {
+    max-height: 240px !important;   /* Zone scrollable interne */
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    width: 100% !important;
     margin: 15px 20px;
     line-height: 1.5;
     word-wrap: break-word;
     overflow-wrap: break-word;
     width: auto !important;
     color: #eaeaea;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .leaflet-popup-content .popup-content {
