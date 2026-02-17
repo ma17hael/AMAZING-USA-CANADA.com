@@ -42,6 +42,13 @@ $session = \Stripe\Checkout\Session::create([
         'quantity' => 1,
     ]],
     'mode' => 'payment',
+    'payment_intent_data' => [
+        'payment_method_options' => [
+            'card' => [
+                'request_three_d_secure' => 'any'
+            ]
+        ]
+    ],
     'success_url' => 'https://amazing-usa-canada.com/sucess_stripe.php?session_id={CHECKOUT_SESSION_ID}',
     'cancel_url' => 'https://amazing-usa-canada.com/purchasing.php',
     'metadata' => [
