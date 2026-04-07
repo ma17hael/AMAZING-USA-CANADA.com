@@ -34,7 +34,7 @@ if (!$paypalClientId) {
 <head>
     <meta charset="UTF-8">
     <title>Paiement PayPal</title>
-    <script src="https://www.paypal.com/sdk/js?client-id=<?= urlencode($paypalClientId) ?>&currency=EUR"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=<?= urlencode($paypalClientId) ?>&currency=EUR&intent=capture"></script>
 </head>
 
 <body>
@@ -47,7 +47,7 @@ if (!$paypalClientId) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '<?= $commande['Prix_Total'] ?>'
+                            value: '<?= number_format($commande['Prix_Total'], 2, '.', '') ?>'
                         }
                     }]
                 });

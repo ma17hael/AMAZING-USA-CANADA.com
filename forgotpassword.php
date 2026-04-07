@@ -42,7 +42,7 @@ if (isset($_POST['forgot_submit'])) {
             $mail->CharSet = 'UTF-8';
             $mail->Encoding = 'base64';
 
-            $mail->setFrom('noreply@tonsite.com', 'AMAZING-USA-CANADA');
+            $mail->setFrom('no-reply@amazing-usa-canada.com', 'AMAZING-USA-CANADA');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = $translations['forgot-mail-subject'];
