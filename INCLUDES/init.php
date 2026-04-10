@@ -63,8 +63,38 @@ loadProjectEnv(dirname(__DIR__) . '/.env');
 ini_set('memory_limit', '512M');
 session_start();
 
+// ===== CONFIG MAINTENANCE =====
+$maintenanceMode = getenv('MAINTENANCE_MODE') === 'true';
+$maintenanceUrl  = getenv('MAINTENANCE_URL') ?: 'http://maintenance.amazing-usa-canada.com';
+$currentHost     = $_SERVER['HTTP_HOST'] ?? '';
+
+
+// ===== BYPASS =====
+$bypassKey = $_GET['maintenance_key'] ?? null;
+$validKey  = getenv('MAINTENANCE_BYPASS_KEY');
+
+// Activation bypass via URL
+if ($bypassKey && $validKey && $bypassKey === $validKey) {
+    $_SESSION['maintenance_bypass'] = true;
+}
+
+// Vérifie si bypass actif
+$isBypassed = !empty($_SESSION['maintenance_bypass']);
+
+
+// ===== REDIRECTION MAINTENANCE =====
+if ($maintenanceMode && !$isBypassed) {
+
+    // évite boucle infinie
+    if ($currentHost !== parse_url($maintenanceUrl, PHP_URL_HOST)) {
+
+        header("Location: $maintenanceUrl");
+        exit;
+    }
+}
+
 //Vérifie si une langue est passée en GET et valide
-if (isset($_GET['lang']) && in_array($_GET['lang'], ['fr','us','ca'])) {
+if (isset($_GET['lang']) && in_array($_GET['lang'], ['fr', 'us', 'ca'])) {
     $_SESSION['lang'] = $_GET['lang'];
 }
 
