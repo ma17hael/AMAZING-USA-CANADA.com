@@ -1,0 +1,73 @@
+/* =========================================
+   AMAZING USA CANADA - GLOBAL STYLE SYSTEM
+   ========================================= */
+
+/* VARIABLES GLOBALES */
+:root {
+    /* === BRAND COLORS === */
+    --blue-deep: #1E3A5F; /* NAVIGATION / FOOTER */
+    --blue-soft: #2563eb; /* PRIMARY ACTIONS */
+    --blue-dark: #0f172a;
+
+    --beige: #F5F0E6;     /* BACKGROUND PRINCIPAL */
+    --white: #ffffff;
+
+    --green: #2F5D50;     /* NATURE / TAGS */
+    --orange: #E76F51;    /* CTA / HIGHLIGHTS */
+    
+    /* === TEXT === */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-light: #ffffff;
+
+    /* === BORDER === */
+    --border: #e2e8f0;
+
+    /* === SHADOWS === */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
+    --shadow-xl: 0 20px 30px rgba(0,0,0,0.2);
+
+    /* === SPACING === */
+    --space-xs: 4px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 32px;
+    --space-xl: 64px;
+
+    /* === RADIUS === */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+
+    /* === TRANSITIONS === */
+    --transition-fast: 0.2s ease;
+    --transition: 0.3s ease;
+    --transition-slow: 0.6s ease;
+
+    /* === TYPOGRAPHIE === */
+    --font-main: 'Inter', system-ui, sans-serif;
+}
+
+/* =========================================
+   RESET GLOBAL
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--beige);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
