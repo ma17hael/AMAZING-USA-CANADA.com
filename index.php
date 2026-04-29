@@ -1,19 +1,43 @@
-<?php 
+<?php
 
-require_once __DIR__ . '/../MAINSITE/INCLUDES/init.php';
-loadProjectEnv(__DIR__ . '/../MAINSITE/.env');
+require_once __DIR__ . '/../GLOBAL-INCLUDES/CONFIGS/db.php';
 
-$maintenanceMode = getenv('MAINTENANCE_MODE') == 'true';
 $mainUrl = 'http://amazing-usa-canada.local';
+$maintenanceMode = true;
 
+try {
+
+    $db = getDB();
+
+    $stmt = $db->prepare("
+        SELECT SettingValue 
+        FROM settings 
+        WHERE SettingKey = :key 
+        LIMIT 1
+    ");
+
+    $stmt->execute(['key' => 'maintenance_mode']);
+
+    $value = $stmt->fetchColumn();
+
+    if ($value !== false) {
+        $maintenanceMode = ((int)$value === 1);
+    }
+} catch (Throwable $e) {
+
+    error_log("Maintenance page error: " . $e->getMessage());
+    $maintenanceMode = true;
+}
+
+// si maintenance OFF → retour site
 if (!$maintenanceMode) {
     header("Location: $mainUrl");
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Maintenance</title>
@@ -22,14 +46,15 @@ if (!$maintenanceMode) {
     <!-- Google Fonts (optionnel) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container">
-    <img src="ASSETS/CANADALogo.webp" class="logo" alt="logo">
+    <div class="container">
+        <img src="ASSETS/CANADALogo.webp" class="logo" alt="logo">
 
-    <h1>🚧 Site en maintenance</h1>
-    <p>On améliore l'expérience, reviens vite 😉</p>
-</div>
+        <h1>🚧 Site en maintenance</h1>
+        <p>On améliore l'expérience, reviens vite 😉</p>
+    </div>
 
 </body>
 <script>
@@ -40,7 +65,10 @@ if (!$maintenanceMode) {
                 if (!data.maintenance) {
                     window.location.href = data.url;
                 }
+            })
+            .catch(() => {
+                console.log("Check maintenance failed");
             });
-    }, 5000)
+    }, 5000);
 </script>
 </html>
