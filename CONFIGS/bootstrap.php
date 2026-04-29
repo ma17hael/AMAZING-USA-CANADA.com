@@ -18,14 +18,12 @@ $host = $_SERVER['HTTP_HOST'];
 $mainHost = preg_replace('/^maintenance\./', '', $host);
 $maintenanceHost = 'maintenance.' . $mainHost;
 
-$currentHost = $host;
-
 $mainURL = $scheme . '://' . $mainHost;
-$maintenanceURL = $scheme . '://' . 'maintenance.' . $mainHost;
+$maintenanceURL = $scheme . '://' . $maintenanceHost;
 
 /**
  * ======================
- * LANG
+ * LANG LIST FROM DB
  * ======================
  */
 $stmt = $db->prepare("SELECT LangCode FROM languages");
@@ -33,19 +31,42 @@ $stmt->execute();
 
 $allowedLangs = array_map('strtolower', $stmt->fetchAll(PDO::FETCH_COLUMN));
 
+/**
+ * ======================
+ * LANG PRIORITY SYSTEM
+ * ======================
+ * 1. GET (user change)
+ * 2. COOKIE (persist)
+ * 3. BROWSER
+ */
 $lang = $_GET['lang']
     ?? $_COOKIE['lang']
-    ?? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr', 0, 2)
-    ?? 'fr';
+    ?? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr-FR', 0, 5);
 
 $lang = strtolower($lang);
 
+/**
+ * ======================
+ * VALIDATION
+ * ======================
+ */
 if (!in_array($lang, $allowedLangs)) {
-    $lang = 'fr';
+    // fallback intelligent
+    $lang = 'fr-fr';
 }
 
+/**
+ * ======================
+ * COOKIE SAVE
+ * ======================
+ */
 setcookie('lang', $lang, time() + 3600 * 24 * 30, '/');
 
+/**
+ * ======================
+ * LOAD LANG FILES
+ * ======================
+ */
 $L = loadLang($lang);
 
 /**
@@ -59,8 +80,8 @@ $stmt = $db->prepare("
     WHERE SettingKey = 'maintenance_mode'
     LIMIT 1
 ");
-
 $stmt->execute();
+
 $maintenance = (int)$stmt->fetchColumn();
 
 /**
@@ -68,7 +89,7 @@ $maintenance = (int)$stmt->fetchColumn();
  * ROUTING SAFE
  * ======================
  */
-$isMaintenanceHost = ($currentHost === $maintenanceHost);
+$isMaintenanceHost = str_starts_with($host, 'maintenance.');
 
 if ($maintenance === 1 && !$isMaintenanceHost) {
     header("Location: $maintenanceURL");
@@ -79,3 +100,11 @@ if ($maintenance === 0 && $isMaintenanceHost) {
     header("Location: $mainURL");
     exit;
 }
+
+/**
+ * ======================
+ * GLOBAL VARS
+ * ======================
+ */
+$langRaw = $lang;
+$globalLang = explode('-', $lang)[0];
