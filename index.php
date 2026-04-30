@@ -1,30 +1,6 @@
 <?php
 require_once __DIR__ . '/../GLOBAL-INCLUDES/CONFIGS/bootstrap.php';
 
-$langs = getAvailableLanguages($db);
-
-$current = null;
-foreach ($langs as $l) {
-    if (strtolower($l['code']) === strtolower($lang)) {
-        $current = $l;
-        break;
-    }
-}
-if (!$current) {
-    foreach ($langs as $l) {
-        if (explode('-', strtolower($l['code']))[0] === explode('-', strtolower($lang))[0]) {
-            $current = $l;
-            break;
-        }
-    }
-}
-if (!$current) {
-    $current = $langs[0];
-}
-
-$currentFlag = $current['flag'];
-$currentLangName = $current['name'];
-
 $baseUrl = 'http://amazing-usa-canada.local';
 ?>
 <!DOCTYPE html>
