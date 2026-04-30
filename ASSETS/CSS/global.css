@@ -4,20 +4,21 @@
 
 /* VARIABLES GLOBALES */
 :root {
-    /* === BRAND COLORS === */
-    --blue-deep: #1E3A5F; /* NAVIGATION / FOOTER */
-    --blue-soft: #2563eb; /* PRIMARY ACTIONS */
-    --blue-dark: #0f172a;
+    /* === BRAND COLORS (NEW IDENTITY) === */
+    --blue-deep: #1b3a5a;     /* USA night / Canada sky */
+    --blue-soft: #2b6fff;     /* US tech blue */
+    --blue-dark: #0b1220;     /* deep night */
 
-    --beige: #F5F0E6;     /* BACKGROUND PRINCIPAL */
-    --white: #ffffff;
+    --red: #e63946;           /* USA accent */
+    --green: #2f6f4e;         /* Canada forest */
+    --orange: #f4a261;        /* warmth / travel */
 
-    --green: #2F5D50;     /* NATURE / TAGS */
-    --orange: #E76F51;    /* CTA / HIGHLIGHTS */
-    
+    /* === BACKGROUND SHIFT === */
+    --beige: #f7f5ef;         /* softer warm off-white */
+
     /* === TEXT === */
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
+    --text-primary: #1b1f2a;
+    --text-secondary: #5b6475;
     --text-light: #ffffff;
 
     /* === BORDER === */
