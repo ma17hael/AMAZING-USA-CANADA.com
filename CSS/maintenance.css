@@ -28,3 +28,59 @@ h1 {
 p {
     opacity: 0.8;
 }
+
+.lang-dropdown {
+    position: fixed;   /* IMPORTANT */
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+
+    cursor: pointer;
+}
+
+.lang-selected {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    color: white;
+    border-radius: 8px;
+}
+
+.lang-list {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    left: auto;
+    background: rgba(0,0,0,0.6);
+    border-radius: 6px;
+    overflow: hidden;
+    min-width: 160px;
+    z-index: 999;
+}
+
+.lang-list.show {
+    display: block;
+}
+
+.lang-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.lang-item:hover {
+    background: #333;
+}
+
+.flag {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+}

@@ -1,42 +1,34 @@
 <?php
+require_once __DIR__ . '/../GLOBAL-INCLUDES/CONFIGS/bootstrap.php';
 
-require_once __DIR__ . '/../GLOBAL-INCLUDES/CONFIGS/db.php';
+$langs = getAvailableLanguages($db);
 
-$mainUrl = 'http://amazing-usa-canada.local';
-$maintenanceMode = true;
-
-try {
-
-    $db = getDB();
-
-    $stmt = $db->prepare("
-        SELECT SettingValue 
-        FROM settings 
-        WHERE SettingKey = :key 
-        LIMIT 1
-    ");
-
-    $stmt->execute(['key' => 'maintenance_mode']);
-
-    $value = $stmt->fetchColumn();
-
-    if ($value !== false) {
-        $maintenanceMode = ((int)$value === 1);
+$current = null;
+foreach ($langs as $l) {
+    if (strtolower($l['code']) === strtolower($lang)) {
+        $current = $l;
+        break;
     }
-} catch (Throwable $e) {
-
-    error_log("Maintenance page error: " . $e->getMessage());
-    $maintenanceMode = true;
+}
+if (!$current) {
+    foreach ($langs as $l) {
+        if (explode('-', strtolower($l['code']))[0] === explode('-', strtolower($lang))[0]) {
+            $current = $l;
+            break;
+        }
+    }
+}
+if (!$current) {
+    $current = $langs[0];
 }
 
-// si maintenance OFF → retour site
-if (!$maintenanceMode) {
-    header("Location: $mainUrl");
-    exit;
-}
+$currentFlag = $current['flag'];
+$currentLangName = $current['name'];
+
+$baseUrl = 'http://amazing-usa-canada.local';
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -48,27 +40,64 @@ if (!$maintenanceMode) {
 </head>
 
 <body>
+    <div class="lang-dropdown">
+
+        <div class="lang-selected" onclick="toggleLang()">
+            <img src="<?= $currentFlag ?>" class="flag">
+            <span><?= $currentLangName ?></span>
+        </div>
+
+        <div class="lang-list" id="langList">
+
+            <?php foreach ($langs as $l): ?>
+                <a href="?lang=<?= $l['code'] ?>&r=1" class="lang-item">
+
+                    <img src="<?= $l['flag'] ?>" class="flag">
+                    <span><?= $l['name'] ?></span>
+
+                </a>
+            <?php endforeach; ?>
+
+        </div>
+
+    </div>
 
     <div class="container">
         <img src="ASSETS/CANADALogo.webp" class="logo" alt="logo">
 
-        <h1>🚧 Site en maintenance</h1>
-        <p>On améliore l'expérience, reviens vite 😉</p>
+        <h1><?= t('maintenance_title') ?></h1>
+        <p><?= t('maintenance_text') ?></p>
     </div>
+
 
 </body>
 <script>
-    setInterval(() => {
-        fetch('/INCLUDES/check.php')
-            .then(res => res.json())
-            .then(data => {
-                if (!data.maintenance) {
-                    window.location.href = data.url;
-                }
-            })
-            .catch(() => {
-                console.log("Check maintenance failed");
+    async function checkMaintenance() {
+        try {
+            const res = await fetch('/INCLUDES/check.php', {
+                cache: "no-store"
             });
-    }, 5000);
+            const data = await res.json();
+
+            if (!data.maintenance) {
+                window.location.href = '<?= $baseUrl ?>';
+            }
+        } catch (e) {
+            console.log("Check maintenance failed");
+        }
+    }
+
+    setInterval(checkMaintenance, 10000);
+
+    function toggleLang() {
+        document.getElementById('langList').classList.toggle('show');
+    }
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.lang-dropdown')) {
+            document.getElementById('langList').classList.remove('show');
+        }
+    });
 </script>
+
 </html>
