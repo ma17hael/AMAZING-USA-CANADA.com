@@ -4,6 +4,6 @@
    ========================================= */
 
 return [
-    'maintenance_title' => '🚧 Site en maintenance',
+    'maintenance_title' => 'Site en maintenance',
     'maintenance_text' => 'On améliore l\'expérience, reviens vite 😉'
 ];
