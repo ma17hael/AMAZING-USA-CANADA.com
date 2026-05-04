@@ -29,38 +29,82 @@ $maintenanceURL = $scheme . '://' . $maintenanceHost;
 $stmt = $db->prepare("SELECT LangCode FROM languages");
 $stmt->execute();
 
-$allowedLangs = array_map('strtolower', $stmt->fetchAll(PDO::FETCH_COLUMN));
+$allowedLangsRaw = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+/**
+ * Normalisation propre (case + format uniforme)
+ */
+$allowedLangs = array_map(
+    fn($l) => strtolower(str_replace('_', '-', $l)),
+    $allowedLangsRaw
+);
+
+$stmt = $db->prepare("SELECT LanguageID, LangCode FROM languages");
+$stmt->execute();
+
+$langMap = [];
+$reverseLangMap = [];
+
+foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+
+    $code = strtolower(str_replace('_', '-', $row['LangCode']));
+
+    $langMap[$code] = (int)$row['LanguageID'];
+    $reverseLangMap[(int)$row['LanguageID']] = $code;
+}
 
 /**
  * ======================
  * LANG PRIORITY SYSTEM
  * ======================
- * 1. GET (user change)
- * 2. COOKIE (persist)
+ * 1. GET
+ * 2. COOKIE
  * 3. BROWSER
  */
+$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr-FR';
+
+preg_match('/[a-zA-Z]{2}-[a-zA-Z]{2}/', $accept, $m);
+$browserLang = isset($m[0]) ? strtolower($m[0]) : 'fr-fr';
+
 $lang = $_GET['lang']
     ?? $_COOKIE['lang']
-    ?? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr-FR', 0, 5);
+    ?? $browserLang;
 
-$lang = strtolower($lang);
+$lang = strtolower(str_replace('_', '-', $lang));
 
 /**
  * ======================
- * VALIDATION
+ * VALIDATION + FALLBACK
  * ======================
  */
 if (!in_array($lang, $allowedLangs)) {
-    // fallback intelligent
-    $lang = 'fr-fr';
+
+    $base = explode('-', $lang)[0];
+
+    $match = null;
+
+    foreach ($allowedLangs as $l) {
+        if (str_starts_with($l, $base . '-')) {
+            $match = $l;
+            break;
+        }
+    }
+
+    $lang = $match ?? 'fr-fr';
 }
 
 /**
  * ======================
- * COOKIE SAVE
+ * COOKIE SAVE (SECURE)
  * ======================
  */
-setcookie('lang', $lang, time() + 3600 * 24 * 30, '/');
+setcookie('lang', $lang, [
+    'expires' => time() + 3600 * 24 * 30,
+    'path' => '/',
+    'secure' => !empty($_SERVER['HTTPS']),
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 
 /**
  * ======================
@@ -69,29 +113,45 @@ setcookie('lang', $lang, time() + 3600 * 24 * 30, '/');
  */
 $L = loadLang($lang);
 
+/**
+ * ======================
+ * LANG META FROM DB
+ * ======================
+ */
 $langs = getAvailableLanguages($db);
 
+/**
+ * ======================
+ * CURRENT LANG (OPTIMIZED)
+ * ======================
+ */
 $current = null;
+$baseLang = explode('-', $lang)[0];
+
 foreach ($langs as $l) {
-    if (strtolower($l['code']) === strtolower($lang)) {
+
+    $code = strtolower($l['code']);
+
+    if ($code === $lang) {
         $current = $l;
         break;
     }
-}
-if (!$current) {
-    foreach ($langs as $l) {
-        if (explode('-', strtolower($l['code']))[0] === explode('-', strtolower($lang))[0]) {
-            $current = $l;
-            break;
-        }
+
+    if (!$current && str_starts_with($code, $baseLang)) {
+        $current = $l;
     }
 }
-if (!$current) {
-    $current = $langs[0];
-}
 
+$current ??= $langs[0];
+
+/**
+ * ======================
+ * CURRENT VARS
+ * ======================
+ */
 $currentFlag = $current['flag'];
 $currentLangName = $current['name'];
+$currentFallback = $current['fallbackID'];
 
 /**
  * ======================
@@ -131,4 +191,6 @@ if ($maintenance === 0 && $isMaintenanceHost) {
  * ======================
  */
 $langRaw = $lang;
-$globalLang = explode('-', $lang)[0];
+$globalLang = $baseLang;
+$langID = $langMap[$lang] ?? $langMap['fr-fr'];
+$baseLangID = $langMap[$globalLang] ?? $langID;
