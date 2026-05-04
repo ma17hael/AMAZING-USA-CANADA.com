@@ -25,7 +25,7 @@ $baseUrl = 'http://amazing-usa-canada.local';
 
         <div class="lang-list" id="langList">
             <?php foreach ($langs as $l): ?>
-                <a href="?lang=<?= $l['code'] ?>&r=1" class="lang-item">
+                <a href="?lang=<?= $l['code'] ?>" class="lang-item">
                     <img src="<?= $l['flag'] ?>" class="flag">
                     <span><?= $l['name'] ?></span>
                 </a>
