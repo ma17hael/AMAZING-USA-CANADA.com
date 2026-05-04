@@ -4,6 +4,7 @@ define('ROOT_PATH', realpath(__DIR__ . '/../..'));
 
 require_once ROOT_PATH . '/GLOBAL-INCLUDES/CONFIGS/db.php';
 require_once ROOT_PATH . '/GLOBAL-INCLUDES/CONFIGS/lang.php';
+require_once ROOT_PATH . '/GLOBAL-INCLUDES/CONFIGS/cache.php';
 
 $db = getDB();
 
