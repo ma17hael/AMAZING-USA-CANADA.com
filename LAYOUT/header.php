@@ -1,43 +1,50 @@
 <?php
 require_once __DIR__ . '/../../GLOBAL-INCLUDES/CONFIGS/bootstrap.php';
 
-$countries = [];
-$locations = [];
+$countries = cache_get("countries_$langID");
+$locations = cache_get("locations_$langID");
 try {
     $db = getDB();
+    if ($countries == false) {
+        $CSQL = "SELECT c.ISOCode, COALESCE(ct.Name, cf.Name) AS Name
+                 FROM countries c
+                 LEFT JOIN country_translations ct
+                    ON ct.CountryID = c.CountryID
+                    AND ct.Lang = :langID
+                 LEFT JOIN country_translations cf
+                    ON cf.CountryID = c.CountryID
+                    AND cf.Lang = :fallbackID";
+        
+        $stmt = $db->prepare($CSQL);
+        $stmt->execute([
+            ':langID' => $langID,
+            ':fallbackID' => $currentFallback
+        ]);
+        $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $CSQL = "SELECT c.ISOCode, COALESCE(ct.Name, cf.Name) AS Name
-             FROM countries c
-             LEFT JOIN country_translations ct
-                ON ct.CountryID = c.CountryID
-                AND ct.Lang = :langID
-            LEFT JOIN country_translations cf
-                ON cf.CountryID = c.CountryID
-                AND cf.Lang = :fallbackID";
-    $LSQL = "SELECT l.LocationID, COALESCE(lt.Label, lf.Label) AS Label
-             FROM locations l
-             LEFT JOIN location_translations lt
-                ON lt.LocationID = l.LocationID
-                AND lt.Lang = :langID
-             LEFT JOIN location_translations lf
-                ON lf.LocationID = l.LocationID
-                AND lf.Lang = :fallbackID";
-    $stmt = $db->prepare($CSQL);
-    $stmt->execute([
-        ':langID' => $langID,
-        ':fallbackID' => $currentFallback
-    ]);
+        cache_set("countries_$langID", $countries, 3600);
+    }
+    if ($locations == false) {
+        $LSQL = "SELECT l.LocationID, COALESCE(lt.Label, lf.Label) AS Label
+                 FROM locations l
+                 LEFT JOIN location_translations lt
+                    ON lt.LocationID = l.LocationID
+                    AND lt.Lang = :langID
+                 LEFT JOIN location_translations lf
+                    ON lf.LocationID = l.LocationID
+                    AND lf.Lang = :fallbackID";
 
-    $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $db->prepare($LSQL);
+        $stmt->execute([
+            ':langID' => $langID,
+            ':fallbackID' => $currentFallback
+        ]);
+        $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmt = $db->prepare($LSQL);
-    $stmt->execute([
-        ':langID' => $langID,
-        ':fallbackID' => $currentFallback
-    ]);
-
-    $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        cache_set("locations_$langID", $locations, 3600);
+    }
 } catch (Exception $e) {
+
 }
 
 $currentPage = basename($_SERVER['PHP_SELF']);
