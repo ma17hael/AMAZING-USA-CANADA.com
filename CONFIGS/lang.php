@@ -1,35 +1,29 @@
 <?php
 
-function loadLang($lang = 'fr') {
-
+function loadLang($lang = 'fr-FR')
+{
     $basePath = __DIR__ . '/../LANGUAGES/';
 
     $lang = strtolower(str_replace('_', '-', $lang));
+    $base = explode('-', $lang)[0];
 
-    $baseLang = explode('-', $lang)[0];
+    $files = [
+        $basePath . $base . '.php',
+        $basePath . $lang . '.php'
+    ];
 
-    $defaultFile = $basePath . $baseLang . '.php';
-    $specificFile = $basePath . $lang . '.php';
+    $result = [];
 
-    $default = [];
-    $specific = [];
-
-    if (is_file($defaultFile)) {
-        $tmp = require $defaultFile;
-        if (is_array($tmp)) {
-            $default = $tmp;
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            $data = require $file;
+            if (is_array($data)) {
+                $result = array_merge($result, $data);
+            }
         }
     }
 
-    if (is_file($specificFile)) {
-        $tmp = require $specificFile;
-        if (is_array($tmp)) {
-            $specific = $tmp;
-        }
-    }
-
-    // merge SAFE (plus fiable que array_replace ici)
-    return array_merge($default, $specific);
+    return $result;
 }
 
 function t($key)
@@ -39,7 +33,14 @@ function t($key)
 
 function getAvailableLanguages($db)
 {
-    $stmt = $db->prepare("SELECT Name, LangCode, IconPath FROM languages");
+    $stmt = $db->prepare("
+        SELECT 
+            Name,
+            LangCode,
+            IconPath,
+            FallbackID
+        FROM languages
+    ");
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -50,22 +51,20 @@ function getAvailableLanguages($db)
     foreach ($rows as $row) {
 
         $langCode = strtolower($row['LangCode']);
+        $base = explode('-', $langCode)[0];
 
-        $global = explode('-', $langCode)[0];
+        $available[] = [
+            'code' => $langCode,
+            'name' => $row['Name'],
+            'flag' => $row['IconPath'],
+            'fallbackID' => $row['FallbackID'],
 
-        $globalFile = $basePath . $global . '.php';
-        $localFile  = $basePath . $langCode . '.php';
-
-        // doit avoir AU MOINS le global
-        if (is_file($globalFile)) {
-
-            $available[] = [
-                'code' => $langCode,
-                'name' => $row['Name'],
-                'flag' => $row['IconPath'] ?? null,
-                'has_local' => is_file($localFile)
-            ];
-        }
+            // existence réelle des fichiers
+            'files' => [
+                'base' => is_file($basePath . $base . '.php'),
+                'specific' => is_file($basePath . $langCode . '.php')
+            ]
+        ];
     }
 
     return $available;
