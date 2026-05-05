@@ -1,51 +1,12 @@
 <?php
 require_once __DIR__ . '/../../GLOBAL-INCLUDES/CONFIGS/bootstrap.php';
 
-$countries = cache_get("countries_$langID");
-$locations = cache_get("locations_$langID");
-try {
-    $db = getDB();
-    if ($countries == false) {
-        $CSQL = "SELECT c.ISOCode, COALESCE(ct.Name, cf.Name) AS Name
-                 FROM countries c
-                 LEFT JOIN country_translations ct
-                    ON ct.CountryID = c.CountryID
-                    AND ct.Lang = :langID
-                 LEFT JOIN country_translations cf
-                    ON cf.CountryID = c.CountryID
-                    AND cf.Lang = :fallbackID";
-        
-        $stmt = $db->prepare($CSQL);
-        $stmt->execute([
-            ':langID' => $langID,
-            ':fallbackID' => $currentFallback
-        ]);
-        $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$db = getDB();
 
-        cache_set("countries_$langID", $countries, 3600);
-    }
-    if ($locations == false) {
-        $LSQL = "SELECT l.LocationID, COALESCE(lt.Label, lf.Label) AS Label
-                 FROM locations l
-                 LEFT JOIN location_translations lt
-                    ON lt.LocationID = l.LocationID
-                    AND lt.Lang = :langID
-                 LEFT JOIN location_translations lf
-                    ON lf.LocationID = l.LocationID
-                    AND lf.Lang = :fallbackID";
+$menu = MegaMenuService::get($db, $langID, $currentFallback);
 
-        $stmt = $db->prepare($LSQL);
-        $stmt->execute([
-            ':langID' => $langID,
-            ':fallbackID' => $currentFallback
-        ]);
-        $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        cache_set("locations_$langID", $locations, 3600);
-    }
-} catch (Exception $e) {
-
-}
+$countries = array_values(is_array($menu['countries'] ?? null) ? $menu['countries'] : []);
+$locations = array_values(is_array($menu['locations'] ?? null) ? $menu['locations'] : []);
 
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
@@ -59,27 +20,27 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
         <nav class="nav">
             <div class="nav-item">
-                <a href="#" class="<?= $currentPage == 'index.php' ? 'active' : '' ?>">Accueil</a>
+                <a href="#" class="<?= $currentPage == 'index.php' ? 'active' : '' ?>"><?= t('home') ?></a>
             </div>
             <div class="nav-item mega-parent">
-                <a href="#" class="">Cartes Disponibles</a>
+                <a href="#" class=""><?= t('available_maps') ?></a>
                 <div class="mega-menu">
                     <div class="mega-section">
-                        <h4>Pays</h4>
+                        <h4><?= t('countries') ?></h4>
                         <?php foreach ($countries as $country): ?>
                             <a href="#">
-                                <?= htmlspecialchars($country['Name'] ?? '') ?>
+                                <?= htmlspecialchars($country['Name'] ?? $country['ISOCode'] ?? ''); ?>
                             </a>
                         <?php endforeach; ?>
                     </div>
                     <div class="mega-section">
-                        <h4>Type</h4>
-                        <a href="#">Standard</a>
-                        <a href="#">Gratuite</a>
-                        <a href="#">Pack de Cartes</a>
+                        <h4><?= t('type') ?></h4>
+                        <a href="#"><?= t('standard') ?></a>
+                        <a href="#"><?= t('free') ?></a>
+                        <a href="#"><?= t('card_pack') ?></a>
                     </div>
                     <div class="mega-section">
-                        <h4>Localisation</h4>
+                        <h4><?= t('location') ?></h4>
                         <?php foreach ($locations as $location): ?>
                             <a href="#">
                                 <?= htmlspecialchars($location['Label'] ?? '') ?>
@@ -89,13 +50,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </div>
             </div>
             <div class="nav-item">
-                <a href="#">Galerie Photo</a>
+                <a href="#"><?= t('gallery') ?></a>
             </div>
             <div class="nav-item">
-                <a href="#">Forum</a>
+                <a href="#"><?= t('forum') ?></a>
             </div>
             <div class="nav-item">
-                <a href="#">Contact</a>
+                <a href="#"><?= t('contact') ?></a>
             </div>
         </nav>
 
@@ -115,8 +76,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <?php endforeach; ?>
                 </div>
             </div>
-            <a href="#" class="btn-login">Connexion</a>
-            <a href="#" class="btn-primary">S'inscrire</a>
+            <a href="#" class="btn-login"><?= t('login') ?></a>
+            <a href="#" class="btn-primary"><?= t('register') ?></a>
         </div>
 
     </div>
