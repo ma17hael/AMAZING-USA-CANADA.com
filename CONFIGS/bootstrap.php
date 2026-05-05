@@ -6,6 +6,8 @@ require_once ROOT_PATH . '/GLOBAL-INCLUDES/CONFIGS/db.php';
 require_once ROOT_PATH . '/GLOBAL-INCLUDES/CONFIGS/lang.php';
 require_once ROOT_PATH . '/GLOBAL-INCLUDES/CONFIGS/cache.php';
 
+require_once __DIR__ . '/../SERVICES/MegaMenuService.php';
+
 $db = getDB();
 
 /**
