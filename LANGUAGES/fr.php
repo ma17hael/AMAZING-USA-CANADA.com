@@ -27,4 +27,10 @@ return [
     'contact' => 'Contact',
     'login' => 'Connexion',
     'register' => "S'inscrire",
+    /* =========================================
+       ACCUEIL
+       ========================================= */
+    'hero_title' => 'Bienvenue sur AMAZING-USA-CANADA.COM',
+    'hero_text' => 'Concevez vous-même votre road trip, avec la plus grande base de données de sites à visiter disponible sur le web !',
+    'hero-button' => 'Liste de nos cartes'
 ];

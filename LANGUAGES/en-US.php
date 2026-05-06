@@ -8,5 +8,10 @@ return [
        HEADER
        ========================================= */
      'login' => 'Login',
-     'register' => 'Sign Up'
+     'register' => 'Sign Up',
+     /* =========================================
+       ACCUEIL
+       ========================================= */
+     'hero_text' => 'Create your own road trip with the largest online database of must-see destinations!',
+     'hero-button' => 'Browse our maps'
 ];

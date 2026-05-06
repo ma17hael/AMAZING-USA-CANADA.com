@@ -24,5 +24,9 @@ return [
     'location' => 'Location',
     'gallery' => 'Photo Gallery',
     'forum' => 'Forum',
-    'contact' => 'Contact'
+    'contact' => 'Contact',
+    /* =========================================
+       ACCUEIL
+       ========================================= */
+    'hero_title' => 'Welcome sur AMAZING-USA-CANADA.COM',
 ];
