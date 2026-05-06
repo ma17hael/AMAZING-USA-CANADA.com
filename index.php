@@ -18,11 +18,11 @@ require_once __DIR__ . '/../GLOBAL-INCLUDES/CONFIGS/bootstrap.php';
     <!-- BANNIERE -->
     <section class="hero-banner">
         <div class="hero-content">
-            <h1>Bienvenue sur Amazing-USA-Canada.com</h1>
-            <p>Concevez vous-même votre Road Trip, avec la plus grande base de données
-                de sites à visiter, présente sur le NET !
+            <h1><?= t('hero_title') ?></h1>
+            <p>
+                <?= t('hero_text') ?>
             </p>
-            <a href="#" class="btn-hero">Liste de nos cartes</a>
+            <a href="#" class="btn-hero"><?= t('hero-button') ?></a>
         </div>
     </section>
 </body>
