@@ -50,6 +50,15 @@
 
     /* === TYPOGRAPHIE === */
     --font-main: 'Inter', system-ui, sans-serif;
+
+    /* === HEADER === */
+    --header-height: 80px;
+    --header-bg: rgba(11, 18, 32, 0.72);
+    --header-bg-strong: rgba(11, 18, 32, 0.88);
+
+    --header-border: rgba(255, 255, 255, 0.06);
+    --header-glass: rgba(255, 255, 255, 0.04);
+    --header-glass-strong: rgba(255, 255, 255, 0.08);
 }
 
 /* =========================================
