@@ -10,11 +10,9 @@ require_once __DIR__ . '/../SERVICES/MegaMenuService.php';
 
 $db = getDB();
 
-/**
- * ======================
- * URL ENV
- * ======================
- */
+/* ======================
+   URL ENV
+   ====================== */
 $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'];
 
@@ -24,19 +22,15 @@ $maintenanceHost = 'maintenance.' . $mainHost;
 $mainURL = $scheme . '://' . $mainHost;
 $maintenanceURL = $scheme . '://' . $maintenanceHost;
 
-/**
- * ======================
- * LANG LIST FROM DB
- * ======================
- */
+/* ======================
+   LANG LIST FROM DB
+   ====================== */
 $stmt = $db->prepare("SELECT LangCode FROM languages");
 $stmt->execute();
 
 $allowedLangsRaw = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-/**
- * Normalisation propre (case + format uniforme)
- */
+// Normalisation propre (case + format uniforme)
 $allowedLangs = array_map(
     fn($l) => strtolower(str_replace('_', '-', $l)),
     $allowedLangsRaw
@@ -56,30 +50,27 @@ foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
     $reverseLangMap[(int)$row['LanguageID']] = $code;
 }
 
-/**
- * ======================
- * LANG PRIORITY SYSTEM
- * ======================
- * 1. GET
- * 2. COOKIE
- * 3. BROWSER
- */
+/* ======================
+   LANG PRIORITY SYSTEM
+   ====================== */
+
+// GET
 $accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr-FR';
 
 preg_match('/[a-zA-Z]{2}-[a-zA-Z]{2}/', $accept, $m);
 $browserLang = isset($m[0]) ? strtolower($m[0]) : 'fr-fr';
 
+// COOKIE
 $lang = $_GET['lang']
     ?? $_COOKIE['lang']
     ?? $browserLang;
 
+// BROWSER
 $lang = strtolower(str_replace('_', '-', $lang));
 
-/**
- * ======================
- * VALIDATION + FALLBACK
- * ======================
- */
+/* ======================
+   VALIDATION + FALLBACK
+   ====================== */
 if (!in_array($lang, $allowedLangs)) {
 
     $base = explode('-', $lang)[0];
@@ -96,11 +87,9 @@ if (!in_array($lang, $allowedLangs)) {
     $lang = $match ?? 'fr-fr';
 }
 
-/**
- * ======================
- * COOKIE SAVE (SECURE)
- * ======================
- */
+/* ======================
+   COOKIE SAVE (SECURE)
+   ====================== */
 setcookie('lang', $lang, [
     'expires' => time() + 3600 * 24 * 30,
     'path' => '/',
@@ -109,25 +98,19 @@ setcookie('lang', $lang, [
     'samesite' => 'Lax'
 ]);
 
-/**
- * ======================
- * LOAD LANG FILES
- * ======================
- */
+/* ======================
+   LOAD LANG FILES
+   ====================== */
 $L = loadLang($lang);
 
-/**
- * ======================
- * LANG META FROM DB
- * ======================
- */
+/* ======================
+   LANG META FROM DB
+   ====================== */
 $langs = getAvailableLanguages($db);
 
-/**
- * ======================
- * CURRENT LANG (OPTIMIZED)
- * ======================
- */
+/* ======================
+   CURRENT LANG
+   ====================== */
 $current = null;
 $baseLang = explode('-', $lang)[0];
 
@@ -147,20 +130,16 @@ foreach ($langs as $l) {
 
 $current ??= $langs[0];
 
-/**
- * ======================
- * CURRENT VARS
- * ======================
- */
+/* ======================
+   CURRENT VARS
+   ====================== */
 $currentFlag = $current['flag'];
 $currentLangName = $current['name'];
 $currentFallback = $current['fallbackID'];
 
-/**
- * ======================
- * MAINTENANCE CHECK
- * ======================
- */
+/* ======================
+   MAINTENANCE CHECK
+   ====================== */
 $stmt = $db->prepare("
     SELECT SettingValue 
     FROM settings 
@@ -171,11 +150,9 @@ $stmt->execute();
 
 $maintenance = (int)$stmt->fetchColumn();
 
-/**
- * ======================
- * ROUTING SAFE
- * ======================
- */
+/* ======================
+   ROUTING
+   ====================== */
 $isMaintenanceHost = str_starts_with($host, 'maintenance.');
 
 if ($maintenance === 1 && !$isMaintenanceHost) {
@@ -188,11 +165,9 @@ if ($maintenance === 0 && $isMaintenanceHost) {
     exit;
 }
 
-/**
- * ======================
- * GLOBAL VARS
- * ======================
- */
+/* ======================
+   GLOBAL VARS
+   ====================== */
 $langRaw = $lang;
 $globalLang = $baseLang;
 $langID = $langMap[$lang] ?? $langMap['fr-fr'];
