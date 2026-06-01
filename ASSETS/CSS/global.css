@@ -1,0 +1,460 @@
+/* GLOBAL.CSS — Système global de design */
+
+
+/* 1. VARIABLES CSS (Custom Properties) */
+
+:root {
+    /* Couleurs primaires — BLEU (dominant) */
+    --color-primary: #1A3A6B;
+    /* Bleu marine profond — couleur principale */
+    --color-primary-dark: #0D2147;
+    /* Bleu très foncé — hover / états actifs */
+    --color-primary-medium: #2E5FA3;
+    /* Bleu moyen — variante accessible */
+    --color-primary-light: #5B8DD9;
+    /* Bleu clair — icônes, liens */
+    --color-primary-subtle: #E6EDF8;
+    /* Bleu très pâle — fonds de sections, badges */
+    --color-primary-border: #B5CDEF;
+    /* Bleu bordure légère */
+
+    /* Couleurs secondaires — ROUGE (accent discret, USA/Canada) */
+    --color-secondary: #B22234;
+    /* Rouge drapeau — accent ponctuel */
+    --color-secondary-dark: #8B0000;
+    /* Rouge foncé — hover secondaire */
+    --color-secondary-light: #D94F5C;
+    /* Rouge clair — étiquettes, promotions */
+    --color-secondary-subtle: #FAEAEA;
+    /* Rouge pâle — alertes douces, badges promo */
+
+    /* Couleur d'accent — OR / AMBRE (neutre, commerce) */
+    --color-accent: #C9902A;
+    /* Or chaud — CTA secondaire, étoiles, prix */
+    --color-accent-dark: #9E6E18;
+    /* Or foncé — hover accent */
+    --color-accent-light: #F5C96A;
+    /* Or pâle — highlights */
+    --color-accent-subtle: #FDF4E3;
+    /* Or très pâle — fond badge promo */
+
+    /* Couleurs neutres — Blanc & Gris */
+    --color-white: #FFFFFF;
+    --color-bg: #FFFFFF;
+    /* Fond principal */
+    --color-bg-secondary: #F4F6FA;
+    /* Fond sections alternatives (légère teinte bleue) */
+    --color-bg-tertiary: #EAECF2;
+    /* Fond inputs, cartes imbriquées */
+    --color-bg-dark: #0D1B35;
+    /* Fond dark — header, footer, bandeau */
+
+    --color-border: #D0D8E8;
+    /* Bordure standard */
+    --color-border-light: #E8ECF4;
+    /* Bordure légère */
+    --color-border-strong: #9AAAC5;
+    /* Bordure accentuée */
+
+    /* Couleurs de texte */
+    --color-text: #1C1C2E;
+    /* Texte principal (quasi-noir à teinte bleue) */
+    --color-text-secondary: #3D4F72;
+    /* Texte secondaire (bleu-gris foncé) */
+    --color-text-muted: #7A8BA8;
+    /* Texte désactivé / aide */
+    --color-text-on-primary: #FFFFFF;
+    /* Texte sur fond bleu primaire */
+    --color-text-on-dark: #E8EDF8;
+    /* Texte sur fond sombre */
+    --color-text-link: #2E5FA3;
+    /* Liens */
+    --color-text-link-hover: #1A3A6B;
+    /* Liens au survol */
+
+    /* Couleurs sémantiques (status) */
+    --color-success: #1E7E3E;
+    /* Vert succès */
+    --color-success-subtle: #E6F4EC;
+    --color-success-text: #145C2C;
+
+    --color-warning: #B8780A;
+    /* Ambre avertissement */
+    --color-warning-subtle: #FEF6E4;
+    --color-warning-text: #7A4F04;
+
+    --color-danger: #B22234;
+    /* Rouge danger (= secondaire) */
+    --color-danger-subtle: #FAEAEA;
+    --color-danger-text: #7A0E1D;
+
+    --color-info: #1A3A6B;
+    /* Bleu info (= primaire) */
+    --color-info-subtle: #E6EDF8;
+    --color-info-text: #0D2147;
+
+    /* Overlay & ombres */
+    --color-overlay: rgba(13, 33, 71, 0.55);
+    /* Overlay modal (bleu foncé) */
+    --color-overlay-light: rgba(13, 33, 71, 0.08);
+    /* Hover léger sur cartes */
+
+    --shadow-xs: 0 1px 2px rgba(26, 58, 107, 0.08);
+    --shadow-sm: 0 2px 6px rgba(26, 58, 107, 0.10);
+    --shadow-md: 0 4px 16px rgba(26, 58, 107, 0.13);
+    --shadow-lg: 0 8px 32px rgba(26, 58, 107, 0.16);
+    --shadow-xl: 0 16px 48px rgba(26, 58, 107, 0.20);
+
+
+    /* 2. TYPOGRAPHIE */
+    /* Familles de polices */
+    --font-display: 'Playfair Display', 'Georgia', serif;
+    /* Titres grands format */
+    --font-heading: 'Montserrat', 'Trebuchet MS', sans-serif;
+    /* Titres courants */
+    --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+    /* Corps de texte */
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    /* Code / prix fixes */
+
+    /* Tailles */
+    --text-xs: 0.75rem;
+    /*  12px */
+    --text-sm: 0.875rem;
+    /*  14px */
+    --text-base: 1rem;
+    /*  16px */
+    --text-md: 1.125rem;
+    /*  18px */
+    --text-lg: 1.25rem;
+    /*  20px */
+    --text-xl: 1.5rem;
+    /*  24px */
+    --text-2xl: 1.875rem;
+    /*  30px */
+    --text-3xl: 2.25rem;
+    /*  36px */
+    --text-4xl: 3rem;
+    /*  48px */
+    --text-5xl: 3.75rem;
+    /*  60px */
+
+    /* Graisses */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* Hauteurs de ligne */
+    --leading-tight: 1.25;
+    --leading-snug: 1.4;
+    --leading-normal: 1.6;
+    --leading-relaxed: 1.75;
+
+    /* Espacement lettres */
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0em;
+    --tracking-wide: 0.04em;
+    --tracking-wider: 0.08em;
+
+
+    /* 3. ESPACEMENTS */
+    --space-1: 0.25rem;
+    /*  4px */
+    --space-2: 0.5rem;
+    /*  8px */
+    --space-3: 0.75rem;
+    /* 12px */
+    --space-4: 1rem;
+    /* 16px */
+    --space-5: 1.25rem;
+    /* 20px */
+    --space-6: 1.5rem;
+    /* 24px */
+    --space-8: 2rem;
+    /* 32px */
+    --space-10: 2.5rem;
+    /* 40px */
+    --space-12: 3rem;
+    /* 48px */
+    --space-16: 4rem;
+    /* 64px */
+    --space-20: 5rem;
+    /* 80px */
+    --space-24: 6rem;
+    /* 96px */
+    --space-32: 8rem;
+    /* 128px */
+
+
+    /* 4. BORDER-RADIUS */
+    --radius-none: 0;
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+    --radius-pill: 9999px;
+    --radius-circle: 50%;
+
+
+    /* 5. LAYOUT & GRILLE */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1440px;
+
+    --grid-cols: 12;
+    --grid-gap: var(--space-6);
+    /* 24px */
+    --grid-gap-sm: var(--space-4);
+    /* 16px */
+
+    --section-padding-y: var(--space-16);
+    /* 64px */
+    --section-padding-y-sm: var(--space-10);
+    /* 40px */
+
+
+    /* 6. COMPOSANTS — Boutons */
+    --btn-padding-y-sm: var(--space-2);
+    /*  8px */
+    --btn-padding-x-sm: var(--space-4);
+    /* 16px */
+    --btn-padding-y-md: var(--space-3);
+    /* 12px */
+    --btn-padding-x-md: var(--space-6);
+    /* 24px */
+    --btn-padding-y-lg: var(--space-4);
+    /* 16px */
+    --btn-padding-x-lg: var(--space-8);
+    /* 32px */
+
+    --btn-font-size-sm: var(--text-sm);
+    --btn-font-size-md: var(--text-base);
+    --btn-font-size-lg: var(--text-md);
+    --btn-font-weight: var(--font-weight-semibold);
+    --btn-radius: var(--radius-md);
+    --btn-transition: all 0.18s ease;
+
+
+    /* 7. COMPOSANTS — Formulaires */
+    --input-height-sm: 36px;
+    --input-height-md: 44px;
+    --input-height-lg: 52px;
+
+    --input-padding-x: var(--space-4);
+    --input-font-size: var(--text-base);
+    --input-radius: var(--radius-md);
+    --input-border: 1px solid var(--color-border);
+    --input-border-focus: 2px solid var(--color-primary);
+    --input-bg: var(--color-white);
+    --input-bg-disabled: var(--color-bg-tertiary);
+    --input-transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+
+    /* 8. COMPOSANTS — Cartes produit */
+    --card-bg: var(--color-white);
+    --card-border: 1px solid var(--color-border-light);
+    --card-radius: var(--radius-lg);
+    --card-padding: var(--space-5);
+    --card-shadow: var(--shadow-sm);
+    --card-shadow-hover: var(--shadow-md);
+    --card-transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+
+    /* 9. COMPOSANTS — Navigation */
+    --nav-height: 68px;
+    --nav-bg: var(--color-bg-dark);
+    --nav-text: var(--color-text-on-dark);
+    --nav-link-hover-bg: rgba(255, 255, 255, 0.08);
+    --nav-border-bottom: 3px solid var(--color-primary-light);
+
+
+    /* 10. COMPOSANTS — Badge / Tag / Pill */
+    --badge-padding-y: 2px;
+    --badge-padding-x: var(--space-2);
+    --badge-font-size: var(--text-xs);
+    --badge-font-weight: var(--font-weight-semibold);
+    --badge-radius: var(--radius-pill);
+
+
+    /* 11. TRANSITIONS & ANIMATIONS */
+    --transition-fast: 0.12s ease;
+    --transition-base: 0.20s ease;
+    --transition-slow: 0.35s ease;
+    --transition-spring: 0.30s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+
+    /* 12. Z-INDEX */
+    --z-below: -1;
+    --z-base: 0;
+    --z-raised: 10;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+    --z-tooltip: 600;
+
+
+    /* 13. BREAKPOINTS  */
+    --bp-xs: 480px;
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+    --bp-2xl: 1440px;
+}
+
+
+/* RESET & BASE */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-normal);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--color-text-link);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-text-link-hover);
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    background: none;
+}
+
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+
+/* TYPOGRAPHIE DE BASE */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-text);
+    letter-spacing: var(--tracking-tight);
+}
+
+h1 {
+    font-size: var(--text-4xl);
+}
+
+h2 {
+    font-size: var(--text-3xl);
+}
+
+h3 {
+    font-size: var(--text-2xl);
+}
+
+h4 {
+    font-size: var(--text-xl);
+}
+
+h5 {
+    font-size: var(--text-lg);
+}
+
+h6 {
+    font-size: var(--text-md);
+}
+
+p {
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+}
+
+small {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+strong {
+    font-weight: var(--font-weight-bold);
+}
+
+
+/* UTILITAIRES CONTENEUR */
+.container {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--space-6);
+}
+
+.container--sm {
+    max-width: var(--container-sm);
+}
+
+.container--md {
+    max-width: var(--container-md);
+}
+
+.container--lg {
+    max-width: var(--container-lg);
+}
+
+.container--2xl {
+    max-width: var(--container-2xl);
+}
+
+
+/* FOCUS ACCESSIBLE */
+:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
