@@ -1,7 +1,5 @@
 <?php
-namespace App\Services;
-
-require_once __DIR__ . '/../../CONFIG/config.php';
+namespace App\Core;
 
 class Database {
     private static ?\PDO $instance = null;
