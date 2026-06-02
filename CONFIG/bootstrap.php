@@ -11,4 +11,6 @@ $maintenance = new App\Services\MaintenanceService($settings);
 $maintenance->check();
 
 $translator = new App\Services\TranslationService();
-$translator->detect(urlLang: $_GET['lang'] ?? null, userLang: $user->langCode ?? null, sessionLang: $_SESSION['lang'] ?? null);
+
+$router = require __DIR__ . '/routes.php';
+$router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $translator, $router);
