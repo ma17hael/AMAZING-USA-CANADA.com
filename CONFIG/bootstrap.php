@@ -9,3 +9,6 @@ $settings->preloadAll();
 
 $maintenance = new App\Services\MaintenanceService($settings);
 $maintenance->check();
+
+$translator = new App\Services\TranslationService();
+$translator->detect(urlLang: $_GET['lang'] ?? null, userLang: $user->langCode ?? null, sessionLang: $_SESSION['lang'] ?? null);
