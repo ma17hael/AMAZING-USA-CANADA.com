@@ -61,7 +61,7 @@ class TranslationService {
     }
 
     private function loadFallback(): void {
-        $file = __DIR__ . '/../Lang/' . $this->defaultLang . '.php';
+        $file = __DIR__ . '/../LANGUAGES/' . $this->defaultLang . '.php';
         $this->fallback = file_exists($file) ? require $file : [];
     }
 
