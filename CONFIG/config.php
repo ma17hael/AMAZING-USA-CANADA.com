@@ -5,3 +5,5 @@ define('DB_NAME', 'amazingusacanada');
 
 define('DB_USER', 'root');
 define('DB_PASSWORD', 'root');
+
+define('APP_DEBUG', true);
