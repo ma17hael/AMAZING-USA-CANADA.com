@@ -5,8 +5,8 @@
     <title>Accès interdit</title>
 </head>
 <body>
-    <h1>404 — Ressource non-trouvé</h1>
-    <p>La page que vous avez demandé n'existe pas ou plus.</p>
+    <h1>403 — Accès interdit</h1>
+    <p>Vous n'avez pas la permission d'accéder à cette page.</p>
     <a href="/">Retour à l'accueil</a>
 </body>
 </html>
