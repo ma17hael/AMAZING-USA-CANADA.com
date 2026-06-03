@@ -19,4 +19,5 @@ $maintenance->check();
 $translator = new App\Services\TranslationService();
 
 $router = require __DIR__ . '/routes.php';
-$router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $translator, $router);
+$auth = new App\Core\Auth();
+$router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $translator, $router, $auth);
