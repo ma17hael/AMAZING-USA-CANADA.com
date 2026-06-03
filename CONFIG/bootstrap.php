@@ -4,6 +4,12 @@ require_once __DIR__ . '/config.php';
 
 session_start();
 
+App\Core\Logger::info('Requête reçue', [
+    'method' => $_SERVER['REQUEST_METHOD'],
+    'uri' => $_SERVER['REQUEST_URI'],
+    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'Unknown',
+]);
+
 $settings = new App\Services\SettingService();
 $settings->preloadAll();
 
