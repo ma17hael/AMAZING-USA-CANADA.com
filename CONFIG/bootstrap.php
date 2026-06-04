@@ -4,6 +4,10 @@ require_once __DIR__ . '/config.php';
 
 session_start();
 
+use App\Core\Csrf;
+
+Csrf::generate();
+
 App\Core\Logger::info('Requête reçue', [
     'method' => $_SERVER['REQUEST_METHOD'],
     'uri' => $_SERVER['REQUEST_URI'],
