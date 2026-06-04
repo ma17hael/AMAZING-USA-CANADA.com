@@ -15,7 +15,7 @@ class Router {
         $this->routes['POST'][$path] = $handler;
     }
 
-    public function dispatch(string $uri, string $method, $translator, $router, $auth): void {
+    public function dispatch(string $uri, string $method, $translator, $router, $auth, $request): void {
         $path = parse_url($uri, PHP_URL_PATH);
 
         $langPrefix = null;
@@ -38,7 +38,7 @@ class Router {
             if (preg_match("#^$pattern$#", $path, $matches)) {
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 [$class, $method] = $handler;
-                (new $class)->$method($params, $translator, $router, $auth);
+                (new $class)->$method($params, $translator, $router, $auth, $request);
                 return;
             }
         }
