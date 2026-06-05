@@ -31,6 +31,13 @@ if (APP_ENV === 'production') {
     header("Content-Security-Policy: default-src * 'unsafe-inline' 'unsafe-eval' data:;");
 }
 
+if (APP_SITE === 'api') {
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: ' . APP_URL);
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    header('Access-Control-Allow-Headers: Content-Type, X-CSRF-Token');
+}
+
 use App\Core\Csrf;
 Csrf::generate();
 
@@ -44,11 +51,14 @@ $settings = new App\Services\SettingService();
 $settings->preloadAll();
 
 $maintenance = new App\Services\MaintenanceService($settings);
-$maintenance->check();
+
+if (APP_SITE === 'main') {
+    $maintenance->check();
+}
 
 $translator = new App\Services\TranslationService();
 $request = new App\Core\Request();
 $auth = new App\Core\Auth();
 
-$router = require __DIR__ . '/routes.php';
+$router = require __DIR__ . '/ROUTES/' . APP_ROUTES . '.php';
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $translator, $router, $auth, $request);
