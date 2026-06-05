@@ -19,3 +19,33 @@ define('APP_URL_MAINTENANCE', APP_ENV === 'production' ? 'https://maintenance.am
 define('ROOT_PATH', dirname(__DIR__, 2));
 define('STORAGE_PATH', ROOT_PATH . '/STORAGE');
 define('LOGS_PATH', ROOT_PATH . '/LOGS');
+
+define('MAIL_HOST', 'ssl0.ovh.net');
+define('MAIL_PORT', 465);
+define('MAIL_ENCRYPTION', 'ssl');
+define('MAIL_ACCOUNTS', [
+    'noreply' => [
+        'username' => '',
+        'password' => '',
+        'from' => '',
+        'name' => '',
+    ],
+    'contact' => [
+        'username' => '',
+        'password' => '',
+        'from' => '',
+        'name' => '',
+    ],
+    'support' => [
+        'username' => '',
+        'password' => '',
+        'from' => '',
+        'name' => '',
+    ],
+    'invoices' => [
+        'username' => '',
+        'password' => '',
+        'from' => '',
+        'name' => '',
+    ],
+]);
