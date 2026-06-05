@@ -73,4 +73,8 @@ class TranslationService {
         $supported = ['fr', 'fr-ca', 'en', 'en-ca'];
         return in_array($code, $supported) ? $code : null;
     }
+
+    public function safe(string $key, array $params = []): string {
+        return htmlspecialchars($this->get($key, $params), ENT_QUOTES, 'UTF-8');
+    }
 }
