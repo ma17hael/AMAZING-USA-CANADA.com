@@ -20,6 +20,8 @@ class Auth {
             return false;
         }
 
+        session_regenerate_id(true);
+
         self::$currentUser = $user;
         $_SESSION['user_id'] = $user->id;
 
