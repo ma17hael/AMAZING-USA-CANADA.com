@@ -63,5 +63,13 @@ return [
     'feat.history' => 'Lieux historiques',
     'feat.history_sub' => 'emblématiques',
     'feat.nature' => 'Nature préservée',
-    'feat.nature_sub' => ''
+    'feat.nature_sub' => '',
+    'home.s2_desc' => 'Chaque carte a été pensée comme une véritable invitation aux voyages. Parcs Nationaux spectaculaires, 
+                       routes légendaires, villes emblématiques, plages, canyons, cascades, lieux historiques, arches, 
+                       stations services mythiques de la route 66, Villes fantômes, Hoodoos, lacs, 
+                       curiosités… y sont soigneusement pointés par des points actifs qui vous orienteront vers les meilleurs blogs du Net.',
+    'home.cat_cities'   => 'Les meilleures visites dans les plus grandes villes',
+    'home.cat_hikes'    => 'Les meilleures randonnées à télécharger',
+    'home.cat_classics' => 'Les plus grands classiques à la loupe',
+    'home.cat_photos'   => 'Les meilleurs sites comme vous y étiez'
 ];

@@ -63,5 +63,12 @@ return [
     'feat.history' => 'Historical landmarks',
     'feat.history_sub' => '',
     'feat.nature' => 'Preserved nature',
-    'feat.nature_sub' => ''
+    'feat.nature_sub' => '',
+    'home.s2_desc'    => 'Every map was designed as a true invitation to travel. Spectacular National Parks, legendary roads, 
+                          iconic cities, beaches, canyons, waterfalls, historic sites, arches, mythical Route 66 gas stations, 
+                          ghost towns, Hoodoos, lakes, curiosities… all carefully marked with active points that guide you to the best blogs on the web.',
+    'home.cat_cities'   => 'The best visits in the largest cities',
+    'home.cat_hikes'    => 'The best hikes to download',
+    'home.cat_classics' => 'The greatest classics up close',
+    'home.cat_photos'   => 'The best sites as if you were there',
 ];
